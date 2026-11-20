@@ -1,4 +1,4 @@
-Atelier de lignes de basse — application installable (iPhone, iPad, tablette Android, Mac) — version 107
+Atelier de lignes de basse — application installable (iPhone, iPad, tablette Android, Mac) — version 115
 
 Un seul dossier sert pour tous les appareils. Mettre en ligne gratuitement (une seule fois), avec GitHub Pages :
 1. Créez un compte gratuit sur github.com (si besoin).

@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<!-- Atelier de lignes de basse — fonctionne sans Claude et hors ligne (JSZip et jsPDF intégrés) — version 107 -->
+<!-- Atelier de lignes de basse — fonctionne sans Claude et hors ligne (JSZip et jsPDF intégrés) — version 115 -->
 <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Atelier basse"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="theme-color" content="#17202C">
 </head><body>
 <title>Atelier de lignes de basse</title>
@@ -102,7 +102,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 .bar{stroke:var(--fg);stroke-width:1.1}
 .barT{stroke:var(--fg);stroke-width:3.2}
 .dot{fill:var(--fg)}
-.tn{font:700 15px 'Barlow Semi Condensed','Arial Narrow',var(--body);font-variant-numeric:tabular-nums lining-nums;font-feature-settings:'tnum' 1,'zero' 0;fill:var(--fg)}
+.tn{font:700 19.5px 'Barlow Semi Condensed','Arial Narrow',var(--body);font-variant-numeric:tabular-nums lining-nums;font-feature-settings:'tnum' 1,'zero' 0;fill:var(--fg)}
 .bgn{fill:var(--paper)}
 .sn{font:500 9px var(--body);fill:var(--muted)}
 .mn{font:500 8.5px var(--mono);fill:var(--muted)}.eslot{fill:transparent;cursor:cell}.eslot:hover,.eslot.on{fill:var(--accent);fill-opacity:.22}
@@ -115,8 +115,8 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 .chd{font:600 11px var(--body);fill:var(--accent)}
 .kch{font:italic 600 9.5px var(--body);fill:var(--muted)}
 .lbl{fill:var(--fg)}
-.lblt{font:800 11.5px var(--display);letter-spacing:.6px;fill:var(--paper)}
-.rap{font:700 21px var(--body);fill:var(--fg)}
+.lblt{font:700 17px var(--body);fill:var(--fg)}.lblbox{fill:transparent}
+.rap{font:700 17px var(--body);fill:var(--fg)}
 .fois{font:700 21px var(--body);fill:var(--fg)}
 .tempo{font:700 12.5px var(--body);fill:var(--fg)}
 .sig{font:800 17px var(--display);fill:var(--paper)}.sigb{fill:var(--fg)}
@@ -233,10 +233,16 @@ ol.setl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
 .seg{display:inline-flex;gap:4px;align-items:center}.seg .btn[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
 #concert{position:fixed;inset:0;z-index:100;background:#000;color:#fff;display:flex;flex-direction:column}#concert[hidden]{display:none}
 .cc-bar{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap;padding:10px 16px 6px;border-bottom:1px solid #333}.cc-t{font:800 28px var(--display);text-transform:uppercase}.cc-i{font-size:18px;color:#ddd}.cc-k{font-size:16px;color:#ddd}.cc-n{margin-left:auto;font:700 20px var(--body)}.cc-note{flex-basis:100%;font-size:16px;color:#ffcf70}
-.cc-tools{position:absolute;top:8px;right:12px;display:flex;gap:6px;opacity:.55}.cc-tools:hover{opacity:1}#concert .cc-n{margin-right:250px}
+.cc-tools{margin-left:auto;display:flex;gap:6px;opacity:.55}.cc-tools .btn{position:relative;z-index:1;cursor:pointer}.cc-tools:hover{opacity:1}
+#cc-list{opacity:.55}#cc-list:hover{opacity:1}#concert.single #cc-list{display:none}
+#cc-qlist{position:absolute;inset:0;z-index:5;background:rgb(0 0 0 / .6);display:flex;justify-content:center;align-items:flex-start;padding-top:56px}.ccq-box{background:#000;border:1px solid #555;border-radius:10px;max-height:80vh;overflow:auto;min-width:min(520px,90vw);padding:8px}.ccq-it{display:block;width:100%;text-align:left;background:none;border:0;color:#fff;font:700 24px var(--body);padding:10px 14px;border-radius:6px;cursor:pointer}.ccq-it b{color:#aaa;margin-right:6px}.ccq-it.on,.ccq-it:hover{background:#1d3a6b}.ccq-sep{font:italic 600 18px var(--body);color:#ffcf70;padding:10px 14px 4px;border-top:1px solid #333}
+#cc-num{position:absolute;left:50%;top:40%;transform:translateX(-50%);background:#1d3a6b;color:#fff;font:800 56px var(--body);padding:10px 28px;border-radius:12px;z-index:6}
+#concert.day{background:#fff;color:#17202C}#concert.day .cc-bar{border-bottom-color:#ddd}#concert.day .cc-i,#concert.day .cc-k{color:#444}#concert.day .cc-note{color:#a05a00}#concert.day .cc-sep{color:#17202C}#concert.day .ccq-box{background:#fff;border-color:#ccc}#concert.day .ccq-it{color:#17202C}#concert.day .ccq-it b{color:#777}#concert.day .ccq-it.on,#concert.day .ccq-it:hover{background:#dbe7ff}#concert.day .ccq-sep{color:#a05a00;border-top-color:#ddd}#concert.day #cc-qlist{background:rgb(255 255 255 / .6)}
+#cc-metro.on{background:#1d3a6b;color:#fff;border-color:#1d3a6b}#cc-metro.flash{background:#2fbf71!important;border-color:#2fbf71!important;color:#000!important;box-shadow:0 0 14px #2fbf71}#cc-metro.fort{background:#ff4d4d!important;border-color:#ff4d4d!important;color:#fff!important;box-shadow:0 0 18px #ff4d4d}.cc-tools:has(#cc-metro.on){opacity:1}
+#gs-badge.ok{color:var(--ok)}#gs-badge.err{color:var(--warn)}#gs-badge.busy{animation:gsb 1s linear infinite}@keyframes gsb{50%{opacity:.3}}
 #cc-body{flex:1;overflow:auto;padding:10px 16px;cursor:pointer}.cc-line svg{width:100%!important;height:auto;min-width:0!important}.cc-line{margin-bottom:6px}#concert[data-dev="ipad"] .cc-line{margin-bottom:12px}
 .cc-sep{display:grid;place-items:center;height:100%;font:800 64px var(--display);text-transform:uppercase;color:#fff}
-.cc-foot{padding:8px 16px;border-top:1px solid #333;font:700 18px var(--body);color:#ddd}
+.cc-foot{display:flex;align-items:center;gap:12px;padding:8px 16px;border-top:1px solid #333;font:700 18px var(--body);color:#ddd}#concert.day .cc-foot{border-top-color:#ddd;color:#444}
 #zoom{position:fixed;inset:0;z-index:95;background:rgb(0 0 0 / .85);overflow:auto;cursor:zoom-out;padding:16px}#zoom[hidden]{display:none}#zoom img{width:180%;max-width:none;background:#fff}.scanrow{display:flex;flex-direction:column;gap:2px;margin:8px 0 2px}.scanrow img{width:100%;border:1px solid var(--rule);border-radius:4px;background:#fff;cursor:zoom-in}#b-scan[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
 #lm{position:fixed;inset:0;z-index:90;background:rgb(0 0 0 / .45);display:grid;place-items:center;padding:16px}#lm[hidden]{display:none}.lm-card{background:var(--paper);color:var(--fg);border-radius:12px;padding:18px;width:min(560px,100%);max-height:90vh;overflow:auto;display:flex;flex-direction:column;gap:10px;box-shadow:0 18px 50px rgb(0 0 0 / .3)}.lm-card h3{margin:0;font:800 20px var(--display);text-transform:uppercase}.lm-row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}.lm-row label{display:flex;flex-direction:column;gap:2px;font-size:12px;color:var(--muted)}.lm-est{background:var(--accent-soft);border-radius:8px;padding:8px 10px;font-size:13.5px}
 </style>
@@ -244,11 +250,11 @@ ol.setl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
 <div class="wrap">
   <header class="brand">
     <h1>Atelier de lignes de basse</h1>
-    <nav class="vtabs" role="tablist" aria-label="Espaces de travail"><button role="tab" data-v="atelier" aria-selected="true">Atelier</button><button role="tab" data-v="rep" aria-selected="false">Répertoire</button><button role="tab" data-v="concert" aria-selected="false">Concert</button></nav><button class="ibtn" id="b-night" aria-pressed="false" title="Mode nuit (⌥N) : fond noir, pour jouer dans la pénombre" aria-label="Mode nuit">☾</button>
+    <nav class="vtabs" role="tablist" aria-label="Espaces de travail"><button role="tab" data-v="atelier" aria-selected="true">Atelier</button><button role="tab" data-v="rep" aria-selected="false">Répertoire</button><button role="tab" data-v="concert" aria-selected="false">Concert</button></nav><button class="ibtn" id="gs-badge" hidden title="Google Drive">☁</button><button class="ibtn" id="b-night" aria-pressed="false" title="Mode nuit (⌥N) : fond noir, pour jouer dans la pénombre" aria-label="Mode nuit">☾</button>
   </header>
 <div data-view="atelier">
 
-  <div class="filebar"><span id="newbox"><button class="btn" id="b-new">Nouvelle</button></span><button class="btn" id="b-open" title="Ouvrir une partition enregistrée (.atelier.json)">Ouvrir…</button><input type="file" id="f-open" accept=".json,application/json,text/plain" hidden><button class="btn" id="b-save" title="Enregistrer la partition dans un fichier .atelier.json (sauvegarde, ou pour la rouvrir dans l’autre version de l’Atelier)">Enregistrer</button><button class="btn" id="b-imp" title="Fichier MusicXML (.mxl, .musicxml) exporté de Logic Pro, Audiveris, MuseScore…">Importer…</button><input type="file" id="f-imp" accept=".mxl,.musicxml,.xml" hidden><span class="expw"><button class="btn" id="b-exp" aria-haspopup="menu" aria-expanded="false">Exporter ▾</button><span class="expmenu" id="expmenu" hidden><button class="btn" id="b-pdf">PDF jour</button><button class="btn" id="b-pdfn">PDF nuit</button><button class="btn" id="b-svg">SVG jour</button><button class="btn" id="b-svgn">SVG nuit</button></span></span><span hidden><button class="btn" id="b-lire" title="Lire une partition manuscrite (photo ou scan) avec Claude — dans claude.ai seulement">Lire un manuscrit…</button><input type="file" id="f-lire" accept="image/*,.heic,.heif" multiple hidden></span></div>
+  <div class="filebar"><span id="newbox"><button class="btn" id="b-new">Nouvelle</button></span><button class="btn" id="b-open" title="Ouvrir une partition enregistrée (.atelier.json)">Ouvrir…</button><input type="file" id="f-open" accept=".json,application/json,text/plain" hidden><button class="btn" id="b-save" title="Enregistrer la partition dans un fichier .atelier.json (dans Téléchargements, ou partage sur iPhone / iPad)">Enregistrer</button><button class="btn" id="b-saveas" hidden title="Choisir le nom et le dossier (⇧⌘S)">Enregistrer sous…</button><button class="btn" id="b-imp" title="Fichier MusicXML (.mxl, .musicxml) exporté de Logic Pro, Audiveris, MuseScore…">Importer…</button><input type="file" id="f-imp" accept=".mxl,.musicxml,.xml" hidden><span class="expw"><button class="btn" id="b-exp" aria-haspopup="menu" aria-expanded="false">Exporter ▾</button><span class="expmenu" id="expmenu" hidden><button class="btn" id="b-pdf">PDF jour</button><button class="btn" id="b-pdfn">PDF nuit</button><button class="btn" id="b-svg">SVG jour</button><button class="btn" id="b-svgn">SVG nuit</button></span></span><span hidden><button class="btn" id="b-lire">Lire un manuscrit…</button><input type="file" id="f-lire" accept="image/*,.heic,.heif" multiple hidden></span></div>
   <section class="card settings" id="settings" aria-label="Morceau">
     <div class="sbar">
       <button class="stog" id="b-stog" aria-expanded="true" aria-controls="sbody"><span class="chev" aria-hidden="true">▾</span><span class="slab">Morceau</span><span class="ssum" id="ssum"></span></button>
@@ -279,7 +285,7 @@ ol.setl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
       
       
       <span id="touchbar"><button class="btn small" id="t-multi" aria-pressed="false" title="Sélection multiple : toucher la première puis la dernière mesure (ou ligne)">Sélection multiple</button><button class="btn small" data-k="ArrowLeft" aria-label="Précédent">◀</button><button class="btn small" data-k="ArrowRight" aria-label="Suivant">▶</button><button class="btn small" data-k="Backspace" aria-label="Supprimer">⌫</button><button class="btn small" data-k="Escape" aria-label="Fermer">✕</button></span>
-      <button class="btn small" id="b-scan" hidden data-off="1" aria-pressed="false" title="Montrer, sous chaque ligne, la portée du manuscrit lue">Afficher le manuscrit</button>
+      <button class="btn small" id="b-scan" hidden data-off="1" aria-pressed="false">Afficher le manuscrit</button>
       <span id="lcount" class="legend" title="Lignes de portée et pages du PDF A4"></span>
       <button class="btn small" id="b-alerts" hidden title="Voir les points à vérifier, sous la partition"></button><span class="zoomb" title="Zoom de la partition"><button class="btn small" id="z-out" aria-label="Réduire">−</button><button class="btn small" id="z-fit">Zoom</button><button class="btn small" id="z-in" aria-label="Agrandir">+</button></span><button class="btn small" id="b-help" aria-expanded="false" title="Aide : zones de clic et raccourcis">?</button>
       </div>
@@ -304,25 +310,28 @@ ol.setl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
   </section>
 </div>
 <div data-view="rep" hidden>
+  <section class="card" id="gs-card" hidden><div class="sbar"><h2 class="cap">Google Drive</h2><span class="legend" id="gs-st"></span><span class="sp"></span><button class="btn primary" id="gs-conn">Se connecter à Google Drive</button><button class="btn" id="gs-now" hidden>Synchroniser maintenant</button><button class="btn" id="gs-off" hidden>Se déconnecter</button></div>
+    <p class="legend">Le Répertoire (partitions et setlists) est synchronisé automatiquement entre tes appareils via le fichier « Atelier basse / bibliothèque.json » de ton Google Drive. L’Atelier ne voit que les fichiers qu’il a créés.</p>
+    <details class="gs-adv"><summary class="legend">Réglage avancé</summary><label class="legend">ID client Google <input id="gs-cid" size="70" spellcheck="false"></label></details></section>
   <section class="card"><div class="sbar"><h2 class="cap">Inventaire</h2><span class="legend" id="inv-n"></span><span class="sp"></span>
-      <button class="btn" id="inv-imp" title="Partitions de l’Atelier (.atelier.json) ou du Lecteur / de la Bibliothèque (.json) — plusieurs fichiers à la fois">Importer…</button><input type="file" id="f-inv" accept=".json,application/json" multiple hidden>
+      <button class="btn" id="inv-imp" title="Partitions de l’Atelier (.atelier.json), setlists (.setlist.json) ou partitions du Lecteur / de la Bibliothèque (.json) — plusieurs fichiers à la fois">Importer…</button><input type="file" id="f-inv" accept=".json,application/json" multiple hidden>
       <button class="btn" id="rep-save">Sauvegarder tout le répertoire</button><button class="btn" id="rep-load">Restaurer…</button><input type="file" id="f-rep" accept=".json,application/json" hidden></div>
     <div class="invf"><input id="inv-q" placeholder="Rechercher un titre ou un interprète"><select id="inv-c"><option value="">4 et 5 cordes</option><option value="4">4 cordes</option><option value="5">5 cordes</option></select><select id="inv-a"><option value="">Tous les accordages</option><option value="standard">Standard</option><option value="demi">½ ton plus bas</option><option value="ton">1 ton plus bas</option></select></div>
-    <div class="invwrap"><table class="inv"><thead id="inv-head"><tr><th data-k="titre">Titre</th><th data-k="inter">Interprète</th><th data-k="cordes">Basse</th><th data-k="acc">Accordage</th><th></th></tr></thead><tbody id="inv-body"></tbody></table></div></section>
+    <div class="invwrap"><table class="inv"><thead id="inv-head"><tr><th data-k="titre">Titre</th><th data-k="inter">Interprète</th><th data-k="cordes">Basse</th><th data-k="acc">Accordage</th><th></th></tr></thead><tbody id="inv-body"></tbody></table></div><p class="legend">▶ Concert : jouer cette partition seule en Concert.</p></section>
   <section class="card"><div class="sbar"><h2 class="cap">Setlist</h2><select id="set-sel"></select><input id="set-name" hidden><span class="sp"></span>
       <button class="btn" id="set-new">Nouvelle</button><button class="btn" id="set-ren">Renommer</button><button class="btn" id="set-dup">Dupliquer</button><button class="btn" id="set-del">Supprimer</button></div>
-    <ol class="setl" id="set-list"></ol>
+    <ol class="setl" id="set-list"></ol><p class="legend">▶ : jouer en Concert à partir de ce morceau.</p>
     <div class="sbar"><button class="btn" id="set-sep">+ Séparateur</button><span class="legend" id="set-tot"></span><span class="sp"></span><button class="btn" id="set-print">Imprimer la setlist (PDF)</button><button class="btn" id="set-exp">Exporter la setlist</button></div></section>
 </div>
 <div data-view="concert" hidden>
   <section class="card"><h2 class="cap">Concert</h2>
     <div class="invf"><label>Setlist <select id="cc-sel"></select></label><span id="cc-dev" class="seg">Affichage : <button class="btn" data-dev="mac">Mac</button><button class="btn" data-dev="ipad">iPad (vertical)</button></span><button class="btn primary" id="cc-go">▶ Démarrer le concert</button></div>
-    <p class="legend">Plein écran, mode nuit. Espace, → ou ↓ (ou pédale de tourne-page) : page ou morceau suivant ; ← ou ↑ : précédent ; toucher à droite / à gauche de la partition ; + / − : taille ; Échap : quitter.</p></section>
+    <p class="legend">Plein écran, jour ou nuit (N). Espace, → ou ↓ (ou pédale de tourne-page) : page ou morceau suivant ; ← ou ↑ : précédent ; toucher à droite / à gauche de la partition. L ou ☰ : liste des morceaux ; numéro + Entrée : aller au morceau ; Début / Fin : premier / dernier. C : décompte (2 mesures) ; M : métronome visuel. Outils en bas de l’écran ; Échap : quitter.</p></section>
 </div>
 </div>
 <div id="lm" hidden></div><div id="zoom" hidden></div>
-<div id="concert" hidden><div class="cc-bar" id="cc-head"></div><div class="cc-tools"><button class="btn small" id="cc-clic">♩ Clic ×4</button><button class="btn small" id="cc-minus" aria-label="Plus petit">−</button><button class="btn small" id="cc-plus" aria-label="Plus grand">+</button><button class="btn small" id="cc-exit">✕ Quitter</button></div>
-  <div id="cc-body"></div><div class="cc-foot" id="cc-next"></div></div>
+<div id="concert" hidden><div class="cc-bar" id="cc-head"></div>
+  <div id="cc-body"></div><div class="cc-foot"><button class="btn small" id="cc-list" title="Liste des morceaux (L)" aria-label="Liste des morceaux">☰</button><span id="cc-next"></span><div class="cc-tools"><button class="btn small" id="cc-clic" title="Décompte : 4 clics au tempo (C)">♩ Clic ×4</button><button class="btn small" id="cc-metro" title="Métronome visuel, muet (M)">Métronome</button><button class="btn small" id="cc-dn" title="Jour / nuit (N)">☀ Jour</button><button class="btn small" id="cc-exit">✕ Quitter</button></div></div></div>
 
 <aside id="panel" hidden></aside>
 <div id="toast" hidden></div>
@@ -949,6 +958,12 @@ function finger(notes,tun){if(!notes.length)return[];const n=tun.length;
 /* ===================== Rendu SVG ===================== */
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function splitLabel(t){t=t.toUpperCase();if(t.length<=10||!t.includes(' '))return[t];const i=t.lastIndexOf(' ',Math.ceil(t.length/2)+2);const j=i>0?i:t.indexOf(' ');return[t.slice(0,j),t.slice(j+1)];}
+/* section 111 : nom de section en police des rappels, coupé pour tenir dans la largeur de l'étiquette (sans tiret) */
+let _lmc=null;function labTW(t,fs){fs=fs||17;try{if(!_lmc){_lmc=document.createElement('canvas').getContext('2d');}const f=(getComputedStyle(document.documentElement).getPropertyValue('--body')||'').trim()||'Helvetica,Arial,sans-serif';_lmc.font='700 '+fs+'px '+f;return _lmc.measureText(t).width;}catch(e){return t.length*fs*0.68;}}
+function wrapLab(t,W,fs){t=t.toUpperCase();const labTW_=labTW;const labTW2=x=>labTW_(x,fs);const out=[];let cur='';const push=()=>{if(cur)out.push(cur);cur='';};
+  t.split(/\s+/).filter(Boolean).forEach(w=>{const tryS=cur?cur+' '+w:w;if(labTW2(tryS)<=W){cur=tryS;return;}push();const cut=q=>{while(labTW2(q)>W&&q.length>1){let k=q.length-1;while(k>1&&labTW2(q.slice(0,k))>W)k--;out.push(q.slice(0,k));q=q.slice(k);}return q;};
+    /* section 117 : un mot à tiret trop long passe à la ligne après le tiret */
+    const parts=w.includes('-')?w.split(/(?<=-)/).filter(Boolean):[w];parts.forEach(q=>{if(cur&&labTW2(cur+q)<=W){cur+=q;return;}push();cur=cut(q);});});push();return out.length?out:[''];}
 function labelW(t){return Math.max(...splitLabel(t).map(s=>s.length))*6.7+14;}
 function restGlyph(d,x,c,SS,top){
   if(d==='ronde')return`<rect class="rsf" x="${x-6}" y="${top+SS}" width="12" height="5"/>`;
@@ -1350,7 +1365,7 @@ function swingSym(x,y,on){const hd=(cx)=>`<ellipse class="swg" cx="${cx}" cy="${
   return`<g class="swing">${pair(x)}<text class="tempo" x="${x+18}" y="${y}">=</text>${right}</g>`;}
 /* largeur naturelle d'une portée (même calcul que lineSVG) */
 function natSpan(line){let w=0;line.mes.forEach(mo=>{w+=(mo.open==='repO'?16:mo.open==='double'?8:0)+10+(mo.sigShow?18:0)+(mo.tz?tzW(mo)-18:(mo.pause||mo.err||mo.sim||!mo.events.length)?60:mo.events.reduce((a,e)=>a+(WID[e.d]||38),0))+8;});
-  line.rappels.forEach(r=>{w+=r.texte.length*13+40;});return w;}
+  line.rappels.forEach(r=>{w+=r.texte.length*10.5+40;});return w;}
 /* crochet ×N : abscisse commune à toutes les lignes du groupe (première passe de dessin) */
 function prepCros(G,mode,exp){(G.cros||[]).forEach(g=>{g.X=0;for(let k=g.a;k<=g.b;k++){lineSVG(G,G.lines[k],k,{mode,exp});g.X=Math.max(g.X,G.lines[k].xEnd||0);}});}
 function linesRange(){if(!sel||sel.t!=='lines'||!lastG)return null;const f=(bi,mi)=>lastG.lines.findIndex(l=>l.bi===bi&&l.mi0===mi);const a=f(sel.bi,sel.mi),b=f(sel.bi2,sel.mi2);if(a<0||b<0)return null;return{lo:Math.min(a,b),hi:Math.max(a,b)};}
@@ -1397,11 +1412,11 @@ function lineSVG(G,line,li,o){o=o||{mode:'notes'};const mode=o.mode,exp=!!o.exp,
   const Ly=G.lay||{};const top=(showCh?32:18)+(Ly.fois?12:0)+(Ly.tempo?17:0)+(Ly.vo?18:0)+(Ly.tx?16:0)+(Ly.foisUp?10:0)+(Ly.stUp?10:0),bot=top+SS*(n-1),y1=bot+8,y2=bot+30,H=bot+40+(Ly.tri&&showEv?13:0),cy=(top+bot)/2;
   const left=G.labelW+30;const P=[],pos=[],Pz=[];let x=left;const TY=top-17-(Ly.fois?12:0)-(Ly.foisUp?10:0)-(Ly.stUp?10:0);const Ptop=[];
   const isS=(t,bi,mi,ei)=>edit&&sel&&sel.t===t&&sel.bi===bi&&(mi==null||sel.mi===mi)&&(ei==null||sel.ei===ei);
-  const rgPre=line.rappels.filter(r=>r.pre).map(r=>{const w=r.texte.length*13+40;const g={x0:x,xe:x+w,r,pre:true};x+=w;return g;});
+  const rapW=r=>Math.max(r.texte.length*10.5+40,(G.staffW||0)/6);const rgPre=line.rappels.filter(r=>r.pre).map(r=>{const w=rapW(r);const g={x0:x,xe:x+w,r,pre:true};x+=w;return g;});
   line.mes.forEach(mo=>{const x0=x;let cur=x0+(mo.open==='repO'?16:mo.open==='double'?8:0)+10+(mo.sigShow?18:0);const geo=[];
     if(mo.tz){geo.push(null);cur+=tzW(mo)-18;}else if(mo.pause||mo.err||mo.sim||!mo.events.length){geo.push(null);cur+=60;}else mo.events.forEach(e=>{const w=WID[e.d]||38;geo.push({e,cx:cur+w/2});cur+=w;});
     mo.geo={x0,xe:cur+8,geo};x=cur+8;});
-  const rgeo=rgPre.concat(line.rappels.filter(r=>!r.pre).map(r=>{const w=r.texte.length*13+40;const g={x0:x,xe:x+w,r};x+=w;return g;}));
+  const rgeo=rgPre.concat(line.rappels.filter(r=>!r.pre).map(r=>{const w=rapW(r);const g={x0:x,xe:x+w,r};x+=w;return g;}));
   /* toutes les portées ont la même largeur : la dernière barre reste à sa place, seules les lignes de la portée continuent à vide */
   if(G.staffW&&(x>left||line.empty)&&x-left<G.staffW-0.5)x=left+G.staffW;
   const addBtn=false;const lcb=false;const secF0=line.mes.length?line.mes[line.mes.length-1].secFois:0;line.xEnd=x;const xr=line.cro&&line.cro.g.X?Math.max(x,line.cro.g.X):x;const crw=line.cro?(line.cro.first?26+String(line.cro.fois).length*12+10:22):0;const cw=(xr-x)+crw+(secF0?String(secF0).length*12+24:0);const RM=exp?110:120;const W=x+RM+(edit?50:0);
@@ -1420,9 +1435,9 @@ function lineSVG(G,line,li,o){o=o||{mode:'notes'};const mode=o.mode,exp=!!o.exp,
   for(let k=1;k<=n;k++){const y=top+(k-1)*SS;P.push(`<line class="st" x1="${left}" y1="${y}" x2="${x}" y2="${y}"/>`);
     P.push(`<text class="sn" x="${left-6}" y="${y+3}" text-anchor="end">${pcName(G.tun[n-k],false)}</text>`);}
   if(line.first){const lab=line.label||(edit?'SECTION':'');
-    if(lab){const ls=splitLabel(lab),bw=Math.max(labelW(lab),(G.labelW||0)-6);const bh=Math.max(bot-top+8,(G.labN||ls.length)*15+8),by=cy-bh/2;const s=isS('sec',line.bi);
-      P.push(`<g class="${edit?'lab':''}" data-bi="${line.bi}"><rect class="${line.label?'lbl':'lblph'}${s?' lsel':''}" x="${G.labelW-bw-2}" y="${by}" width="${bw}" height="${bh}" rx="3"/>`+
-        ls.map((t,i)=>`<text class="${line.label?'lblt':'lblpt'}" x="${G.labelW-2-bw/2}" y="${cy+4+(i-(ls.length-1)/2)*14}" text-anchor="middle">${esc(t)}</text>`).join('')+`</g>`);}}
+    if(lab){const bw=Math.max(labelW(lab),(G.labelW||0)-6);const lfs=Math.max(8,Math.min(17,Math.floor((bw-4)/labTW('CHORUS',17)*17*10)/10));const ls=line.label?wrapLab(lab,bw-2,lfs):splitLabel(lab);const LH=line.label?Math.round(lfs*1.15):14;const bh=Math.max(bot-top+8,ls.length*LH+8,(G.labN||1)*15+8),by=cy-bh/2;const s=isS('sec',line.bi);
+      P.push(`<g class="${edit?'lab':''}" data-bi="${line.bi}"><rect class="${line.label?'lblbox':'lblph'}${s?' lsel':''}" x="${G.labelW-bw-2}" y="${by}" width="${bw}" height="${bh}" rx="3"/>`+
+        ls.map((t,i)=>`<text class="${line.label?'lblt rapn':'lblpt'}"${line.label?` style="font-size:${lfs}px"`:''} x="${G.labelW-2-bw/2}" y="${cy+(line.label?lfs*0.36:4)+(i-(ls.length-1)/2)*LH}" text-anchor="middle">${esc(t)}</text>`).join('')+`</g>`);}}
   line.mes.forEach((mo,k)=>{const g=mo.geo;
     if(mo.open)P.push(bar(g.x0,mo.open,top,bot,n,SS));else if(k===0)P.push(bar(g.x0,'simple',top,bot,n,SS));
     P.push(bar(g.xe,mo.close,top,bot,n,SS));
@@ -1454,17 +1469,17 @@ function lineSVG(G,line,li,o){o=o||{mode:'notes'};const mode=o.mode,exp=!!o.exp,
     g.geo.forEach(({e,cx})=>{
       const isSel=isS('ev',mo.bi,mo.mi,e.ei);const parts=[];if(edit&&inEvr(mo.bi,mo.mi,e.ei))parts.push(`<rect class="evr" x="${cx-10}" y="${top-8}" width="20" height="${bot-top+16}" rx="4"/>`);
       if(isSel&&(mode==='rythmes'||e.kind==='rest'))parts.push(`<rect class="rsel" x="${cx-10}" y="${top-8}" width="20" height="${y2-top+12}" rx="4"/>`);
-      if(e.kind==='rest'){parts.push(restGlyph(e.d,cx,cy,SS,top));for(let q=0;q<e.p;q++)parts.push(`<circle class="rsf" cx="${cx+7+q*4}" cy="${cy-3}" r="1.5"/>`);}
-      else if(showNum){const y=top+(e.corde-1)*SS;const txt=e.kind==='morte'?'x':String(e.case);const tw=txt.length*7.6+4;
+      if(e.kind==='rest'){parts.push(`<g transform="translate(${cx},${cy}) scale(1.3) translate(${-cx},${-cy})">`+restGlyph(e.d,cx,cy,SS,top)+'</g>');for(let q=0;q<e.p;q++)parts.push(`<circle class="rsf" cx="${cx+7+q*4}" cy="${cy-3}" r="1.5"/>`);}
+      else if(showNum){const y=top+(e.corde-1)*SS;const txt=e.kind==='morte'?'x':String(e.case);const tw=txt.length*9.9+4;
         if(isSel){const ck=sel.ck;if(ck&&ck!==e.corde&&e.kind==='note'){parts.push(`<circle class="nsel2" cx="${cx}" cy="${y}" r="9.5"/>`);const yk=top+(ck-1)*SS;if((e.xs||[]).some(z=>z.corde===ck))parts.push(`<circle class="nsel" cx="${cx}" cy="${yk}" r="9.5"/>`);else parts.push(`<rect class="ncur" x="${cx-8}" y="${yk-7}" width="16" height="14" rx="3"/>`);}else{parts.push(`<circle class="nsel" cx="${cx}" cy="${y}" r="9.5"/>`);(e.xs||[]).forEach(z=>parts.push(`<circle class="nsel2" cx="${cx}" cy="${top+(z.corde-1)*SS}" r="9.5"/>`));}}
-        parts.push(`<rect class="bgn" x="${cx-tw/2}" y="${y-7}" width="${tw}" height="14"/><text class="tn" x="${cx}" y="${y+5.3}" text-anchor="middle">${txt}</text>`);
+        parts.push(`<rect class="bgn" x="${cx-tw/2}" y="${y-8}" width="${tw}" height="16"/><text class="tn" x="${cx}" y="${y+6.9}" text-anchor="middle">${txt}</text>`);
         if(e.gr&&e.kind==='note'){const gt=`(${e.gr.f})`,gw=gt.length*5.2+2,gy=top+(e.gr.k-1)*SS,gx=cx-tw/2-1-gw/2;
           parts.push(`<g class="grc"><rect class="bgn" x="${gx-gw/2}" y="${gy-5}" width="${gw}" height="10"/><text class="tng" x="${gx}" y="${gy+3.6}" text-anchor="middle">${gt}</text>${isSel&&sel.gk?`<rect class="ncur" x="${gx-gw/2-2}" y="${gy-7}" width="${gw+4}" height="14" rx="3"/>`:''}</g>`);
           if(e.gr.sl)parts.push(`<line class="tie" x1="${gx+gw/2-1}" y1="${gy+3}" x2="${cx-tw/2+1}" y2="${y-3}"/>`);
           else parts.push(`<path class="tie" d="M${gx-1},${gy-6} Q${(gx+cx)/2},${Math.min(gy,y)-12} ${cx-1},${y-7}"/>`);}
-        if(e.kind==='note')(e.xs||[]).forEach(z=>{const yy=top+(z.corde-1)*SS,tt=String(z.case),ww=tt.length*7.6+4;parts.push(`<rect class="bgn" x="${cx-ww/2}" y="${yy-7}" width="${ww}" height="14"/><text class="tn" x="${cx}" y="${yy+5.3}" text-anchor="middle">${tt}</text>`);});
+        if(e.kind==='note')(e.xs||[]).forEach(z=>{const yy=top+(z.corde-1)*SS,tt=String(z.case),ww=tt.length*9.9+4;parts.push(`<rect class="bgn" x="${cx-ww/2}" y="${yy-8}" width="${ww}" height="16"/><text class="tn" x="${cx}" y="${yy+6.9}" text-anchor="middle">${tt}</text>`);});
         if(e.st){const yh=Math.min(y,...(e.kind==='note'?(e.xs||[]).map(z=>top+(z.corde-1)*SS):[]));parts.push(`<circle class="dot" cx="${cx}" cy="${yh-1.5*SS}" r="1.6"/>`);}if(e.se&&e.kind==='note'){const xa=cx-tw/2-11,xb=cx-tw/2-1;parts.push(`<line class="tie" x1="${xa}" y1="${e.se==='b'?y+5:y-5}" x2="${xb}" y2="${e.se==='b'?y-1:y+1}"/>`);}pos.push({e,cx,y});}
-      else{const y=cy;if(e.kind==='morte')parts.push(`<rect class="bgn" x="${cx-6}" y="${y-7}" width="12" height="14"/><text class="tn" x="${cx}" y="${y+5.3}" text-anchor="middle">x</text>`);
+      else{const y=cy;if(e.kind==='morte')parts.push(`<rect class="bgn" x="${cx-8}" y="${y-8}" width="16" height="16"/><text class="tn" x="${cx}" y="${y+6.9}" text-anchor="middle">x</text>`);
 
         if(e.st)parts.push(`<circle class="dot" cx="${cx}" cy="${y-8}" r="1.6"/>`);if(e.se&&e.kind==='note')parts.push(`<line class="tie" x1="${cx-15}" y1="${e.se==='b'?y+5:y-5}" x2="${cx-6}" y2="${e.se==='b'?y-1:y+1}"/>`);pos.push({e,cx,y});}
       if(e.d==='ronde')parts.push(`<ellipse class="rh" cx="${cx}" cy="${y1+3.5}" rx="3.6" ry="2.6" transform="rotate(-20 ${cx} ${y1+3.5})"/>`);
@@ -1500,7 +1515,7 @@ function lineSVG(G,line,li,o){o=o||{mode:'notes'};const mode=o.mode,exp=!!o.exp,
         P.push(edit?`<g class="txa" data-tw="rest" data-tb="${lm.bi}" data-tm="${lm.mi}" data-tk="${k}"><rect x="${tx-3}" y="${cy-8}" width="${w}" height="16" rx="3"/>${t}</g>`:t);});}}
   rgeo.forEach((g,ri)=>{const mx=(g.x0+g.xe)/2;const s=isS('rap',g.r.bi);
     if(ri===0||rgeo[ri-1].xe!==g.x0)P.push(bar(g.x0+2,'double',top,bot,n,SS));if(!(g.pre&&line.mes.length&&(!rgeo[ri+1]||!rgeo[ri+1].pre)))P.push(bar(g.xe-4,'double',top,bot,n,SS));
-    P.push(`<g class="${edit?'rap-g':''}" data-bi="${g.r.bi}" data-ty="${TY}" data-left="${left}">${edit?`<rect class="${s?'msel':'mhit'}" x="${g.x0+6}" y="${top-6}" width="${g.xe-g.x0-12}" height="${bot-top+12}" rx="3"/>`:''}<rect class="bgn" x="${mx-g.r.texte.length*6.5-5}" y="${cy-12}" width="${g.r.texte.length*13+10}" height="24"/><text class="rap rapn" x="${mx}" y="${cy+7.5}" text-anchor="middle">${esc(g.r.texte)}</text></g>`);
+    P.push(`<g class="${edit?'rap-g':''}" data-bi="${g.r.bi}" data-ty="${TY}" data-left="${left}">${edit?`<rect class="${s?'msel':'mhit'}" x="${g.x0+6}" y="${top-6}" width="${g.xe-g.x0-12}" height="${bot-top+12}" rx="3"/>`:''}<rect class="bgn" x="${mx-g.r.texte.length*5.25-5}" y="${cy-10}" width="${g.r.texte.length*10.5+10}" height="20"/><text class="rap rapn" x="${mx}" y="${cy+6}" text-anchor="middle">${esc(g.r.texte)}</text></g>`);
     if(g.r.fois>1)P.push(`<text class="fois${edit?' fx':''}" data-fx="rap" data-fb="${g.r.bi}" x="${g.xe}" y="${top-(showCh?20:8)}" text-anchor="end">×${g.r.fois}</text>`);});
   if(hasVo){const yv=top-(showCh?32:18)-(Ly.fois?12:0)-15-(Ly.tx?16:0)-(Ly.foisUp?10:0)-(Ly.stUp?10:0);let k=0;while(k<line.mes.length){const mo=line.mes[k];if(!mo.m.vo){k++;continue;}let e=k;while(e+1<line.mes.length&&line.mes[e+1].m.vo===mo.m.vo)e++;
     const xa=mo.geo.x0+3,xb=line.mes[e].geo.xe-3,me=line.mes[e];const closed=me.voNext!==mo.m.vo;
@@ -1582,7 +1597,8 @@ function evToText(mo,S){if(!mo||mo.pause)return mo&&mo.pause?'mesure de silence'
   return ev.map(tokText).join(' ');}
 
 /* ---------- Partition éditable ---------- */
-const HELP_TXT='Zones : marge gauche = étiquette (section) et début de ligne (lignes) ; au-dessus de la portée = la mesure (glisser pour la déplacer, ⇧+clic pour un groupe) ; barre = ses réglages ; sur la portée = la note ; sous la portée = le temps (rythmes). Clic : sélectionner ; clic droit, double-clic ou Entrée : menu. — Note : chiffres = case ; ← → ½ ton ; ↑ ↓ corde ; ⌥↑ ⌥↓ curseur d’accord ; Espace note ↔ silence ; f + chiffre fin alternée (f seule : la retirer) ; s staccato ; % ou ù rejouer la mesure précédente (2 appuis : les deux précédentes) ; . pointée ; l liaison ; / slide ; x note morte ; g appogiature ; ⌫ supprimer. — Navigation : Tab / ⇧Tab élément suivant / précédent du même niveau (section, ligne, mesure, temps, note, barre) ; ⌥Tab prochaine chose à vérifier ; ← → (mesure, temps, section) voisin ; Échap fermer. — Édition : ⌘C / ⌘V copier / coller ; ⌘Z / ⇧⌘Z annuler / rétablir ; ⌘Y répéter la dernière action. — Espace (sans note sélectionnée) : lecture / arrêt ; ⌥N mode nuit ; ? cette aide.';
+const FSAVE=!!window.showSaveFilePicker&&!(window.claude&&window.claude.use)&&location.protocol!=='about:';
+const HELP_TXT='Zones : marge gauche = étiquette (section) et début de ligne (lignes) ; au-dessus de la portée = la mesure (glisser pour la déplacer, ⇧+clic pour un groupe) ; clic sur une barre de mesure = ses réglages ; sur la portée = la note ; sous la portée = le temps (rythmes). Clic : sélectionner ; clic droit, double-clic ou Entrée : menu ; fenêtres et menus déplaçables par leur titre ou la poignée ⠿. — Note : chiffres (avec ou sans Maj) = case ; ← → ½ ton ; ↑ ↓ corde ; ⌥↑ ⌥↓ curseur d’accord ; Espace note ↔ silence ; f + chiffre fin alternée (f seule : la retirer) ; s staccato ; % ou ù rejouer la mesure précédente (2 appuis : les deux précédentes) ; . pointée ; l liaison ; / slide ; x note morte ; g appogiature ; ⇧→ / ⇧← étendre la sélection de notes (puis l : liaison de phrasé) ; ⌫ supprimer. — Navigation : Tab / ⇧Tab élément suivant / précédent du même niveau (section, ligne, mesure, temps, note, barre) ; ⌥Tab prochaine chose à vérifier ; ← → (mesure, temps, section) voisin ; Échap fermer. — Édition : ⌘C / ⌘V copier / coller ; ⌘Z / ⇧⌘Z annuler / rétablir ; ⌘Y répéter la dernière action ; T texte libre'+(FSAVE?' ; ⌘S enregistrer ; ⇧⌘S enregistrer sous':'')+'. — Espace (sans note sélectionnée) : lecture / arrêt ; pendant l’écoute, clic au-dessus d’une mesure : y sauter ; ⌥N mode nuit ; ? cette aide.';
 const MODE_HINT={
   structure:'Glisser une mesure pour la déplacer (aussi vers la ligne voisine). Clic : sélectionner (⇧+clic : plusieurs mesures, ou plusieurs lignes depuis leur début à gauche). Clic droit ou Entrée : menu de l’élément — étiquette (nom, mesures, tempo, reprise), mesure (ajouter, reprise, réglages), barre, rappel, début de ligne (mesures sur la ligne, répéter). ⌫ supprime la sélection, Échap ferme.',
   rythmes:'Cliquez un temps pour choisir son rythme : le menu passe ensuite au temps suivant. ← → : temps voisin, Entrée : ouvrir le menu, ⌫ : silence, Échap : fermer.',
@@ -2555,7 +2571,7 @@ $('#b-play').addEventListener('click',()=>{if(Player.playing)return stopPlay();c
 $('#a-scope').addEventListener('change',()=>{if(Player.playing)stopPlay();});
 
 /* ===================== Export SVG et PDF ===================== */
-const EXPORT_CSS=`.st{stroke:#8B95A4;stroke-width:1}.bar{stroke:#17202C;stroke-width:1.1}.barT{stroke:#17202C;stroke-width:3.2}.dot,.rhf,.rsf{fill:#17202C}.tn{font:700 15px 'Barlow Semi Condensed','Arial Narrow','Helvetica Neue',Helvetica,Arial,sans-serif;font-variant-numeric:tabular-nums;fill:#17202C}.tng{font:600 10px 'Barlow Semi Condensed','Arial Narrow',Helvetica,Arial,sans-serif;fill:#17202C}.swg{fill:#17202C}.swgl{stroke:#17202C;stroke-width:1.1;fill:none}.bgn{fill:#fff}.sn{font:500 9px Helvetica,Arial,sans-serif;fill:#5A6676}.mn{font:500 8.5px Menlo,"Courier New",monospace;fill:#5A6676}.txl{font:600 11px Menlo,"Courier New",monospace;fill:#17202C}.chd{font:600 11px Helvetica,Arial,sans-serif;fill:#17202C}.lbl{fill:#17202C}.lblt{font:700 11px "Arial Narrow",Helvetica,Arial,sans-serif;letter-spacing:.5px;fill:#fff}.rap{font:700 21px Helvetica,Arial,sans-serif;fill:#17202C}.fois{font:700 21px Helvetica,Arial,sans-serif;fill:#17202C}.rh,.rs,.tie{stroke:#17202C;fill:none}.rh{stroke-width:1.2}.rs{stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}.tie{stroke-width:1}.volta,.cro{stroke:#17202C;stroke-width:1.3;fill:none}.vnum{font:700 12px Helvetica,Arial,sans-serif;fill:#17202C}.sim{stroke:#17202C;stroke-width:2.6;stroke-linecap:round}.hit,.mhit,.hov,.msel,.doute,.nsel,.mhit-a{fill:none;stroke:none}.tempo{font:700 12.5px Helvetica,Arial,sans-serif;fill:#17202C}.sig{font:700 16px Helvetica,Arial,sans-serif;fill:#fff}.sigb{fill:#17202C}.kch{font:italic 600 9.5px Helvetica,Arial,sans-serif;fill:#5A6676}.hdr{font:500 10px Helvetica,Arial,sans-serif;fill:#17202C}.hdrt{font:700 11px Helvetica,Arial,sans-serif;fill:#17202C}`;
+const EXPORT_CSS=`.st{stroke:#8B95A4;stroke-width:1}.bar{stroke:#17202C;stroke-width:1.1}.barT{stroke:#17202C;stroke-width:3.2}.dot,.rhf,.rsf{fill:#17202C}.tn{font:700 19.5px 'Barlow Semi Condensed','Arial Narrow','Helvetica Neue',Helvetica,Arial,sans-serif;font-variant-numeric:tabular-nums;fill:#17202C}.tng{font:600 10px 'Barlow Semi Condensed','Arial Narrow',Helvetica,Arial,sans-serif;fill:#17202C}.swg{fill:#17202C}.swgl{stroke:#17202C;stroke-width:1.1;fill:none}.bgn{fill:#fff}.sn{font:500 9px Helvetica,Arial,sans-serif;fill:#5A6676}.mn{font:500 8.5px Menlo,"Courier New",monospace;fill:#5A6676}.txl{font:600 11px Menlo,"Courier New",monospace;fill:#17202C}.chd{font:600 11px Helvetica,Arial,sans-serif;fill:#17202C}.lbl{fill:#17202C}.lblt{font:700 17px Helvetica,Arial,sans-serif;fill:#17202C}.lblbox{fill:none}.rap{font:700 17px Helvetica,Arial,sans-serif;fill:#17202C}.fois{font:700 21px Helvetica,Arial,sans-serif;fill:#17202C}.rh,.rs,.tie{stroke:#17202C;fill:none}.rh{stroke-width:1.2}.rs{stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}.tie{stroke-width:1}.volta,.cro{stroke:#17202C;stroke-width:1.3;fill:none}.vnum{font:700 12px Helvetica,Arial,sans-serif;fill:#17202C}.sim{stroke:#17202C;stroke-width:2.6;stroke-linecap:round}.hit,.mhit,.hov,.msel,.doute,.nsel,.mhit-a{fill:none;stroke:none}.tempo{font:700 12.5px Helvetica,Arial,sans-serif;fill:#17202C}.sig{font:700 16px Helvetica,Arial,sans-serif;fill:#fff}.sigb{fill:#17202C}.kch{font:italic 600 9.5px Helvetica,Arial,sans-serif;fill:#5A6676}.hdr{font:500 10px Helvetica,Arial,sans-serif;fill:#17202C}.hdrt{font:700 11px Helvetica,Arial,sans-serif;fill:#17202C}`;
 function exportLines(){const keep=sel;sel=null;const G=lastG;const kw=G.labelW;G.labelW=Math.max(0,...G.lines.filter(l=>l.label).map(l=>labelW(l.label)+6));G.labN=Math.max(1,...G.lines.filter(l=>l.label).map(l=>splitLabel(l.label).length));
   prepCros(G,'notes',true);const out=G.lines.map((l,i)=>{const s=lineSVG(G,l,i,{mode:'notes',exp:true});const m=s.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/);
     return{W:+m[1],H:+m[2],inner:s.replace(/^<svg[^>]*>/,'').replace(/<\/svg>$/,''),l};});sel=keep;G.labelW=kw;return out;}
@@ -2568,7 +2584,7 @@ function header(x0,x1,y,page,pages){const h=headerBits();const mid=(x0+x1)/2;
 function fileBase(){return((M.titre||'Partition')+(M.sous_titre?' - '+M.sous_titre:'')).replace(/[\/\\:*?"<>|]/g,'-').trim()||'Partition';}
 /* export jour / nuit (section 78) */
 let EXP_NIGHT=false;
-function expCSS(){if(!EXP_NIGHT)return EXPORT_CSS;return EXPORT_CSS.replace(/#17202C/g,'#FFFFFF').replace(/#5A6676/g,'#E4E8EE').replace(/#8B95A4/g,'#E8E8E8').replace('.bgn{fill:#fff}','.bgn{fill:#000}')+'.lblt{fill:#000}.sig{fill:#000}.st{stroke-width:0.5}.bar,.barT{stroke:#B4B4B4}.rdot{fill:#B4B4B4}.rapn{font-weight:400}';}
+function expCSS(){if(!EXP_NIGHT)return EXPORT_CSS;return EXPORT_CSS.replace(/#17202C/g,'#FFFFFF').replace(/#5A6676/g,'#E4E8EE').replace(/#8B95A4/g,'#E8E8E8').replace('.bgn{fill:#fff}','.bgn{fill:#000}')+'.sig{fill:#000}.st{stroke-width:0.5}.bar,.barT{stroke:#B4B4B4}.rdot{fill:#B4B4B4}.rapn{font-weight:400}';}
 const expBg=()=>EXP_NIGHT?'#000':'#fff';
 function buildSVGfile(){const L=exportLines();const mg=14;const W=Math.max(...L.map(l=>l.W))+mg*2;let y=48;const parts=[];
   L.forEach(l=>{parts.push(`<g transform="translate(${mg},${y})">${l.inner}</g>`);y+=l.H+6;});
@@ -2587,11 +2603,25 @@ function loadScript(src){return new Promise((ok,ko)=>{const s=document.createEle
 function rasterize(svg,scale){return new Promise((ok,ko)=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas');c.width=Math.round(595.28*scale);c.height=Math.round(841.89*scale);
   const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(img,0,0,c.width,c.height);ok(c.toDataURL('image/png'));};img.onerror=()=>ko(new Error('rendu'));
   img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);});}
+/* sections 118-119 : dossier du dernier enregistrement de partition, ⌘S / ⇧⌘S (Chrome sur Mac, hors claude.ai) */
+let LASTDIR=null,CURFH=null,OPENFH=null;async function lastDir(){if(LASTDIR)return LASTDIR;try{LASTDIR=await idbGet('atelier-lastdir')||null;}catch(e){}return LASTDIR;}
+async function pickFiles(o){/* o : {multiple, desc, accept:{mime:[ext]}} → File[] ; null si non géré */
+  if(!FSAVE||!window.showOpenFilePicker)return null;try{const q={multiple:!!o.multiple,types:[{description:o.desc,accept:o.accept}]};const sd=await lastDir();if(sd)q.startIn=sd;else q.id='atelier-partitions';
+    const hs=await window.showOpenFilePicker(q);const fs=[];for(const h of hs){const f=await h.getFile();f._h=h;fs.push(f);}return fs;}catch(e){if(e&&e.name==='AbortError')return[];return null;}}
+function feedInput(inp,fs){const dt=new DataTransfer();fs.forEach(f=>dt.items.add(f));inp.files=dt.files;inp.dispatchEvent(new Event('change',{bubbles:true}));}
+async function quickSave(){if(!FSAVE)return saveFile(fileBase()+'.atelier.json',partJSON());let h=CURFH&&CURFH.id===M.id?CURFH.h:null;if(!h){try{h=await idbGet('fh:'+M.id);}catch(e){}}
+  if(!h)return saveAs();try{let pm=await h.queryPermission({mode:'readwrite'});if(pm!=='granted')pm=await h.requestPermission({mode:'readwrite'});if(pm!=='granted')return saveAs();
+    const w=await h.createWritable();await w.write(new Blob([partJSON()]));await w.close();CURFH={id:M.id,h};LASTDIR=h;idbSet('atelier-lastdir',h);toast('Enregistré : '+h.name);}catch(e){return saveAs();}}
+function saveAs(){return saveFile(fileBase()+'.atelier.json',partJSON());}
+const partJSON=()=>JSON.stringify({atelier:1,...M},null,1);
+document.addEventListener('keydown',e=>{if(!FSAVE||!(e.metaKey||e.ctrlKey)||(e.key!=='s'&&e.key!=='S'))return;e.preventDefault();e.stopImmediatePropagation();if(e.shiftKey)saveAs();else quickSave();},true);
 async function saveFile(filename,data){const c=window.claude;const dl=c&&c.use?await c.use('downloads'):null;
   /* Chrome / Edge hors claude.ai : fenêtre « Enregistrer sous », dernier dossier mémorisé (un pour les partitions, un pour les exports) */
   if(!dl&&window.showSaveFilePicker){const ext=(filename.match(/\.([a-z]+)$/i)||[])[1]||'';const isPart=/\.atelier\.json$/i.test(filename);
     const types={json:{description:'Partition de l’Atelier',accept:{'application/json':['.json']}},pdf:{description:'PDF',accept:{'application/pdf':['.pdf']}},svg:{description:'Image SVG',accept:{'image/svg+xml':['.svg']}}}[ext.toLowerCase()];
-    try{const h=await window.showSaveFilePicker({id:isPart?'atelier-partitions':'atelier-exports',suggestedName:filename,types:types?[types]:undefined});const w=await h.createWritable();await w.write(data instanceof Blob?data:new Blob([data]));await w.close();toast(`${h.name} enregistré`);return;}
+    try{const o={suggestedName:filename,types:types?[types]:undefined};const sd=await lastDir();if(sd)o.startIn=sd;else o.id='atelier-partitions';
+      const h=await window.showSaveFilePicker(o);const w=await h.createWritable();await w.write(data instanceof Blob?data:new Blob([data]));await w.close();
+      if(isPart){LASTDIR=h;idbSet('atelier-lastdir',h);if(M&&M.id){CURFH={id:M.id,h};idbSet('fh:'+M.id,h);}}toast(`${h.name} enregistré`);return h;}
     catch(e){if(e&&e.name==='AbortError'){toast('Enregistrement annulé');return;}/* sinon : méthode habituelle */}}
   if(!dl){try{const bl=data instanceof Blob?data:new Blob([data]);
     if(navigator.canShare&&/iPad|iPhone|iPod/.test(navigator.userAgent+(navigator.maxTouchPoints>1&&/Mac/.test(navigator.userAgent)?'iPad':''))){const f=new File([bl],filename,{type:bl.type||'application/octet-stream'});if(navigator.canShare({files:[f]})){await navigator.share({files:[f]}).catch(()=>{});return;}}const u=URL.createObjectURL(bl);const a=document.createElement('a');a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);toast(`${filename} téléchargé`);}catch(e){toast('Enregistrement impossible');}return;}
@@ -2761,16 +2791,16 @@ async function doImport(file){toast('Lecture du fichier…');
     hist.push(JSON.stringify(M));fut=[];M=r.model;hideP();persist();renderHeader();renderAll();
     toast(`Partition importée : ${r.model.blocs.reduce((a,b)=>a+b.mesures.length,0)} mesures · ⌘Z pour revenir`,true);}
   catch(e){toast('Import impossible : '+(e&&e.message||e));}}
-$('#b-imp').addEventListener('click',()=>$('#f-imp').click());
+$('#b-imp').addEventListener('click',async()=>{const fs=await pickFiles({desc:'MusicXML',accept:{'application/vnd.recordare.musicxml':['.mxl','.musicxml','.xml']}});if(fs){if(fs.length)feedInput($('#f-imp'),fs);return;}$('#f-imp').click();});
 /* Enregistrer / Ouvrir une partition de l'Atelier */
-$('#b-save').addEventListener('click',()=>saveFile(fileBase()+'.atelier.json',JSON.stringify({atelier:1,...M},null,1)));
+$('#b-save').addEventListener('click',()=>quickSave());$('#b-saveas').hidden=!FSAVE;$('#b-saveas').addEventListener('click',()=>saveAs());
+if(FSAVE)$('#b-save').title='Enregistrer dans le même fichier (⌘S) ; nouvelle partition : choisir le nom et le dossier';
 $('#b-open').addEventListener('click',async()=>{const c=window.claude;
-  if(!(c&&c.use)&&window.showOpenFilePicker){try{const [h]=await window.showOpenFilePicker({id:'atelier-partitions',types:[{description:'Partition de l’Atelier',accept:{'application/json':['.json']}}]});const f=await h.getFile();const inp=$('#f-open');const dt=new DataTransfer();dt.items.add(f);inp.files=dt.files;inp.dispatchEvent(new Event('change',{bubbles:true}));return;}
-    catch(e){if(e&&e.name==='AbortError')return;}}
+  {const fs=await pickFiles({desc:'Partition de l’Atelier',accept:{'application/json':['.json']}});if(fs){if(fs.length){OPENFH=fs[0]._h;feedInput($('#f-open'),fs);}return;}}
   $('#f-open').click();});
 $('#f-open').addEventListener('change',async e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
   try{const raw=JSON.parse(await f.text());const o=isLecteur(raw)?fromLecteur(raw):migrate(raw);if(!o||!o.blocs||!o.blocs.length)throw 0;delete o.atelier;if(o.rv==null)o.rv=3;
-    hist.push(JSON.stringify(M));fut=[];M=flatten(o);migrateRv();sel=null;persist();hideP();renderHeader();renderAll();toast(`« ${f.name} » ouvert (⌘Z pour revenir à la partition précédente)`);}
+    hist.push(JSON.stringify(M));fut=[];M=flatten(o);migrateRv();sel=null;persist();if(OPENFH&&f._h===OPENFH){CURFH={id:M.id,h:OPENFH};idbSet('fh:'+M.id,OPENFH);}OPENFH=null;hideP();renderHeader();renderAll();toast(`« ${f.name} » ouvert (⌘Z pour revenir à la partition précédente)`);}
   catch(err){toast('Ce fichier n’est pas une partition de l’Atelier (.atelier.json)');}});
 $('#f-imp').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(f)doImport(f);});
 
@@ -2963,10 +2993,17 @@ function fromLecteur(o){const preset=TUNINGS[o.preset]&&o.preset!=='dropd'?o.pre
 /* ===================== Répertoire, setlists, concert ===================== */
 const PRESET_NOM={standard:'Standard',demi:'½ ton plus bas',ton:'1 ton plus bas'};
 let REP={parts:{},setlists:[],curSet:null};
-function repLoad(){try{const o=JSON.parse(localStorage.getItem('atelier-rep')||'null');if(o&&o.parts)REP=o;}catch(e){}if(!REP.setlists)REP.setlists=[];}
-function repStore(){try{localStorage.setItem('atelier-rep',JSON.stringify(REP));}catch(e){toast('Mémoire du navigateur pleine : sauvegardez le répertoire dans un fichier');}}
+function repLoad(){try{const o=JSON.parse(localStorage.getItem('atelier-rep')||'null');if(o&&o.parts)REP=o;}catch(e){}if(!REP.setlists)REP.setlists=[];if(!REP.del)REP.del={};repTrack(true);}
+function repStoreRaw(){try{localStorage.setItem('atelier-rep',JSON.stringify(REP));}catch(e){toast('Mémoire du navigateur pleine : sauvegardez le répertoire dans un fichier');}}
+function repStore(){repTrack(false);repStoreRaw();gsSoon();}
+/* section 122 : suivi des modifications (dates des setlists, suppressions) pour la synchronisation */
+var _rs=null;function repTrack(silent){if(!REP.del)REP.del={};const now=Date.now(),snap={};let ch=false;
+  Object.values(REP.parts).forEach(p=>{snap['p:'+p.id]=p.upd||0;if(!_rs||_rs['p:'+p.id]!==(p.upd||0))ch=true;if(REP.del[p.id]&&(p.upd||0)>REP.del[p.id])delete REP.del[p.id];});
+  REP.setlists.forEach(x=>{const {upd,...r}=x;const js=JSON.stringify(r);snap['s:'+x.id]=js;if(!x.upd||(!silent&&_rs&&_rs['s:'+x.id]!==js)){if(!silent||!x.upd)x.upd=now;ch=true;}});
+  if(_rs&&!silent)Object.keys(_rs).forEach(k=>{if(!(k in snap)){REP.del[k.slice(2)]=now;ch=true;}});
+  _rs=snap;if(ch&&!silent&&typeof GS!=='undefined')GS.dirty=true;}
 /* la partition en cours est toujours rangée dans le répertoire */
-function repSync(){if(!M)return;if(!M.id)M.id=uid();if(M.preset==='dropd')M.preset='standard';REP.parts[M.id]={id:M.id,M:JSON.parse(JSON.stringify(M)),upd:Date.now()};repStore();}
+function repSync(){if(!M)return;if(!M.id)M.id=uid();if(M.preset==='dropd')M.preset='standard';const js=JSON.stringify(M);const ex=REP.parts[M.id];if(ex&&JSON.stringify(ex.M)===js)return;REP.parts[M.id]={id:M.id,M:JSON.parse(js),upd:Date.now()};repStore();}
 const clone=o=>JSON.parse(JSON.stringify(o));
 function partInfo(p){const m=p.M;return{titre:m.titre||'Sans titre',inter:m.sous_titre||'',cordes:+m.cordes||4,acc:PRESET_NOM[m.preset]||'Standard',preset:m.preset||'standard'};}
 /* rendu d'une autre partition sans toucher à l'Atelier */
@@ -2988,13 +3025,13 @@ function renderRep(){const q=($('#inv-q').value||'').toLowerCase(),fc=$('#inv-c'
   $('#inv-body').innerHTML=L.map(x=>{const id=x.p.id,cur=M&&M.id===id;
     const t=renaming===id?`<input class="inv-ren" data-id="${id}" value="${esc(x.titre)}"> <input class="inv-ren2" data-id="${id}" value="${esc(x.inter)}" placeholder="Interprète">`:`<button class="lnk" data-act="open" data-id="${id}">${esc(x.titre)}</button>${cur?' <span class="cur">en cours</span>':''}`;
     return`<tr><td>${t}</td><td>${renaming===id?'':esc(x.inter)}</td><td>${x.cordes} cordes</td><td>${esc(x.acc)}</td><td class="acts">
-      <button class="btn small" data-act="add" data-id="${id}" title="Ajouter à la setlist affichée">+ Setlist</button><button class="btn small" data-act="open" data-id="${id}">Ouvrir</button><button class="btn small" data-act="dup" data-id="${id}">Dupliquer</button><button class="btn small" data-act="ren" data-id="${id}">${renaming===id?'OK':'Renommer'}</button><button class="btn small" data-act="pdf" data-id="${id}">PDF</button><button class="btn small" data-act="json" data-id="${id}">.json</button><button class="btn small${confirmDel===id?' danger':''}" data-act="del" data-id="${id}">${confirmDel===id?'Confirmer ?':'Supprimer'}</button></td></tr>`;}).join('')||'<tr><td colspan="5" class="legend">Aucune partition.</td></tr>';
+      <button class="btn small" data-act="add" data-id="${id}" title="Ajouter à la setlist affichée">+ Setlist</button><button class="btn small" data-act="open" data-id="${id}">Ouvrir</button><button class="btn small" data-act="cc" data-id="${id}" title="Jouer cette partition en Concert">▶ Concert</button><button class="btn small${confirmDel===id?' danger':''}" data-act="del" data-id="${id}">${confirmDel===id?'Confirmer ?':'Supprimer'}</button></td></tr>`;}).join('')||'<tr><td colspan="5" class="legend">Aucune partition.</td></tr>';
   $('#inv-n').textContent=`${L.length} / ${Object.keys(REP.parts).length} partition${Object.keys(REP.parts).length>1?'s':''}`;renderSet();}
 ['#inv-q','#inv-c','#inv-a'].forEach(s=>$(s).addEventListener('input',renderRep));
 $('#inv-head').addEventListener('click',e=>{const th=e.target.closest('[data-k]');if(!th)return;invSort=invSort.k===th.dataset.k?{k:invSort.k,dir:-invSort.dir}:{k:th.dataset.k,dir:1};renderRep();});
 $('#inv-body').addEventListener('change',e=>{const i=e.target.closest('.inv-ren,.inv-ren2');if(!i)return;const p=REP.parts[i.dataset.id];if(!p)return;if(i.classList.contains('inv-ren'))p.M.titre=i.value.trim();else p.M.sous_titre=i.value.trim();
   if(M.id===p.id){M.titre=p.M.titre;M.sous_titre=p.M.sous_titre;persist();renderHeader();}repStore();});
-$('#inv-body').addEventListener('click',async e=>{const b=e.target.closest('[data-act]');if(!b)return;const id=b.dataset.id,p=REP.parts[id],a=b.dataset.act;if(!p)return;
+$('#inv-body').addEventListener('click',async e=>{const b=e.target.closest('[data-act]');if(!b)return;const id=b.dataset.id,p=REP.parts[id],a=b.dataset.act;if(!p)return;if(a==='cc')return ccStart([{id}],0,true);
   if(a!=='del')confirmDel=null;
   if(a==='open')return openPart(id);
   if(a==='dup'){const m=clone(p.M);m.id=uid();m.titre=(m.titre||'Sans titre')+' (copie)';REP.parts[m.id]={id:m.id,M:m,upd:Date.now()};repStore();return renderRep();}
@@ -3004,7 +3041,7 @@ $('#inv-body').addEventListener('click',async e=>{const b=e.target.closest('[dat
   if(a==='pdf'){const kM=M,kG=lastG,kS=sel;M=flatten(clone(p.M));sel=null;lastG=generate();try{await exportPDF();}finally{M=kM;lastG=kG;sel=kS;renderScore();}return;}
   if(a==='add'){const s=curSet();if(!s)return toast('Créez d’abord une setlist');s.items.push({t:'p',id,note:''});repStore();renderSet();toast(`Ajouté à « ${s.name} »`);}});
 const fileOf=m=>((m.titre||'Partition')+(m.sous_titre?' - '+m.sous_titre:'')).replace(/[\/\\:*?"<>|]/g,'-').trim()||'Partition';
-$('#inv-imp').addEventListener('click',()=>$('#f-inv').click());
+$('#inv-imp').addEventListener('click',async()=>{const fs=await pickFiles({multiple:true,desc:'Partitions, setlists',accept:{'application/json':['.json']}});if(fs){if(fs.length)feedInput($('#f-inv'),fs);return;}$('#f-inv').click();});
 $('#f-inv').addEventListener('change',async e=>{const fs=[...(e.target.files||[])];e.target.value='';let n=0;
   for(const f of fs){try{const raw=JSON.parse(await f.text());
     if(raw&&raw.atelierSetlist&&raw.setlist){let np=0,nu=0;Object.values(raw.parts||{}).forEach(p=>{const ex=REP.parts[p.id];if(!ex){REP.parts[p.id]=p;np++;}else if((p.upd||0)>(ex.upd||0)){REP.parts[p.id]=p;nu++;}});
@@ -3013,7 +3050,7 @@ $('#f-inv').addEventListener('change',async e=>{const fs=[...(e.target.files||[]
     const o=isLecteur(raw)?fromLecteur(raw):migrate(raw);if(!o||!o.blocs)continue;delete o.atelier;if(o.rv==null)o.rv=3;if(!o.id||REP.parts[o.id])o.id=uid();REP.parts[o.id]={id:o.id,M:o,upd:Date.now()};n++;}catch(err){}}
   repStore();renderRep();toast(`${n} partition${n>1?'s':''} importée${n>1?'s':''}${n<fs.length?` (${fs.length-n} fichier(s) ignoré(s))`:''}`);});
 $('#rep-save').addEventListener('click',()=>{const d=new Date();(async()=>{const scans={};for(const id of Object.keys(REP.parts)){if(REP.parts[id].M.scan){const x=await idbGet('scan:'+id);if(x)scans[id]=x;}}saveFile(`Répertoire atelier ${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}.json`,JSON.stringify({repertoire:1,...REP,scans}));})();});
-$('#rep-load').addEventListener('click',()=>$('#f-rep').click());
+$('#rep-load').addEventListener('click',async()=>{const fs=await pickFiles({desc:'Sauvegarde du répertoire',accept:{'application/json':['.json']}});if(fs){if(fs.length)feedInput($('#f-rep'),fs);return;}$('#f-rep').click();});
 $('#f-rep').addEventListener('change',async e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
   try{const o=JSON.parse(await f.text());if(!o.parts)throw 0;delete o.scans_;let n=0;Object.values(o.parts).forEach(p=>{REP.parts[p.id]=p;n++;});for(const [id,x] of Object.entries(o.scans||{})){await idbSet('scan:'+id,x);delete scanCache[id];}(o.setlists||[]).forEach(s=>{if(!REP.setlists.some(x=>x.id===s.id))REP.setlists.push(s);});repStore();renderRep();toast(`Répertoire restauré : ${n} partitions`);}
   catch(err){toast('Ce fichier n’est pas une sauvegarde du répertoire');}});
@@ -3026,7 +3063,7 @@ function renderSet(){const s=curSet();$('#set-sel').innerHTML=REP.setlists.map(x
   if(!s){$('#set-list').innerHTML='<li class="legend">Créez une setlist, puis ajoutez des morceaux avec « + Setlist ».</li>';$('#set-tot').textContent='';return;}
   let tot=0,num=0;$('#set-list').innerHTML=s.items.map((x,i)=>{if(x.t==='sep')return`<li class="sep" draggable="true" data-i="${i}"><span class="grip">⠿</span><input class="sep-lab" data-i="${i}" value="${esc(x.label)}"><button class="ibtn sm" data-rm="${i}" title="Retirer">✕</button></li>`;
     const p=REP.parts[x.id];if(!p)return'';num++;const inf=partInfo(p);let d=0;try{d=durOf(p.M);}catch(e){}tot+=d;
-    return`<li draggable="true" data-i="${i}"><span class="grip">⠿</span><b>${num}.</b> <span class="st-t">${esc(inf.titre)}</span><span class="st-i">${esc(inf.inter)}</span><span class="st-d">${fmtDur(d)}</span><input class="it-note" data-i="${i}" value="${esc(x.note||'')}" placeholder="Note (intro ×4…)"><button class="ibtn sm" data-rm="${i}" title="Retirer">✕</button></li>`;}).join('')||'<li class="legend">Setlist vide : ajoutez des morceaux depuis l’inventaire (« + Setlist »).</li>';
+    return`<li draggable="true" data-i="${i}"><span class="grip">⠿</span><b>${num}.</b> <span class="st-t">${esc(inf.titre)}</span><span class="st-i">${esc(inf.inter)}</span><span class="st-d">${fmtDur(d)}</span><input class="it-note" data-i="${i}" value="${esc(x.note||'')}" placeholder="Note (intro ×4…)"><button class="ibtn sm" data-play="${i}" title="Concert à partir de ce morceau">▶</button><button class="ibtn sm" data-rm="${i}" title="Retirer">✕</button></li>`;}).join('')||'<li class="legend">Setlist vide : ajoutez des morceaux depuis l’inventaire (« + Setlist »).</li>';
   $('#set-tot').textContent=`${num} morceau${num>1?'x':''} · durée estimée ${fmtDur(tot)}`;}
 $('#set-sel').addEventListener('change',e=>{REP.curSet=e.target.value;repStore();renderSet();});
 $('#set-new').addEventListener('click',()=>{const s={id:uid(),name:'Setlist '+(REP.setlists.length+1),items:[]};REP.setlists.push(s);REP.curSet=s.id;repStore();renderSet();setTimeout(()=>$('#set-ren').click(),0);});
@@ -3036,7 +3073,7 @@ $('#set-name').addEventListener('keydown',e=>{if(e.key==='Enter')e.target.blur()
 $('#set-dup').addEventListener('click',()=>{const s=curSet();if(!s)return;const c={...clone(s),id:uid(),name:s.name+' (copie)'};REP.setlists.push(c);REP.curSet=c.id;repStore();renderSet();});
 let delSet=false;$('#set-del').addEventListener('click',()=>{const s=curSet();if(!s)return;if(!delSet){delSet=true;$('#set-del').textContent='Confirmer ?';return;}delSet=false;$('#set-del').textContent='Supprimer';REP.setlists=REP.setlists.filter(x=>x!==s);REP.curSet=REP.setlists[0]?REP.setlists[0].id:null;repStore();renderSet();});
 $('#set-sep').addEventListener('click',()=>{const s=curSet();if(!s)return;s.items.push({t:'sep',label:'Pause'});repStore();renderSet();});
-$('#set-list').addEventListener('click',e=>{const r=e.target.closest('[data-rm]');if(!r)return;const s=curSet();s.items.splice(+r.dataset.rm,1);repStore();renderSet();});
+$('#set-list').addEventListener('click',e=>{const pl=e.target.closest('[data-play]');if(pl){const s=curSet();if(!s)return;const it=s.items[+pl.dataset.play];const steps=s.items.filter(x=>x.t==='sep'||REP.parts[x.id]);return ccStart(steps,steps.indexOf(it),false);}const r=e.target.closest('[data-rm]');if(!r)return;const s=curSet();s.items.splice(+r.dataset.rm,1);repStore();renderSet();});
 $('#set-list').addEventListener('change',e=>{const s=curSet();const t=e.target;if(t.classList.contains('it-note'))s.items[+t.dataset.i].note=t.value;if(t.classList.contains('sep-lab'))s.items[+t.dataset.i].label=t.value;repStore();});
 {let dragI=null;const L=$('#set-list');L.addEventListener('dragstart',e=>{const li=e.target.closest('li[data-i]');if(!li)return;dragI=+li.dataset.i;e.dataTransfer.effectAllowed='move';li.classList.add('drag');});
   L.addEventListener('dragover',e=>{if(dragI!=null)e.preventDefault();});
@@ -3052,11 +3089,16 @@ let CC=null;
 function renderConcertSetup(){const s=curSet();$('#cc-sel').innerHTML=REP.setlists.map(x=>`<option value="${x.id}"${s&&x.id===s.id?' selected':''}>${esc(x.name)}</option>`).join('')||'<option value="">— aucune setlist : créez-en une dans le Répertoire —</option>';
   let dev='mac';try{dev=localStorage.getItem('atelier-concert-app')||'mac';}catch(e){}document.querySelectorAll('#cc-dev [data-dev]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.dev===dev));$('#cc-go').disabled=!REP.setlists.length;}
 $('#cc-dev').addEventListener('click',e=>{const b=e.target.closest('[data-dev]');if(!b)return;try{localStorage.setItem('atelier-concert-app',b.dataset.dev);}catch(err){}renderConcertSetup();});
-$('#cc-go').addEventListener('click',()=>{const s=REP.setlists.find(x=>x.id===$('#cc-sel').value);if(!s)return;const steps=s.items.filter(x=>x.t==='sep'||REP.parts[x.id]);if(!steps.length)return toast('Setlist vide');
+$('#cc-go').addEventListener('click',()=>{const s=REP.setlists.find(x=>x.id===$('#cc-sel').value);if(!s)return;const steps=s.items.filter(x=>x.t==='sep'||REP.parts[x.id]);if(!steps.length)return toast('Setlist vide');ccStart(steps,0,false);});
+function ccStart(steps,k0,single){if(Player.playing)stopPlay();
   let dev='mac';try{dev=localStorage.getItem('atelier-concert-app')||'mac';}catch(e){}
-  CC={s,steps,k:0,dev,pl:dev==='ipad'?2:4,night:document.documentElement.hasAttribute('data-night'),lock:null};document.documentElement.setAttribute('data-night','');
-  const o=$('#concert');o.hidden=false;o.dataset.dev=dev;try{if(o.requestFullscreen)o.requestFullscreen().catch(()=>{});}catch(e){}
-  try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(l=>CC&&(CC.lock=l)).catch(()=>{});}catch(e){}ccShow();});
+  CC={steps,k:Math.max(0,k0||0),single:!!single,dev,pl:dev==='ipad'?2:4,night:document.documentElement.hasAttribute('data-night'),lock:null,num:''};ccApplyDN(ccNightPref());
+  const o=$('#concert');o.hidden=false;o.dataset.dev=dev;o.classList.toggle('single',CC.single);try{if(o.requestFullscreen)o.requestFullscreen().catch(()=>{});}catch(e){}
+  try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(l=>CC&&(CC.lock=l)).catch(()=>{});}catch(e){}ccShow();}
+/* section 113.2 : Concert en mode jour ou nuit, choix mémorisé */
+function ccNightPref(){try{return localStorage.getItem('atelier-concert-nuit')!=='0';}catch(e){return true;}}
+function ccApplyDN(n){if(n)document.documentElement.setAttribute('data-night','');else document.documentElement.removeAttribute('data-night');$('#concert').classList.toggle('day',!n);$('#cc-dn').textContent=n?'☀ Jour':'☾ Nuit';}
+function ccToggleDN(){const n=!document.documentElement.hasAttribute('data-night');try{localStorage.setItem('atelier-concert-nuit',n?'1':'0');}catch(e){}ccApplyDN(n);}
 function ccStepTitle(x){if(!x)return'';if(x.t==='sep')return x.label||'Pause';const p=REP.parts[x.id];return p?partInfo(p).titre:'';}
 function ccShow(){if(!CC)return;const x=CC.steps[CC.k],nx=CC.steps[CC.k+1];const numTot=CC.steps.filter(z=>z.t!=='sep').length,num=CC.steps.slice(0,CC.k+1).filter(z=>z.t!=='sep').length;
   const head=$('#cc-head'),body=$('#cc-body');
@@ -3064,24 +3106,52 @@ function ccShow(){if(!CC)return;const x=CC.steps[CC.k],nx=CC.steps[CC.k+1];const
   else{const p=REP.parts[x.id];const inf=partInfo(p);let html='',key='',tempo=p.M.tempo;
     plOverride=CC.pl;try{html=withPart(p.M,G=>{G.labelW=Math.max(0,...G.lines.filter(l=>l.label).map(l=>labelW(l.label)+6));G.labN=Math.max(1,...G.lines.filter(l=>l.label).map(l=>splitLabel(l.label).length));prepCros(G,'notes',true);key=G.keyTxt;
       return G.lines.map((l,i)=>`<div class="cc-line">${lineSVG(G,l,i,{mode:'notes',exp:true})}</div>`).join('');});}finally{plOverride=null;}
-    head.innerHTML=`<span class="cc-t">${esc(inf.titre)}</span><span class="cc-i">${esc(inf.inter)}</span><span class="cc-k">${esc(key)} · ♩ = ${tempo}</span><span class="cc-n">${num} / ${numTot}</span>${x.note?`<span class="cc-note">${esc(x.note)}</span>`:''}`;body.innerHTML=html;}
-  $('#cc-next').textContent=nx?'Suivant : '+ccStepTitle(nx):'Fin de la setlist';body.scrollTop=0;}
+    head.innerHTML=`<span class="cc-t">${esc(inf.titre)}</span><span class="cc-i">${esc(inf.inter)}</span><span class="cc-k">♩ = ${tempo}</span><span class="cc-n">${num} / ${numTot}</span>${x.note?`<span class="cc-note">${esc(x.note)}</span>`:''}`;body.innerHTML=html;}
+  {const cb=$('#cc-clic');if(x.t==='sep')cb.textContent='♩ Clic';else cb.textContent='♩ Clic ×'+ccBeat(REP.parts[x.id]).beats;}$('#cc-next').textContent=CC.single?'':nx?'Suivant : '+ccStepTitle(nx):'Fin de la setlist';body.scrollTop=0;ccListClose();if(CC.mt||CC.mtOn){CC.mtOn=false;const x2=CC.steps[CC.k];if(x2.t==='sep')ccMetroStop();else ccMetroStart();}}
 function ccMove(dir){if(!CC)return;const b=$('#cc-body');const page=b.clientHeight*0.9;
   if(dir>0){if(b.scrollTop+b.clientHeight<b.scrollHeight-4)b.scrollBy({top:page,behavior:'smooth'});else if(CC.k<CC.steps.length-1){CC.k++;ccShow();}}
   else{if(b.scrollTop>4)b.scrollBy({top:-page,behavior:'smooth'});else if(CC.k>0){CC.k--;ccShow();}}}
-function ccExit(){if(!CC)return;if(!CC.night)document.documentElement.removeAttribute('data-night');try{if(CC.lock)CC.lock.release();}catch(e){}try{if(document.fullscreenElement)document.exitFullscreen();}catch(e){}CC=null;$('#concert').hidden=true;}
-function ccClick(){if(!CC)return;const x=CC.steps[CC.k];if(x.t==='sep'||!ensureCtx())return;const p=REP.parts[x.id];const spb=60/(+p.M.tempo||100);const t0=Player.ctx.currentTime+0.1;if(!Player.master){Player.master=Player.ctx.createGain();Player.master.connect(Player.ctx.destination);}
-  for(let i=0;i<4;i++)voice({k:'clic',fort:i===0},t0+i*spb);}
+function ccExit(){if(!CC)return;ccListClose();ccMetroStop();if(CC.night)document.documentElement.setAttribute('data-night','');else document.documentElement.removeAttribute('data-night');$('#concert').classList.remove('day');try{if(CC.lock)CC.lock.release();}catch(e){}try{if(document.fullscreenElement)document.exitFullscreen();}catch(e){}CC=null;$('#concert').hidden=true;}
+/* section 116 : temps par mesure (ternaire : noire pointée) et durée d'un temps */
+function ccBeat(p){const sg=p.M.signature||{temps:4,unite:4};const ternary=sg.unite===8&&sg.temps%3===0;return{beats:ternary?sg.temps/3:sg.temps,spb:60/(+p.M.tempo||100)*(ternary?1.5:4/(sg.unite||4))};}
+function ccClick(){if(!CC)return;const x=CC.steps[CC.k];if(x.t==='sep'||!ensureCtx())return;const p=REP.parts[x.id];const {beats,spb}=ccBeat(p);const t0=Player.ctx.currentTime+0.1;if(Player.playing)stopPlay(true);try{if(Player.ctx.state!=='running')Player.ctx.resume();}catch(e){}Player.master=Player.ctx.createGain();Player.master.gain.value=0.9;Player.master.connect(Player.ctx.destination);
+  for(let i=0;i<2*beats;i++)voice({k:'clic',fort:i%beats===0},t0+i*spb);return t0;}
 document.addEventListener('keydown',e=>{if(!CC)return;const k=e.key;
+  if(ccListOpen()){e.preventDefault();e.stopImmediatePropagation();if(k==='Escape'||k==='l'||k==='L')return ccListClose();if(k==='ArrowDown'||k==='ArrowUp')return ccListMove(k==='ArrowDown'?1:-1);if(k==='Enter')return ccListGo();return;}
+  if(k==='l'||k==='L'){e.preventDefault();e.stopImmediatePropagation();return ccListOpenFn();}
+  if(k==='n'||k==='N'){e.preventDefault();e.stopImmediatePropagation();return ccToggleDN();}
+  if(k==='m'||k==='M'){e.preventDefault();e.stopImmediatePropagation();return ccMetroToggle();}
+  if(k==='c'||k==='C'){e.preventDefault();e.stopImmediatePropagation();return ccClick();}
+  if(/^[0-9]$/.test(k)&&!CC.single){e.preventDefault();e.stopImmediatePropagation();CC.num=(CC.num||'')+k;ccNumShow();return;}
+  if(k==='Enter'&&CC.num){e.preventDefault();e.stopImmediatePropagation();const n=+CC.num;CC.num='';ccNumShow();return ccGoNum(n);}
+  if(k==='Backspace'&&CC.num){e.preventDefault();e.stopImmediatePropagation();CC.num=CC.num.slice(0,-1);ccNumShow();return;}
+  if(k==='Home'||k==='End'){e.preventDefault();e.stopImmediatePropagation();const idx=CC.steps.map((z,i)=>z.t==='sep'?-1:i).filter(i=>i>=0);if(idx.length){CC.k=k==='Home'?idx[0]:idx[idx.length-1];ccShow();}return;}
+  if(k==='Escape'&&CC.num){e.preventDefault();e.stopImmediatePropagation();CC.num='';ccNumShow();return;}
   if(k===' '||k==='ArrowRight'||k==='ArrowDown'||k==='PageDown'){e.preventDefault();e.stopImmediatePropagation();ccMove(1);}
   else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'){e.preventDefault();e.stopImmediatePropagation();ccMove(-1);}
   else if(k==='Escape'){e.preventDefault();e.stopImmediatePropagation();ccExit();}
-  else if(k==='+'||k==='='){e.preventDefault();e.stopImmediatePropagation();CC.pl=Math.max(1,CC.pl-1);ccShow();}
-  else if(k==='-'||k==='_'){e.preventDefault();e.stopImmediatePropagation();CC.pl=Math.min(10,CC.pl+1);ccShow();}
   else e.stopImmediatePropagation();},true);
 $('#cc-body').addEventListener('click',e=>{const r=$('#cc-body').getBoundingClientRect();ccMove(e.clientX>r.left+r.width/3?1:-1);});
-$('#cc-exit').addEventListener('click',ccExit);$('#cc-clic').addEventListener('click',ccClick);
-$('#cc-plus').addEventListener('click',()=>{CC.pl=Math.max(1,CC.pl-1);ccShow();});$('#cc-minus').addEventListener('click',()=>{CC.pl=Math.min(10,CC.pl+1);ccShow();});
+$('#cc-exit').addEventListener('click',ccExit);$('#cc-dn').addEventListener('click',e=>{e.stopPropagation();ccToggleDN();});
+/* section 112.2 : liste rapide, numéro direct */
+function ccListOpen(){return !!document.getElementById('cc-qlist');}
+function ccListClose(){const o=document.getElementById('cc-qlist');if(o)o.remove();}
+function ccListOpenFn(){if(!CC||CC.single)return;ccListClose();let num=0;const o=document.createElement('div');o.id='cc-qlist';o.dataset.k=CC.k;
+  o.innerHTML='<div class="ccq-box">'+CC.steps.map((x,i)=>x.t==='sep'?`<div class="ccq-sep">${esc(x.label||'Pause')}</div>`:`<button class="ccq-it${i===CC.k?' on':''}" data-k="${i}"><b>${++num}.</b> ${esc(ccStepTitle(x))}</button>`).join('')+'</div>';
+  o.addEventListener('click',e=>{e.stopPropagation();const b=e.target.closest('[data-k]');if(b){CC.k=+b.dataset.k;ccShow();}else if(!e.target.closest('.ccq-box'))ccListClose();});
+  $('#concert').appendChild(o);const on=o.querySelector('.on');if(on)on.scrollIntoView({block:'center'});}
+function ccListMove(d){const o=document.getElementById('cc-qlist');if(!o)return;const its=[...o.querySelectorAll('.ccq-it')];let i=its.findIndex(b=>b.classList.contains('on'));i=Math.max(0,Math.min(its.length-1,i+d));its.forEach((b,j)=>b.classList.toggle('on',j===i));its[i].scrollIntoView({block:'nearest'});}
+function ccListGo(){const o=document.getElementById('cc-qlist');const b=o&&o.querySelector('.ccq-it.on');if(b){CC.k=+b.dataset.k;ccShow();}else ccListClose();}
+function ccGoNum(n){const idx=CC.steps.map((z,i)=>z.t==='sep'?-1:i).filter(i=>i>=0);if(n>=1&&n<=idx.length){CC.k=idx[n-1];ccShow();}else toast(`Morceau ${n} : la setlist en compte ${idx.length}`);}
+function ccNumShow(){let o=document.getElementById('cc-num');if(!CC||!CC.num){if(o)o.remove();return;}if(!o){o=document.createElement('div');o.id='cc-num';$('#concert').appendChild(o);}o.textContent='→ '+CC.num;clearTimeout(ccNumShow.t);ccNumShow.t=setTimeout(()=>{if(CC){CC.num='';}ccNumShow();},2500);}
+$('#cc-list').addEventListener('click',e=>{e.stopPropagation();ccListOpen()?ccListClose():ccListOpenFn();});$('#cc-clic').addEventListener('click',ccClick);
+/* section 114.2 : métronome visuel muet */
+function ccMetroStop(){if(CC&&CC.mt){clearTimeout(CC.mt.to);CC.mt=null;}const d=$('#cc-metro');d.classList.remove('on','flash','fort');}
+function ccMetroStart(count){if(!CC)return;ccMetroStop();const x=CC.steps[CC.k];if(!x||x.t==='sep')return;const p=REP.parts[x.id];const {beats,spb}=ccBeat(p);
+  const ms=spb*1000;let t0=performance.now();if(count){const a=ccClick();if(a!=null)t0+=Math.max(0,(a-Player.ctx.currentTime)*1000);}let i=0;const btn=$('#cc-metro');btn.classList.add('on');CC.mt={};
+  const tick=()=>{if(!CC||!CC.mt)return;btn.classList.remove('flash','fort');btn.classList.add(i%beats===0?'fort':'flash');setTimeout(()=>btn.classList.remove('flash','fort'),Math.min(140,ms*0.4));i++;CC.mt.to=setTimeout(tick,Math.max(10,t0+i*ms-performance.now()));};CC.mt.to=setTimeout(tick,Math.max(0,t0-performance.now()));}
+function ccMetroToggle(){if(CC&&CC.mt)ccMetroStop();else ccMetroStart(true);}
+$('#cc-metro').addEventListener('click',e=>{e.stopPropagation();ccMetroToggle();});
 
 /* ===================== Lecture des manuscrits (moteur repris du Lecteur) ===================== */
 const LECT=(()=>{
@@ -3732,6 +3802,67 @@ function moveString(dir){{const e0=curEv();const mb=e0&&memberOf(e0);if(mb){cons
     if(k===e0.corde||(e0.xs||[]).some(z=>z.corde===k))return toast('Cette corde porte déjà une note de l’accord');let f=mb.p-tun[n-k];if(f<0||f>24)f=mb.case;const old=sel.ck;sel.ck=k;return chordEdit(mem=>{const z=mem.find(z=>z.k===old);z.k=k;z.f=f;return mem;});}}const e=curEv();if(!e||(e.kind!=='note'&&e.kind!=='morte'))return;const tun=lastG.tun,n=tun.length;const k=e.corde+dir;if(k<1||k>n)return toast(dir<0?'Pas de corde plus aiguë':'Pas de corde plus grave');
   if(e.kind==='morte')return mutateP(()=>{const o=ovOf();o.corde=k;o.case=0;o.morte=true;},'Note morte : corde de '+pcName(tun[n-k]));
   let f=e.pitch-tun[n-k],msg=null;if(f<0||f>24){f=e.case||0;msg=`Corde de ${pcName(tun[n-k])}, case ${f} : ${pcName(tun[n-k]+f)}`;}mutateP(()=>{const o=ovOf();o.corde=k;o.case=f;},msg);setTimeout(()=>autoListen('mes',{bi:sel.bi,mi:sel.mi}),0);}
+
+/* ===================== section 122 : synchronisation du Répertoire avec Google Drive ===================== */
+var GS={tok:null,exp:0,fid:null,on:false,busy:false,dirty:false,last:0,err:'',auth:false,t:null};
+const GDEF='665673713036-ot8oi63pfbarrpcah723laf9adp2col4.apps.googleusercontent.com';
+const GSYNC_OK=location.protocol==='https:'&&!(window.claude&&window.claude.use);
+const GD='https://www.googleapis.com/drive/v3/files',GU='https://www.googleapis.com/upload/drive/v3/files',GNAME='bibliothèque.json';
+function gsCid(){try{return localStorage.getItem('atelier-gclient')||GDEF;}catch(e){return GDEF;}}
+function gsLoadState(){try{const o=JSON.parse(localStorage.getItem('atelier-gsync')||'null');if(o){GS.on=!!o.on;GS.fid=o.fid||null;GS.last=o.last||0;if(o.tok&&o.exp>Date.now()+60000){GS.tok=o.tok;GS.exp=o.exp;}}}catch(e){}}
+function gsSave(){try{localStorage.setItem('atelier-gsync',JSON.stringify({on:GS.on,fid:GS.fid,last:GS.last,tok:GS.tok,exp:GS.exp}));}catch(e){}}
+function gsBase(){try{return JSON.parse(localStorage.getItem('atelier-gbase')||'{}');}catch(e){return{};}}
+function gsBaseSet(b){try{localStorage.setItem('atelier-gbase',JSON.stringify(b));}catch(e){}}
+function gsScript(){return new Promise((ok,ko)=>{if(window.google&&google.accounts&&google.accounts.oauth2)return ok();const sc=document.createElement('script');sc.src='https://accounts.google.com/gsi/client';sc.async=true;sc.onload=()=>ok();sc.onerror=()=>ko(new Error('Google injoignable (hors ligne ?)'));document.head.appendChild(sc);});}
+async function gsToken(interactive){if(GS.tok&&GS.exp>Date.now()+60000)return GS.tok;if(!interactive)return null;await gsScript();
+  return new Promise((ok,ko)=>{const tc=google.accounts.oauth2.initTokenClient({client_id:gsCid(),scope:'https://www.googleapis.com/auth/drive.file',
+    callback:r=>{if(r&&r.access_token){GS.tok=r.access_token;GS.exp=Date.now()+(+r.expires_in||3600)*1000;GS.auth=false;gsSave();ok(GS.tok);}else ko(new Error((r&&r.error)||'connexion refusée'));},
+    error_callback:e=>ko(new Error(e&&e.type==='popup_closed'?'fenêtre Google fermée':e&&e.type==='popup_failed_to_open'?'fenêtre Google bloquée par le navigateur':(e&&e.message)||'connexion impossible'))});
+    tc.requestAccessToken({prompt:GS.on?'':'consent'});});}
+async function gapi(url,opt){opt=opt||{};const r=await fetch(url,{...opt,headers:{...(opt.headers||{}),Authorization:'Bearer '+GS.tok}});
+  if(r.status===401){GS.tok=null;GS.exp=0;GS.auth=true;gsSave();throw new Error('session Google expirée');}if(!r.ok)throw new Error('Google Drive : erreur '+r.status);return r;}
+async function gsFind(){if(GS.fid){try{const o=await (await gapi(GD+'/'+GS.fid+'?fields=id,trashed')).json();if(!o.trashed)return GS.fid;}catch(e){if(GS.auth)throw e;}GS.fid=null;}
+  const q=encodeURIComponent(`name='${GNAME}' and trashed=false`);const o=await (await gapi(GD+'?q='+q+'&orderBy=modifiedTime%20desc&fields=files(id)')).json();
+  if(o.files&&o.files.length){GS.fid=o.files[0].id;gsSave();return GS.fid;}return null;}
+async function gsFolder(){const q=encodeURIComponent("name='Atelier basse' and mimeType='application/vnd.google-apps.folder' and trashed=false");const o=await (await gapi(GD+'?q='+q+'&fields=files(id)')).json();
+  if(o.files&&o.files.length)return o.files[0].id;return (await (await gapi(GD+'?fields=id',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:'Atelier basse',mimeType:'application/vnd.google-apps.folder'})})).json()).id;}
+async function gsUpload(txt){if(GS.fid){await gapi(GU+'/'+GS.fid+'?uploadType=media',{method:'PATCH',headers:{'Content-Type':'application/json; charset=UTF-8'},body:txt});return;}
+  const par=await gsFolder();const b='atelier'+Date.now();const body=`--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify({name:GNAME,parents:[par],mimeType:'application/json'})}\r\n--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${txt}\r\n--${b}--`;
+  GS.fid=(await (await gapi(GU+'?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+b},body})).json()).id;gsSave();}
+/* fusion : le plus récent l'emporte ; suppressions transmises ; modifié des deux côtés depuis le dernier échange → copie « (conflit) » */
+function repMerge(L,R,base){const del={...(R.del||{})};Object.entries(L.del||{}).forEach(([k,t])=>{del[k]=Math.max(del[k]||0,t);});
+  const parts={};let conf=0;const LP=L.parts||{},RP=R.parts||{};new Set([...Object.keys(LP),...Object.keys(RP)]).forEach(id=>{const a=LP[id],b=RP[id];const w=!a?b:!b?a:((b.upd||0)>(a.upd||0)?b:a);
+    if(a&&b&&(a.upd||0)!==(b.upd||0)&&base[id]!=null&&(a.upd||0)>base[id]&&(b.upd||0)>base[id]&&JSON.stringify(a.M)!==JSON.stringify(b.M)){const lo=w===a?b:a;const cid=uid();const cm=clone(lo.M);cm.id=cid;cm.titre=(cm.titre||'Sans titre')+' (conflit)';parts[cid]={id:cid,M:cm,upd:Math.max(lo.upd||0,(w.upd||0)+1)};conf++;}
+    if(del[id]&&del[id]>=(w.upd||0))return;parts[id]=w;});
+  const LS=L.setlists||[],RS=R.setlists||[],ord=[...LS.map(x=>x.id),...RS.map(x=>x.id).filter(id=>!LS.some(x=>x.id===id))];const setlists=[];
+  ord.forEach(id=>{const a=LS.find(x=>x.id===id),b=RS.find(x=>x.id===id);const w=!a?b:!b?a:((b.upd||0)>(a.upd||0)?b:a);if(del[id]&&del[id]>=(w.upd||0))return;setlists.push(w);});
+  const lim=Date.now()-120*864e5;Object.keys(del).forEach(k=>{if(del[k]<lim)delete del[k];});return{parts,setlists,del,conf};}
+async function gsSync(interactive){if(!GSYNC_OK||GS.busy)return;if(!GS.on&&!interactive)return;if(!navigator.onLine&&!interactive){gsUI();return;}
+  GS.busy=true;gsUI();
+  try{if(!await gsToken(interactive)){GS.auth=true;return;}GS.on=true;GS.auth=false;gsSave();
+    const fid=await gsFind();let R={parts:{},setlists:[],del:{}};if(fid){try{const o=await (await gapi(GD+'/'+fid+'?alt=media')).json();if(o&&o.parts)R=o;}catch(e){if(GS.auth)throw e;}}
+    repSync();const old=M&&REP.parts[M.id]?REP.parts[M.id].upd:null;const m=repMerge(REP,R,gsBase());
+    REP.parts=m.parts;REP.setlists=m.setlists;REP.del=m.del;if(REP.curSet&&!REP.setlists.some(x=>x.id===REP.curSet))REP.curSet=REP.setlists[0]?REP.setlists[0].id:null;
+    repTrack(true);repStoreRaw();
+    if(M&&M.id&&REP.parts[M.id]&&REP.parts[M.id].upd!==old){M=flatten(clone(REP.parts[M.id].M));sel=null;persist();try{hideP();}catch(e){}renderHeader();renderAll();toast('Partition mise à jour depuis Google Drive');}
+    const out=JSON.stringify({atelierBiblio:1,parts:REP.parts,setlists:REP.setlists,del:REP.del});
+    if(!fid||JSON.stringify({atelierBiblio:1,parts:R.parts||{},setlists:R.setlists||[],del:R.del||{}})!==out)await gsUpload(out);
+    const nb={};Object.values(REP.parts).forEach(p=>nb[p.id]=p.upd||0);REP.setlists.forEach(x=>nb[x.id]=x.upd||0);gsBaseSet(nb);
+    GS.dirty=false;GS.last=Date.now();GS.err='';gsSave();if(m.conf)toast(`${m.conf} partition(s) modifiée(s) sur deux appareils : la plus récente est gardée, l’autre copiée « … (conflit) »`);
+    if(!document.querySelector('[data-view="rep"]').hidden)renderRep();}
+  catch(e){GS.err=e.message||String(e);}finally{GS.busy=false;gsUI();}}
+function gsSoon(){if(typeof GS==='undefined'||!GS.on||!GS.dirty)return;clearTimeout(GS.t);GS.t=setTimeout(()=>gsSync(false),4000);}
+function gsAgo(t){const d=Math.round((Date.now()-t)/60000);return d<1?'à l’instant':d<60?`il y a ${d} min`:`il y a ${Math.round(d/60)} h`;}
+function gsUI(){if(!GSYNC_OK)return;const st=$('#gs-st'),bd=$('#gs-badge');let t,c='';
+  if(GS.busy){t='Synchronisation…';c='busy';}else if(!GS.on){t='Non connectée';}else if(GS.auth||!GS.tok){t='Reconnexion nécessaire : touchez « Synchroniser maintenant » ou ☁';c='err';}
+  else if(GS.err){t='Erreur : '+GS.err;c='err';}else if(!navigator.onLine){t='Hors ligne (dernière synchronisation '+gsAgo(GS.last)+')';c='err';}else{t='Synchronisé '+(GS.last?gsAgo(GS.last):'');c='ok';}
+  st.textContent=t;bd.className='ibtn '+c;bd.title='Google Drive : '+t;bd.hidden=!GS.on;$('#gs-conn').hidden=GS.on;$('#gs-now').hidden=!GS.on;$('#gs-off').hidden=!GS.on;}
+if(GSYNC_OK){$('#gs-card').hidden=false;gsLoadState();$('#gs-cid').value=gsCid();
+  $('#gs-cid').addEventListener('change',e=>{try{const v=e.target.value.trim();if(v&&v!==GDEF)localStorage.setItem('atelier-gclient',v);else localStorage.removeItem('atelier-gclient');}catch(err){}toast('ID client enregistré');});
+  $('#gs-conn').addEventListener('click',()=>gsSync(true));$('#gs-now').addEventListener('click',()=>gsSync(true));$('#gs-badge').addEventListener('click',()=>gsSync(true));
+  $('#gs-off').addEventListener('click',()=>{try{if(GS.tok&&window.google&&google.accounts)google.accounts.oauth2.revoke(GS.tok,()=>{});}catch(e){}GS.on=false;GS.tok=null;GS.exp=0;GS.fid=null;gsSave();gsBaseSet({});gsUI();toast('Déconnectée de Google Drive (le Répertoire reste sur cet appareil)');});
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')gsSync(false);});window.addEventListener('online',()=>gsSync(false));window.addEventListener('offline',gsUI);
+  setInterval(()=>gsSync(false),180000);setInterval(gsUI,60000);gsUI();setTimeout(()=>gsSync(false),800);}
 
 repLoad();
 M=restore();migrateRv();if(M.preset==='dropd')M.preset='standard';repSync();renderHeader();renderAll();setSettings(!(M.titre&&M.titre.trim()));
