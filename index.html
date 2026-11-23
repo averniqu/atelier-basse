@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<!-- Atelier de lignes de basse — fonctionne sans Claude et hors ligne (JSZip et jsPDF intégrés) — version 116 -->
+<!-- Atelier de lignes de basse — fonctionne sans Claude et hors ligne (JSZip et jsPDF intégrés) — version 117 -->
 <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Atelier basse"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="theme-color" content="#17202C">
 </head><body>
 <title>Atelier de lignes de basse</title>
@@ -241,7 +241,8 @@ ol.setl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
 #cc-metro.on{background:#1d3a6b;color:#fff;border-color:#1d3a6b}#cc-metro.flash{background:#2fbf71!important;border-color:#2fbf71!important;color:#000!important;box-shadow:0 0 14px #2fbf71}#cc-metro.fort{background:#ff4d4d!important;border-color:#ff4d4d!important;color:#fff!important;box-shadow:0 0 18px #ff4d4d}.cc-tools:has(#cc-metro.on){opacity:1}
 #gs-badge.ok{color:var(--ok)}#gs-badge.err{color:var(--warn)}#gs-badge.busy{animation:gsb 1s linear infinite}@keyframes gsb{50%{opacity:.3}}
 .cc-page+.cc-page{border-top:1px dashed #555;margin-top:10px;padding-top:4px}#concert.day .cc-page+.cc-page{border-top-color:#bbb}.cc-pno{text-align:right;font:600 12px var(--body);color:#999;margin:2px 4px 0}
-#cc-body{flex:1;overflow:auto;padding:10px 16px;cursor:pointer}.cc-line svg{width:100%!important;height:auto;min-width:0!important}.cc-line{margin-bottom:6px}#concert[data-dev="ipad"] .cc-line{margin-bottom:12px}
+.kpad{z-index:45}.kgrid{display:grid;grid-template-columns:repeat(5,52px);gap:5px;padding:2px}.kgrid .btn{height:46px;font:700 18px var(--body);padding:0}#t-pad[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+#cc-body{flex:1;overflow:auto;touch-action:pan-x pan-y;padding:10px 16px;cursor:pointer}.cc-line svg{width:calc(100% * var(--ccz,1))!important;height:auto;min-width:0!important;display:block;margin:0 auto}.cc-line{margin-bottom:6px}#concert[data-dev="ipad"] .cc-line{margin-bottom:12px}
 .cc-sep{display:grid;place-items:center;height:100%;font:800 64px var(--display);text-transform:uppercase;color:#fff}
 .cc-foot{display:flex;align-items:center;gap:12px;padding:8px 16px;border-top:1px solid #333;font:700 18px var(--body);color:#ddd}#concert.day .cc-foot{border-top-color:#ddd;color:#444}
 #zoom{position:fixed;inset:0;z-index:95;background:rgb(0 0 0 / .85);overflow:auto;cursor:zoom-out;padding:16px}#zoom[hidden]{display:none}#zoom img{width:180%;max-width:none;background:#fff}.scanrow{display:flex;flex-direction:column;gap:2px;margin:8px 0 2px}.scanrow img{width:100%;border:1px solid var(--rule);border-radius:4px;background:#fff;cursor:zoom-in}#b-scan[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
@@ -285,7 +286,7 @@ ol.setl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
       
       
       
-      <span id="touchbar"><button class="btn small" id="t-multi" aria-pressed="false" title="Sélection multiple : toucher la première puis la dernière mesure (ou ligne)">Sélection multiple</button><button class="btn small" data-k="ArrowLeft" aria-label="Précédent">◀</button><button class="btn small" data-k="ArrowRight" aria-label="Suivant">▶</button><button class="btn small" data-k="Backspace" aria-label="Supprimer">⌫</button><button class="btn small" data-k="Escape" aria-label="Fermer">✕</button></span>
+      <span id="touchbar"><button class="btn small" id="t-multi" aria-pressed="false" title="Sélection multiple : toucher la première puis la dernière mesure (ou ligne)">Sélection multiple</button><button class="btn small" data-k="ArrowLeft" aria-label="Précédent">◀</button><button class="btn small" data-k="ArrowRight" aria-label="Suivant">▶</button><button class="btn small" data-k="Backspace" aria-label="Supprimer">⌫</button><button class="btn small" data-k="Escape" aria-label="Fermer">✕</button><button class="btn small" id="t-pad" aria-pressed="false" title="Pavé de saisie (cases, x, s, flèches…)">⌨ Pavé</button></span>
       <button class="btn small" id="b-scan" hidden data-off="1" aria-pressed="false">Afficher le manuscrit</button>
       <button class="btn small" id="b-num" aria-pressed="false" title="Afficher les numéros de mesure">N°</button><span id="lcount" class="legend" title="Lignes de portée et pages du PDF A4"></span>
       <button class="btn small" id="b-alerts" hidden title="Voir les points à vérifier, sous la partition"></button><span class="zoomb" title="Zoom de la partition"><button class="btn small" id="z-out" aria-label="Réduire">−</button><button class="btn small" id="z-fit">Zoom</button><button class="btn small" id="z-in" aria-label="Agrandir">+</button></span><button class="btn small" id="b-help" aria-expanded="false" title="Aide : zones de clic et raccourcis">?</button>
@@ -1879,16 +1880,16 @@ function tabLevel(dir,chk){if(chk||!sel||sel.t==='ev'||sel.t==='evr'||sel.t==='s
   return tabNote(dir,false);}
 /* zoom de la partition (boutons, pincement, ⌘+molette) ; 1 = ajustée à la largeur */
 /* sur Mac : 100 % = taille réelle d'impression A4 (calibrage de l'écran par une carte bancaire) */
-const IS_MAC=/Mac/.test(navigator.platform||navigator.userAgent)&&!(navigator.maxTouchPoints>1);const ZMIN=IS_MAC?0.5:1;
+const IS_MAC=/Mac/.test(navigator.platform||navigator.userAgent)&&!(navigator.maxTouchPoints>1);const ZMIN=0.5;
 let PPI=127;try{PPI=+localStorage.getItem('atelier-ppi')||127;}catch(e){}
 let ZOOM=1;try{ZOOM=Math.min(2.5,Math.max(ZMIN,+localStorage.getItem('atelier-zoom')||1));}catch(e){}
-const ZSTEPS=IS_MAC?[0.5,0.75,1,1.25,1.5,1.75,2,2.5]:[1,1.25,1.5,1.75,2,2.5];
+const ZSTEPS=[0.5,0.75,1,1.25,1.5,1.75,2,2.5];
 function applyZoom(){const L=$('#lines');if(!L)return;const svgs=[...L.querySelectorAll('.tab > svg')];if(!svgs.length)return;
   const maxW=Math.max(1,...svgs.map(sv=>sv.viewBox.baseVal.width));
   if(!IS_MAC&&ZOOM<=1.001&&isPhone()){L.classList.remove('zoomed');svgs.forEach(sv=>{sv.style.width='';sv.style.maxWidth='';});}
   else{/* tablette (section 123) : la ligne la plus large tient exactement dans la largeur de l'écran *//* Mac : échelle d'impression (pleine largeur A4, section 76) convertie en pixels réels de l'écran */
     const base=IS_MAC?(567.28/Math.max(1,maxW-60))*PPI/72:(isPhone()?Math.min(1,L.clientWidth/maxW):(L.clientWidth-2)/maxW);const sc=ZOOM*base;
-    svgs.forEach(sv=>{sv.style.width=Math.round(sv.viewBox.baseVal.width*sc)+'px';sv.style.maxWidth='none';sv.style.height='auto';});
+    const narrow=maxW*sc<L.clientWidth-2;svgs.forEach(sv=>{sv.style.width=Math.round(sv.viewBox.baseVal.width*sc)+'px';sv.style.maxWidth='none';sv.style.height='auto';sv.style.display=narrow?'block':'';sv.style.margin=narrow?'0 auto':'';});
     L.classList.toggle('zoomed',maxW*sc>L.clientWidth+1);}
   const zb=$('#z-fit');if(zb)zb.textContent=Math.abs(ZOOM-1)>0.001?Math.round(ZOOM*100)+' %':'Zoom';}
 function setZoom(z){ZOOM=Math.min(2.5,Math.max(ZMIN,z));try{localStorage.setItem('atelier-zoom',ZOOM);}catch(e){}applyZoom();if(sel)requestAnimationFrame(revealSel);}
@@ -2263,6 +2264,17 @@ window.addEventListener('scroll',()=>{placePanel();closeLineMenu();closeAccMenu(
 $('#b-help').addEventListener('click',()=>{const h=$('#modehint');h.hidden=!h.hidden;$('#calibp').hidden=h.hidden||!IS_MAC;$('#b-help').setAttribute('aria-expanded',!h.hidden);});
 let lastEvClick=null,multiSel=false;
 $('#t-multi').addEventListener('click',()=>{multiSel=!multiSel;$('#t-multi').setAttribute('aria-pressed',multiSel);toast(multiSel?'Sélection multiple : touchez la première puis la dernière mesure (ou début de ligne)':'Sélection multiple désactivée');});
+/* section 130 : pavé de saisie intégré (tablette) : chaque touche agit comme le raccourci clavier */
+function padToggle(){let d=document.getElementById('kpad');if(d){d.remove();$('#t-pad').setAttribute('aria-pressed','false');return;}
+  d=document.createElement('div');d.id='kpad';d.className='lmenu kpad';const K=[['1','2','3','4','5'],['6','7','8','9','0'],['x','s','.','l','/'],['g','%','Tab','Backspace',' '],['ArrowLeft','ArrowUp','ArrowDown','ArrowRight','close']];
+  const lab={Tab:'Tab ⇥',Backspace:'⌫',' ':'Espace',ArrowLeft:'←',ArrowUp:'↑',ArrowDown:'↓',ArrowRight:'→',close:'✕'};
+  d.innerHTML='<div class="kgrid">'+K.flat().map(k=>`<button class="btn" data-pk="${k===' '?'space':k}">${esc(lab[k]||k)}</button>`).join('')+'</div>';
+  d.addEventListener('pointerdown',e=>{if(e.target.closest('[data-pk]'))e.preventDefault();});
+  d.addEventListener('click',e=>{e.stopPropagation();const b=e.target.closest('[data-pk]');if(!b)return;let k=b.dataset.pk;if(k==='close')return padToggle();if(k==='space')k=' ';
+    const code=/^[0-9]$/.test(k)?'Digit'+k:k==='%'?'Quote':k===' '?'Space':k.length===1?'Key'+k.toUpperCase():k;document.dispatchEvent(new KeyboardEvent('keydown',{key:k,code,bubbles:true,cancelable:true}));});
+  document.body.appendChild(d);$('#t-pad').setAttribute('aria-pressed','true');d.style.right='12px';d.style.bottom='12px';d.style.left='auto';d.style.top='auto';
+  const el=selEl();if(el){const r=el.getBoundingClientRect(),q=d.getBoundingClientRect();if(r.right>q.left&&r.left<q.right&&r.bottom>q.top&&r.top<q.bottom){d.style.left='12px';d.style.right='auto';}}}
+$('#t-pad').addEventListener('click',e=>{e.stopPropagation();padToggle();});
 $('#touchbar').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;document.dispatchEvent(new KeyboardEvent('keydown',{key:b.dataset.k,bubbles:true}));});
 /* appui long (tactile) = clic droit */
 {let lp=null;const L=$('#lines');
@@ -3126,23 +3138,27 @@ function ccShow(){if(!CC)return;const x=CC.steps[CC.k],nx=CC.steps[CC.k+1];const
     try{html=withPart(p.M,G=>{key=G.keyTxt;const pages=pageGroups(exportLines());CC.np=pages.length;
       return pages.map((pg,i)=>`<div class="cc-page" data-p="${i}"><div class="cc-pno">page ${i+1}/${pages.length}</div>${pg.map(l=>`<div class="cc-line">${l.svg}</div>`).join('')}</div>`).join('');});}finally{}
     head.innerHTML=`<span class="cc-t">${esc(inf.titre)}</span><span class="cc-i">${esc(inf.inter)}</span><span class="cc-k">♩ = ${tempo}</span><span class="cc-n"><span id="cc-pg"></span> · ${num} / ${numTot}</span>${x.note?`<span class="cc-note">${esc(x.note)}</span>`:''}`;body.innerHTML=html;}
-  {const cb=$('#cc-clic');if(x.t==='sep')cb.textContent='♩ Clic';else cb.textContent='♩ Clic ×'+ccBeat(REP.parts[x.id]).beats;}ccPageUI();$('#cc-next').textContent=CC.single?'':nx?'Suivant : '+ccStepTitle(nx):'Fin de la setlist';body.scrollTop=0;ccListClose();if(CC.mt||CC.mtOn){CC.mtOn=false;const x2=CC.steps[CC.k];if(x2.t==='sep')ccMetroStop();else ccMetroStart();}}
+  {const cb=$('#cc-clic');if(x.t==='sep')cb.textContent='♩ Clic';else cb.textContent='♩ Clic ×'+ccBeat(REP.parts[x.id]).beats;}CC.tgtT=0;ccPageUI();$('#cc-next').textContent=CC.single?'':nx?'Suivant : '+ccStepTitle(nx):'Fin de la setlist';body.scrollTop=0;ccListClose();if(CC.mt||CC.mtOn){CC.mtOn=false;const x2=CC.steps[CC.k];if(x2.t==='sep')ccMetroStop();else ccMetroStart();}}
 function ccPages(){return[...document.querySelectorAll('#cc-body .cc-page')];}
-function ccCurPage(){const b=$('#cc-body'),ps=ccPages();let k=0;ps.forEach((p,i)=>{if(p.offsetTop-b.offsetTop<=b.scrollTop+8)k=i;});return k;}
+function ccPos(){const b=$('#cc-body');return CC&&CC.tgtT&&Date.now()-CC.tgtT<800?CC.tgt:b.scrollTop;}
+function ccCurPage(pos){const b=$('#cc-body'),ps=ccPages();if(pos==null)pos=b.scrollTop;let k=0;ps.forEach((p,i)=>{if(p.offsetTop-b.offsetTop<=pos+8)k=i;});if(pos+b.clientHeight>=b.scrollHeight-6&&ps.length)k=Math.max(k,ps.length-1);return k;}
 function ccPageUI(){const e=$('#cc-pg');if(!e)return;const ps=ccPages();e.textContent=ps.length?`p. ${ccCurPage()+1} / ${ps.length}`:'';}
 /* section 124 : tourner les pages comme dans le PDF (une page plus haute que l'écran défile d'abord) */
-function ccMove(dir){if(!CC)return;const b=$('#cc-body'),ps=ccPages();const go=p=>b.scrollTo({top:p.offsetTop-b.offsetTop,behavior:'smooth'});
+function ccMove(dir){if(!CC)return;const b=$('#cc-body'),ps=ccPages();const maxT=Math.max(0,b.scrollHeight-b.clientHeight);
+  const to=t=>{t=Math.max(0,Math.min(maxT,t));CC.tgt=t;CC.tgtT=Date.now();b.scrollTo({top:t,behavior:'smooth'});};const go=p=>to(p.offsetTop-b.offsetTop);const next=()=>{if(CC.k<CC.steps.length-1){CC.tgtT=0;CC.k++;ccShow();}};const prev=()=>{if(CC.k>0){CC.tgtT=0;CC.k--;ccShow();}};
+  /* section 129 : position d'arrivée d'un défilement en cours ; bas de la partition visible → morceau suivant */
+  const pos=ccPos();if(dir>0&&pos>=maxT-6)return next();
   if(!ps.length){const page=b.clientHeight*0.9;if(dir>0){if(b.scrollTop+b.clientHeight<b.scrollHeight-4)b.scrollBy({top:page,behavior:'smooth'});else if(CC.k<CC.steps.length-1){CC.k++;ccShow();}}else{if(b.scrollTop>4)b.scrollBy({top:-page,behavior:'smooth'});else if(CC.k>0){CC.k--;ccShow();}}return;}
-  const k=ccCurPage(),p=ps[k];const pTop=p.offsetTop-b.offsetTop,pBot=pTop+p.offsetHeight;
-  if(dir>0){if(pBot>b.scrollTop+b.clientHeight+8&&b.scrollTop+b.clientHeight<b.scrollHeight-4)return b.scrollBy({top:Math.min(b.clientHeight*0.9,pBot-(b.scrollTop+b.clientHeight)),behavior:'smooth'});
-    if(k<ps.length-1)return go(ps[k+1]);if(CC.k<CC.steps.length-1){CC.k++;ccShow();}}
-  else{if(b.scrollTop>pTop+8)return go(p);if(k>0)return go(ps[k-1]);if(CC.k>0){CC.k--;ccShow();}}}
+  const k=ccCurPage(pos),p=ps[k];const pTop=p.offsetTop-b.offsetTop,pBot=pTop+p.offsetHeight;
+  if(dir>0){if(pBot>pos+b.clientHeight+8)return to(pos+Math.min(b.clientHeight*0.9,pBot-(pos+b.clientHeight)));if(k<ps.length-1&&ps[k+1].offsetTop-b.offsetTop>pos+8)return go(ps[k+1]);return next();}
+  else{if(pos>Math.min(pTop,maxT)+8)return go(p);if(k>0)return go(ps[k-1]);if(pos>8)return to(0);return prev();}}
 function ccExit(){if(!CC)return;ccListClose();ccMetroStop();if(CC.night)document.documentElement.setAttribute('data-night','');else document.documentElement.removeAttribute('data-night');$('#concert').classList.remove('day');try{if(CC.lock)CC.lock.release();}catch(e){}try{if(document.fullscreenElement)document.exitFullscreen();}catch(e){}CC=null;$('#concert').hidden=true;}
 /* section 116 : temps par mesure (ternaire : noire pointée) et durée d'un temps */
 function ccBeat(p){const sg=p.M.signature||{temps:4,unite:4};const ternary=sg.unite===8&&sg.temps%3===0;return{beats:ternary?sg.temps/3:sg.temps,spb:60/(+p.M.tempo||100)*(ternary?1.5:4/(sg.unite||4))};}
 function ccClick(){if(!CC)return;const x=CC.steps[CC.k];if(x.t==='sep'||!ensureCtx())return;const p=REP.parts[x.id];const {beats,spb}=ccBeat(p);const t0=Player.ctx.currentTime+0.1;if(Player.playing)stopPlay(true);try{if(Player.ctx.state!=='running')Player.ctx.resume();}catch(e){}Player.master=Player.ctx.createGain();Player.master.gain.value=0.9;Player.master.connect(Player.ctx.destination);
   for(let i=0;i<2*beats;i++)voice({k:'clic',fort:i%beats===0},t0+i*spb);return t0;}
 document.addEventListener('keydown',e=>{if(!CC)return;const k=e.key;
+  if((e.metaKey||e.ctrlKey)&&(k==='+'||k==='='||k==='-'||k==='_'||k==='0')){e.preventDefault();e.stopImmediatePropagation();return ccZoom(k==='0'?1:CCZ*(k==='-'||k==='_'?1/1.2:1.2));}
   if(ccListOpen()){e.preventDefault();e.stopImmediatePropagation();if(k==='Escape'||k==='l'||k==='L')return ccListClose();if(k==='ArrowDown'||k==='ArrowUp')return ccListMove(k==='ArrowDown'?1:-1);if(k==='Enter')return ccListGo();return;}
   if(k==='l'||k==='L'){e.preventDefault();e.stopImmediatePropagation();return ccListOpenFn();}
   if(k==='n'||k==='N'){e.preventDefault();e.stopImmediatePropagation();return ccToggleDN();}
@@ -3158,6 +3174,10 @@ document.addEventListener('keydown',e=>{if(!CC)return;const k=e.key;
   else if(k==='Escape'){e.preventDefault();e.stopImmediatePropagation();ccExit();}
   else e.stopImmediatePropagation();},true);
 $('#cc-body').addEventListener('scroll',()=>ccPageUI(),{passive:true});
+/* section 132 : zoom du Concert 50-200 % (pincement, ⌘+ / ⌘− / ⌘0), mémorisé par appareil */
+let CCZ=1;try{CCZ=Math.min(2,Math.max(0.5,+localStorage.getItem('atelier-cczoom')||1));}catch(e){}
+function ccZoom(z,keep){const b=$('#cc-body');const r=b.scrollHeight?b.scrollTop/b.scrollHeight:0;CCZ=Math.min(2,Math.max(0.5,z));b.style.setProperty('--ccz',CCZ);b.scrollTop=r*b.scrollHeight;if(!keep){try{localStorage.setItem('atelier-cczoom',CCZ);}catch(e){}}ccPageUI();}
+$('#cc-body').style.setProperty('--ccz',CCZ);pinchZoom($('#cc-body'),()=>CCZ,z=>ccZoom(z,true),()=>ccZoom(CCZ));
 $('#cc-body').addEventListener('click',e=>{const r=$('#cc-body').getBoundingClientRect();ccMove(e.clientX>r.left+r.width/3?1:-1);});
 $('#cc-exit').addEventListener('click',ccExit);$('#cc-dn').addEventListener('click',e=>{e.stopPropagation();ccToggleDN();});
 /* section 112.2 : liste rapide, numéro direct */
@@ -3778,9 +3798,15 @@ $('#b-scan').addEventListener('click',()=>{showScan=!showScan;$('#b-scan').setAt
   const now=Date.now();if(lastC&&lastC.bi===bi&&lastC.mi===mi&&now-lastC.t<450){lastC=null;e.stopImmediatePropagation();return tzMenu(e,bi,mi);}lastC={bi,mi,t:now};},true);}
 /* ----- zoom : boutons, pincement (iPad), ⌘/ctrl + molette ou pincement du pavé (Mac) ----- */
 {const L=$('#lines');$('#z-in').addEventListener('click',()=>setZoom(ZSTEPS.find(z=>z>ZOOM+0.01)||2.5));$('#z-out').addEventListener('click',()=>setZoom([...ZSTEPS].reverse().find(z=>z<ZOOM-0.01)||ZMIN));$('#z-fit').addEventListener('click',()=>setZoom(1));
-  let g0=1;L.addEventListener('gesturestart',e=>{e.preventDefault();g0=ZOOM;});L.addEventListener('gesturechange',e=>{e.preventDefault();ZOOM=Math.min(2.5,Math.max(ZMIN,g0*e.scale));applyZoom();});L.addEventListener('gestureend',e=>{e.preventDefault();setZoom(ZOOM);});
+  pinchZoom(L,()=>ZOOM,z=>{ZOOM=Math.min(2.5,Math.max(ZMIN,z));applyZoom();},()=>setZoom(ZOOM));
   let wt=null;L.addEventListener('wheel',e=>{if(!e.ctrlKey&&!e.metaKey)return;e.preventDefault();ZOOM=Math.min(2.5,Math.max(ZMIN,ZOOM*Math.exp(-e.deltaY/250)));applyZoom();clearTimeout(wt);wt=setTimeout(()=>setZoom(ZOOM),300);},{passive:false});
   addEventListener('resize',()=>applyZoom());}
+/* section 131 : pincement à deux doigts sur un conteneur (iPad, Android) → zoom de la partition seule */
+function pinchZoom(el,get,set,end){let d0=0,z0=1;const dist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);
+  el.addEventListener('touchstart',e=>{if(e.touches.length===2){d0=dist(e.touches);z0=get();}},{passive:true});
+  el.addEventListener('touchmove',e=>{if(e.touches.length===2&&d0){e.preventDefault();set(z0*dist(e.touches)/d0);}},{passive:false});
+  el.addEventListener('touchend',e=>{if(d0&&e.touches.length<2){d0=0;end();}},{passive:true});
+  let g0=1;el.addEventListener('gesturestart',e=>{e.preventDefault();g0=get();});el.addEventListener('gesturechange',e=>{e.preventDefault();if(!d0)set(g0*e.scale);});el.addEventListener('gestureend',e=>{e.preventDefault();end();});}
 /* ----- bandeau et barre fichier : menus Exporter et options de lecture, bouton Texte ----- */
 {const pop=(btn,menu)=>{btn.addEventListener('click',e=>{e.stopPropagation();const o=menu.hidden;document.querySelectorAll('.expmenu,.pmenu').forEach(m=>m.hidden=true);menu.hidden=!o;btn.setAttribute('aria-expanded',o);});
     document.addEventListener('click',e=>{if(!menu.hidden&&!menu.contains(e.target)&&e.target!==btn){menu.hidden=true;btn.setAttribute('aria-expanded',false);}});};
