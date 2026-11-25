@@ -1,20 +1,8 @@
-Atelier de lignes de basse — application installable (iPhone, iPad, tablette Android, Mac) — version 117
+Atelier de lignes de basse — application installable — version 119
 
-Un seul dossier sert pour tous les appareils. Mettre en ligne gratuitement (une seule fois), avec GitHub Pages :
-1. Créez un compte gratuit sur github.com (si besoin).
-2. « New repository » : nom « atelier-basse », public, puis « Create repository ».
-3. « Add file » › « Upload files » : déposez les 6 fichiers de ce dossier (index.html, manifest.webmanifest, sw.js, icon-180.png, icon-512.png, LISEZMOI.txt), puis « Commit changes ».
-4. « Settings » › « Pages » : Source « Deploy from a branch », branche « main », dossier « / (root) », « Save ».
-5. Après 1 à 2 minutes, l'adresse s'affiche (https://VOTRE-NOM.github.io/atelier-basse/).
-
-Installer :
-- iPhone / iPad : ouvrez l'adresse dans Safari › bouton Partager › « Sur l'écran d'accueil ».
-- Tablette Android : ouvrez l'adresse dans Chrome › menu ⋮ › « Installer l'application » (ou « Ajouter à l'écran d'accueil »).
-- Mac : Chrome › menu › « Enregistrer et partager » › « Installer la page en tant qu'application » (ou Safari › Fichier › « Ajouter au Dock »).
-Ensuite l'Atelier s'ouvre comme une application et fonctionne hors ligne.
-
-Sur écran tactile : appui long = clic droit (menus) ; la barre « Sélection multiple ◀ ▶ ⌫ ✕ » remplace les touches du clavier. Un clavier Bluetooth donne accès à tous les raccourcis (touche « ? »).
-
-Vos partitions : chaque appareil garde les siennes. Pour passer de l'un à l'autre : « Enregistrer » (fichier .atelier.json, à ranger dans iCloud Drive ou Google Drive) puis « Ouvrir… » sur l'autre appareil.
-Mise à jour : remplacez index.html sur GitHub par la nouvelle version ; l'application la récupère à la prochaine ouverture avec Internet.
-Le code de la page est public sur GitHub ; vos partitions, elles, restent sur vos appareils.
+Adresse : https://averniqu.github.io/atelier-basse/ (dépôt GitHub averniqu/atelier-basse).
+Mise à jour : dans le dépôt, Add file › Upload files, glisser les fichiers de ce dossier
+(au minimum index.html et sw.js), puis Commit changes. Sur chaque appareil, rouvrir
+l'application deux fois pour qu'elle passe à la nouvelle version.
+iPhone / iPad : Safari › Partager › Sur l'écran d'accueil (Ouvrir comme app web).
+Android : Chrome › ⋮ › Installer l'application. Mac : Chrome › icône d'installation dans la barre d'adresse.

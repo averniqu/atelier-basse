@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<!-- Atelier de lignes de basse — fonctionne sans Claude et hors ligne (JSZip et jsPDF intégrés) — version 117 -->
+<!-- Atelier de lignes de basse — fonctionne sans Claude et hors ligne (JSZip et jsPDF intégrés) — version 119 -->
 <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Atelier basse"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="theme-color" content="#17202C">
 </head><body>
 <title>Atelier de lignes de basse</title>
@@ -211,7 +211,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 .otabs{display:flex;gap:6px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:25;background:var(--paper);margin:-12px -12px 0;padding:10px 12px 6px;border-radius:10px 10px 0 0;border-bottom:1px solid var(--rule)}
 .otabs .btn[aria-selected=true]{background:var(--fg);color:var(--paper);border-color:var(--fg)}
 .otabs .sp{flex:1}
-pre#outpre{margin:0;font:12px/1.5 var(--mono);background:var(--bg);border-radius:8px;padding:12px;overflow:auto;max-height:420px;white-space:pre;min-width:0}
+
 #toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--paper);padding:9px 14px;border-radius:8px;font-weight:600;font-size:13px;z-index:20;display:flex;gap:10px;align-items:center;max-width:calc(100% - 32px)}
 #toast button{background:none;border:0;color:var(--accent-soft);font:700 13px var(--body);cursor:pointer;text-decoration:underline}
 .confirm{display:flex;gap:8px;align-items:center;background:var(--warn-soft);color:var(--warn);padding:6px 10px;border-radius:6px;font-weight:600;font-size:13px}
@@ -242,11 +242,14 @@ ol.setl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
 #gs-badge.ok{color:var(--ok)}#gs-badge.err{color:var(--warn)}#gs-badge.busy{animation:gsb 1s linear infinite}@keyframes gsb{50%{opacity:.3}}
 .cc-page+.cc-page{border-top:1px dashed #555;margin-top:10px;padding-top:4px}#concert.day .cc-page+.cc-page{border-top-color:#bbb}.cc-pno{text-align:right;font:600 12px var(--body);color:#999;margin:2px 4px 0}
 .kpad{z-index:45}.kgrid{display:grid;grid-template-columns:repeat(5,52px);gap:5px;padding:2px}.kgrid .btn{height:46px;font:700 18px var(--body);padding:0}#t-pad[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.ico svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ico.del:hover{color:#c62828;border-color:#c62828}table.inv td.acts .ibtn{display:inline-grid;margin-left:3px}@media (pointer:coarse){table.inv td.acts .ibtn{width:40px;height:40px}}
+#gs-gear{position:relative}#gs-gear.warn::after{content:'';position:absolute;top:3px;right:3px;width:8px;height:8px;border-radius:50%;background:var(--warn)}
+.foldt{cursor:pointer;user-select:none}.foldt .chev{display:inline-block;font-size:.8em;color:var(--muted);transition:transform .15s}.card.fold.closed .foldt .chev{transform:rotate(-90deg)}.card.fold.closed>:not(:first-child){display:none!important}
+ol.setl li.sel{border-color:var(--accent);background:var(--accent-soft)}ol.setl li.dragging{opacity:.9;box-shadow:0 6px 18px rgb(0 0 0 / .2);position:relative;z-index:5}ol.setl .grip{touch-action:none;padding:6px 4px;cursor:grab}#setmark{position:fixed;height:3px;background:var(--accent);border-radius:2px;z-index:60;pointer-events:none}
+#lines>.tab.pghid{display:none}#lines>.tab.pbk{border-top:1.5px dashed var(--line);margin-top:6px;padding-top:2px;position:relative}#lines>.tab.pbk::before{content:attr(data-pg);position:absolute;right:4px;top:2px;font:600 11px var(--body);color:var(--muted)}#b-seq[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}#pgnav{display:inline-flex;gap:4px;align-items:center}#pgnav[hidden]{display:none}
 #cc-body{flex:1;overflow:auto;touch-action:pan-x pan-y;padding:10px 16px;cursor:pointer}.cc-line svg{width:calc(100% * var(--ccz,1))!important;height:auto;min-width:0!important;display:block;margin:0 auto}.cc-line{margin-bottom:6px}#concert[data-dev="ipad"] .cc-line{margin-bottom:12px}
 .cc-sep{display:grid;place-items:center;height:100%;font:800 64px var(--display);text-transform:uppercase;color:#fff}
-.cc-foot{display:flex;align-items:center;gap:12px;padding:8px 16px;border-top:1px solid #333;font:700 18px var(--body);color:#ddd}#concert.day .cc-foot{border-top-color:#ddd;color:#444}
-#zoom{position:fixed;inset:0;z-index:95;background:rgb(0 0 0 / .85);overflow:auto;cursor:zoom-out;padding:16px}#zoom[hidden]{display:none}#zoom img{width:180%;max-width:none;background:#fff}.scanrow{display:flex;flex-direction:column;gap:2px;margin:8px 0 2px}.scanrow img{width:100%;border:1px solid var(--rule);border-radius:4px;background:#fff;cursor:zoom-in}#b-scan[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
-#lm{position:fixed;inset:0;z-index:90;background:rgb(0 0 0 / .45);display:grid;place-items:center;padding:16px}#lm[hidden]{display:none}.lm-card{background:var(--paper);color:var(--fg);border-radius:12px;padding:18px;width:min(560px,100%);max-height:90vh;overflow:auto;display:flex;flex-direction:column;gap:10px;box-shadow:0 18px 50px rgb(0 0 0 / .3)}.lm-card h3{margin:0;font:800 20px var(--display);text-transform:uppercase}.lm-row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}.lm-row label{display:flex;flex-direction:column;gap:2px;font-size:12px;color:var(--muted)}.lm-est{background:var(--accent-soft);border-radius:8px;padding:8px 10px;font-size:13.5px}
+.cc-foot{position:absolute;left:0;right:0;bottom:0;background:#000;display:flex;align-items:center;gap:12px;padding:8px 16px;border-top:1px solid #333;font:700 18px var(--body);color:#ddd;transition:opacity .25s}#concert.day .cc-foot{background:#fff}.cc-foot.hid{visibility:hidden;background:transparent;border-top-color:transparent}.cc-foot.hid #cc-metro.on{visibility:visible;opacity:1}#cc-body.seq{overflow:hidden}#cc-body.seq .cc-page+.cc-page{border-top:0;margin-top:0}#cc-body{padding-bottom:56px!important}#concert.day .cc-foot{border-top-color:#ddd;color:#444}
 </style>
 
 <div class="wrap">
@@ -256,7 +259,7 @@ ol.setl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
   </header>
 <div data-view="atelier">
 
-  <div class="filebar"><span id="newbox"><button class="btn" id="b-new">Nouvelle</button></span><button class="btn" id="b-open" title="Ouvrir une partition enregistrée (.atelier.json)">Ouvrir…</button><input type="file" id="f-open" accept=".json,application/json,text/plain" hidden><button class="btn" id="b-save" title="Enregistrer la partition dans un fichier .atelier.json (dans Téléchargements, ou partage sur iPhone / iPad)">Enregistrer</button><button class="btn" id="b-saveas" hidden title="Choisir le nom et le dossier (⇧⌘S)">Enregistrer sous…</button><button class="btn" id="b-imp" title="Fichier MusicXML (.mxl, .musicxml) exporté de Logic Pro, Audiveris, MuseScore…">Importer…</button><input type="file" id="f-imp" accept=".mxl,.musicxml,.xml" hidden><span class="expw"><button class="btn" id="b-exp" aria-haspopup="menu" aria-expanded="false">Exporter ▾</button><span class="expmenu" id="expmenu" hidden><button class="btn" id="b-pdf">PDF jour</button><button class="btn" id="b-pdfn">PDF nuit</button><button class="btn" id="b-svg">SVG jour</button><button class="btn" id="b-svgn">SVG nuit</button></span></span><span hidden><button class="btn" id="b-lire">Lire un manuscrit…</button><input type="file" id="f-lire" accept="image/*,.heic,.heif" multiple hidden></span></div>
+  <div class="filebar"><span id="newbox"><button class="btn" id="b-new">Nouvelle</button></span><button class="btn" id="b-open" title="Ouvrir une partition enregistrée (.atelier.json)">Ouvrir…</button><input type="file" id="f-open" accept=".json,application/json,text/plain" hidden><button class="btn" id="b-save" title="Enregistrer la partition dans un fichier .atelier.json (dans Téléchargements, ou partage sur iPhone / iPad)">Enregistrer</button><button class="btn" id="b-saveas" hidden title="Choisir le nom et le dossier (⇧⌘S)">Enregistrer sous…</button><button class="btn" id="b-imp" title="Fichier MusicXML (.mxl, .musicxml) exporté de Logic Pro, Audiveris, MuseScore…">Importer…</button><input type="file" id="f-imp" accept=".mxl,.musicxml,.xml" hidden><span class="expw"><button class="btn" id="b-exp" aria-haspopup="menu" aria-expanded="false">Exporter ▾</button><span class="expmenu" id="expmenu" hidden><button class="btn" id="b-pdf">PDF jour</button><button class="btn" id="b-pdfn">PDF nuit</button><button class="btn" id="b-svg">SVG jour</button><button class="btn" id="b-svgn">SVG nuit</button></span></span></div>
   <section class="card settings" id="settings" aria-label="Morceau">
     <div class="sbar">
       <button class="stog" id="b-stog" aria-expanded="true" aria-controls="sbody"><span class="chev" aria-hidden="true">▾</span><span class="slab">Morceau</span><span class="ssum" id="ssum"></span></button>
@@ -287,8 +290,7 @@ ol.setl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
       
       
       <span id="touchbar"><button class="btn small" id="t-multi" aria-pressed="false" title="Sélection multiple : toucher la première puis la dernière mesure (ou ligne)">Sélection multiple</button><button class="btn small" data-k="ArrowLeft" aria-label="Précédent">◀</button><button class="btn small" data-k="ArrowRight" aria-label="Suivant">▶</button><button class="btn small" data-k="Backspace" aria-label="Supprimer">⌫</button><button class="btn small" data-k="Escape" aria-label="Fermer">✕</button><button class="btn small" id="t-pad" aria-pressed="false" title="Pavé de saisie (cases, x, s, flèches…)">⌨ Pavé</button></span>
-      <button class="btn small" id="b-scan" hidden data-off="1" aria-pressed="false">Afficher le manuscrit</button>
-      <button class="btn small" id="b-num" aria-pressed="false" title="Afficher les numéros de mesure">N°</button><span id="lcount" class="legend" title="Lignes de portée et pages du PDF A4"></span>
+      <button class="btn small" id="b-seq" aria-pressed="false" title="Affichage page par page (comme le PDF)">Page</button><span id="pgnav" hidden><button class="btn small" id="pg-prev" aria-label="Page précédente">◀</button><span id="pg-n" class="legend"></span><button class="btn small" id="pg-next" aria-label="Page suivante">▶</button></span><button class="btn small" id="b-num" aria-pressed="false" title="Afficher les numéros de mesure">N°</button><span id="lcount" class="legend" title="Lignes de portée et pages du PDF A4"></span>
       <button class="btn small" id="b-alerts" hidden title="Voir les points à vérifier, sous la partition"></button><span class="zoomb" title="Zoom de la partition"><button class="btn small" id="z-out" aria-label="Réduire">−</button><button class="btn small" id="z-fit">Zoom</button><button class="btn small" id="z-in" aria-label="Agrandir">+</button></span><button class="btn small" id="b-help" aria-expanded="false" title="Aide : zones de clic et raccourcis">?</button>
       </div>
     <p class="modehint" id="modehint" hidden></p>
@@ -298,42 +300,29 @@ ol.setl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
     <ul class="alerts" id="alerts"></ul>
   </section>
 
-  <section class="card settings closed" id="outcard" aria-label="Sortie" hidden>
-    <div class="sbar"><button class="stog" id="b-otog" aria-expanded="false" aria-controls="outbody"><span class="chev" aria-hidden="true">▾</span><span class="slab">Fichier JSON</span></button></div>
-    <div id="outbody" class="outbody">
-    <div class="otabs" role="tablist">
-      <button class="btn" role="tab" data-o="json" aria-selected="true">JSON pour la Bibliothèque</button>
-      <button class="btn" role="tab" data-o="chk" aria-selected="false" id="o-chk">À vérifier</button>
-      <span class="sp"></span>
-      <button class="btn" id="b-copy">Copier</button><button class="btn primary" id="b-savejson">Enregistrer le .json</button>
-    </div>
-    <pre id="outpre" tabindex="0"></pre>
-    </div>
-  </section>
 </div>
 <div data-view="rep" hidden>
   <section class="card" id="gs-card" hidden><div class="sbar"><h2 class="cap">Google Drive</h2><span class="legend" id="gs-st"></span><span class="sp"></span><button class="btn primary" id="gs-conn">Se connecter à Google Drive</button><button class="btn" id="gs-now" hidden>Synchroniser maintenant</button><button class="btn" id="gs-off" hidden>Se déconnecter</button></div>
     <p class="legend">Le Répertoire (partitions et setlists) est synchronisé automatiquement entre tes appareils via le fichier « Atelier basse / bibliothèque.json » de ton Google Drive. L’Atelier ne voit que les fichiers qu’il a créés.</p>
     <details class="gs-adv"><summary class="legend">Réglage avancé</summary><label class="legend">ID client Google <input id="gs-cid" size="70" spellcheck="false"></label></details></section>
-  <section class="card"><div class="sbar"><h2 class="cap">Inventaire</h2><span class="legend" id="inv-n"></span><span class="sp"></span>
+  <section class="card fold" id="inv-card"><div class="sbar"><h2 class="cap foldt" tabindex="0" role="button" aria-expanded="true"><span class="chev">▾</span> Inventaire</h2><span class="legend" id="inv-n"></span><span class="sp"></span><button class="ibtn sm" id="gs-gear" hidden title="Google Drive : connexion et réglages" aria-label="Google Drive : connexion et réglages" aria-expanded="false">⚙</button>
       <button class="btn" id="inv-imp" title="Partitions de l’Atelier (.atelier.json), setlists (.setlist.json) ou partitions du Lecteur / de la Bibliothèque (.json) — plusieurs fichiers à la fois">Importer…</button><input type="file" id="f-inv" accept=".json,application/json" multiple hidden>
       <button class="btn" id="rep-save">Sauvegarder tout le répertoire</button><button class="btn" id="rep-load">Restaurer…</button><input type="file" id="f-rep" accept=".json,application/json" hidden></div>
     <div class="invf"><input id="inv-q" placeholder="Rechercher un titre ou un interprète"><select id="inv-c"><option value="">4 et 5 cordes</option><option value="4">4 cordes</option><option value="5">5 cordes</option></select><select id="inv-a"><option value="">Tous les accordages</option><option value="standard">Standard</option><option value="demi">½ ton plus bas</option><option value="ton">1 ton plus bas</option></select></div>
-    <div class="invwrap"><table class="inv"><thead id="inv-head"><tr><th data-k="titre">Titre</th><th data-k="inter">Interprète</th><th data-k="cordes">Basse</th><th data-k="acc">Accordage</th><th></th></tr></thead><tbody id="inv-body"></tbody></table></div><p class="legend">▶ Concert : jouer cette partition seule en Concert.</p></section>
-  <section class="card"><div class="sbar"><h2 class="cap">Setlist</h2><select id="set-sel"></select><input id="set-name" hidden><span class="sp"></span>
+    <div class="invwrap"><table class="inv"><thead id="inv-head"><tr><th data-k="titre">Titre</th><th data-k="inter">Interprète</th><th data-k="cordes">Basse</th><th data-k="acc">Accordage</th><th></th></tr></thead><tbody id="inv-body"></tbody></table></div></section>
+  <section class="card fold" id="set-card"><div class="sbar"><h2 class="cap foldt" tabindex="0" role="button" aria-expanded="true"><span class="chev">▾</span> Setlist</h2><select id="set-sel"></select><input id="set-name" hidden><span class="sp"></span>
       <button class="btn" id="set-new">Nouvelle</button><button class="btn" id="set-ren">Renommer</button><button class="btn" id="set-dup">Dupliquer</button><button class="btn" id="set-del">Supprimer</button></div>
-    <ol class="setl" id="set-list"></ol><p class="legend">▶ : jouer en Concert à partir de ce morceau.</p>
-    <div class="sbar"><button class="btn" id="set-sep">+ Séparateur</button><span class="legend" id="set-tot"></span><span class="sp"></span><button class="btn" id="set-print">Imprimer la setlist (PDF)</button><button class="btn" id="set-exp">Exporter la setlist</button></div></section>
+    <ol class="setl" id="set-list"></ol>
+    <div class="sbar"><button class="btn" id="set-sep">+ Pause</button><span class="legend" id="set-tot"></span><span class="sp"></span><button class="btn" id="set-print">Imprimer la setlist (PDF)</button><button class="btn" id="set-exp">Exporter la setlist</button></div></section>
 </div>
 <div data-view="concert" hidden>
   <section class="card"><h2 class="cap">Concert</h2>
-    <div class="invf"><label>Setlist <select id="cc-sel"></select></label><span id="cc-dev" class="seg">Affichage : <button class="btn" data-dev="mac">Mac</button><button class="btn" data-dev="ipad">iPad (vertical)</button></span><button class="btn primary" id="cc-go">▶ Démarrer le concert</button></div>
+    <div class="invf"><label>Setlist <select id="cc-sel"></select></label><span id="cc-opts" class="seg">Affichage : <button class="btn" data-o="seq0">Déroulant</button><button class="btn" data-o="seq1">Séquentiel</button></span><span class="seg">Lecture : <button class="btn" data-o="full0">Simplifié</button><button class="btn" data-o="full1">Complet</button></span><span id="cc-dev" class="seg">Affichage : <button class="btn" data-dev="mac">Mac</button><button class="btn" data-dev="ipad">iPad (vertical)</button></span><button class="btn primary" id="cc-go">▶ Démarrer le concert</button></div>
     <p class="legend">Plein écran, jour ou nuit (N). Espace, → ou ↓ (ou pédale de tourne-page) : page ou morceau suivant ; ← ou ↑ : précédent ; toucher à droite / à gauche de la partition. L ou ☰ : liste des morceaux ; numéro + Entrée : aller au morceau ; Début / Fin : premier / dernier. C : décompte (2 mesures) ; M : métronome visuel. Outils en bas de l’écran ; Échap : quitter.</p></section>
 </div>
 </div>
-<div id="lm" hidden></div><div id="zoom" hidden></div>
 <div id="concert" hidden><div class="cc-bar" id="cc-head"></div>
-  <div id="cc-body"></div><div class="cc-foot"><button class="btn small" id="cc-list" title="Liste des morceaux (L)" aria-label="Liste des morceaux">☰</button><span id="cc-next"></span><div class="cc-tools"><button class="btn small" id="cc-clic" title="Décompte : 4 clics au tempo (C)">♩ Clic ×4</button><button class="btn small" id="cc-metro" title="Métronome visuel, muet (M)">Métronome</button><button class="btn small" id="cc-dn" title="Jour / nuit (N)">☀ Jour</button><button class="btn small" id="cc-exit">✕ Quitter</button></div></div></div>
+  <div id="cc-body"></div><div class="cc-foot"><button class="btn small" id="cc-list" title="Liste des morceaux (L)" aria-label="Liste des morceaux">☰</button><span id="cc-next"></span><div class="cc-tools"><button class="btn small" id="cc-clic" title="Décompte : 4 clics au tempo (C)">♩ Clic ×4</button><button class="btn small" id="cc-metro" title="Métronome visuel, muet (M)">Métronome</button><button class="btn small" id="cc-seq" title="Affichage : déroulant ou page par page">Déroulant</button><button class="btn small" id="cc-full" title="Lecture : simplifié (rappels) ou complet (rappels développés)">Simplifié</button><button class="btn small" id="cc-dn" title="Jour / nuit (N)">☀ Jour</button><button class="btn small" id="cc-exit">✕ Quitter</button></div></div></div>
 
 <aside id="panel" hidden></aside>
 <div id="toast" hidden></div>
@@ -986,7 +975,6 @@ function bar(x,type,top,bot,n,SS){const sp=n===4?[0,2]:[1,2];const dots=dx=>sp.m
 let M,hist=[],fut=[],sel=null,clip=null,outMode='json',layer='notes',lastG=null;
 try{const l=localStorage.getItem('atelier-mode');layer='notes';}catch(e){}
 const uid=()=>Math.random().toString(36).slice(2,9);
-const LABELS_OK=/^(OPENING|INTRO|VERSE( \d+)?|PRE-CHORUS|CHORUS( \d+)?|POST-CHORUS|BRIDGE|INTERLUDE|SOLO( [A-Z]+)?|BASELINE( \d+)?|BOUCLE( \d+)?|OUTRO|VARIANTE SOLO BASS)$/;
 function normLabel(t){return(t||'').trim().toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/^PRE CHORUS/,'PRE-CHORUS').replace(/^POST CHORUS/,'POST-CHORUS').replace(/^BASE LINE/,'BASELINE').replace(/\s+/g,' ');}
 function newMeasure(){return{id:uid(),ton:'',ton2:'',tonAt:null,accords:'',rythme:'',notes:'',style:'',fig:'',seed:0,seedN:0,ov:{},pause:false};}
 function newSection(o){const b={id:uid(),t:'section',label:'',nb:4,fois:1,tempo:null,style:'rock',fig:'Ro1',tonalite:'',grille:'',rythmes:'',notes:'',mesures:[],...o};
@@ -1334,22 +1322,6 @@ function guessKey(G){const w=new Array(12).fill(0);let tot=0,first=null,last=nul
   if(!tot)return'— (à déduire des notes)';w[first]+=tot*0.08;w[last]+=tot*0.12;
   const r=keyRank(w);return r[0].s-r[1].s<0.04?`${keyNm(r[0])} (ou ${keyNm(r[1])})`:keyNm(r[0]);}
 /* accords et tonalité affichés au-dessus de la portée : cohérents avec les notes de la mesure ? */
-function checkCoherence(G){const SCALE={false:[0,2,4,5,7,9,11],true:[0,2,3,5,7,8,10,11]};
-  G.secs.forEach(sc=>sc.mes.forEach((mo,mi)=>{if(mo.sim||mo.pause||mo.err||!mo.chords.length)return;const S=mo.S;
-    const ns=mo.events.filter(e=>e.kind==='note'&&e.pitch!=null&&!e.cont);if(ns.length<2)return;
-    const sig=ns.map(e=>e.pitch).join(',');if(mo.m.cohIgn===sig)return;const nm=[...new Set(ns.map(e=>pcName(e.pitch,mo.key1&&mo.key1.flat).toLowerCase()))].join(', ');
-    /* tonalité */
-    let tot=0,out=0;const w=new Array(12).fill(0);ns.forEach(e=>{const k=mo.kAt(e.start);const x=e.tics*(e.start%S.beat<0.5?1.5:1);tot+=x;w[pcOf(e.pitch)]+=x;if(k&&!SCALE[!!k.minor].includes(pcOf(e.pitch-k.pc)))out+=x;});
-    if(ns.length>=3&&tot>=S.beat&&out/tot>0.5){const r=keyRank(w);const kn=keyNm(r[0]);const cur=mo.kAt(0);
-      if(!cur||kn!==keyNm({pc:cur.pc,minor:!!cur.minor})){mo.doute=true;G.alerts.push({bi:mo.bi,mi,msg:`mesure ${mo.num} : les notes (${nm}) sortent de la tonalité ${cur?keyNm({pc:cur.pc,minor:!!cur.minor}):''} ; tonalité cohérente : ${kn}`,fix:{kind:'ton',val:kn,label:kn,sig}});mo.fix=G.alerts[G.alerts.length-1];return;}}
-    /* accords */
-    mo.chords.forEach((c,i)=>{const t0=mo.cst[i],t1=i+1<mo.cst.length?mo.cst[i+1]:S.cap;const seg=ns.filter(e=>e.start>=t0-0.5&&e.start<t1-0.5);if(seg.length<2)return;
-      const pcsOf=(pc,ivs)=>new Set([pc,...ivs.map(v=>pcOf(pc+v))]);const cur=pcsOf(c.pc,c.ivs||[0,c.third,c.fifth]);
-      const fit=set=>{let a=0,tt=0;seg.forEach(e=>{const x=e.tics*(e.start%S.beat<0.5?2:1);tt+=x;if(set.has(pcOf(e.pitch)))a+=x;});return tt?a/tt:1;};
-      const segT=seg.reduce((a,e)=>a+e.tics,0);const f0=fit(cur);if(f0>=0.4||segT<S.beat)return;
-      let best=null;for(let r=0;r<12;r++)for(const mn of[false,true]){const f=fit(pcsOf(r,[0,mn?3:4,7]))+(pcOf(seg[0].pitch)===r?0.1:0);if(!best||f>best.f)best={r,mn,f};}
-      if(!best||best.f<0.6)return;const en=(best.mn?KEYS_MIN:KEYS_MAJ)[best.r][1];const pc2=parseChord(en,false);const fr=pc2?pc2.fr:en;if(pc2&&pc2.en===c.en)return;
-      (mo.cohBad=mo.cohBad||[]).push(i);G.alerts.push({bi:mo.bi,mi,msg:`mesure ${mo.num} : les notes (${nm}) ne correspondent pas à ${c.fr} ; accord cohérent : ${fr}`,chi:i,fix:{kind:'acc',val:en,at:t0,label:fr,sig}});if(!mo.fix)mo.fix=G.alerts[G.alerts.length-1];});}));}
 /* remarques ignorées : clé = élément concerné + texte + contenu actuel ; si le contenu change, la remarque revient */
 function alertKey(a){const b=a.bi!=null?M.blocs[a.bi]:null;let sg='';if(b){if(a.mi!=null&&b.mesures&&b.mesures[a.mi])sg=JSON.stringify(b.mesures[a.mi]);else{const {mesures,...rest}=b;sg=JSON.stringify(rest);}}
   return String(strHash((b?b.id:'')+'|'+(a.mi??'')+'|'+a.msg.replace(/mesure \d+/g,'mesure')+'|'+sg));}
@@ -1428,7 +1400,7 @@ function lineSVG(G,line,li,o){o=o||{mode:'notes'};const mode=o.mode,exp=!!o.exp,
   const rgeo=rgPre.concat(line.rappels.filter(r=>!r.pre).map(r=>{const w=rapW(r);const g={x0:x,xe:x+w,r};x+=w;return g;}));
   /* toutes les portées ont la même largeur : la dernière barre reste à sa place, seules les lignes de la portée continuent à vide */
   line.xNat=x;/* section 126 : lignes d'un grand crochet : la portée s'arrête au crochet (fin de la plus longue ligne encadrée) */
-  if(line.cro&&line.cro.g.X)x=Math.max(x,line.cro.g.X);else if(G.staffW&&(x>left||line.empty)&&x-left<G.staffW-0.5)x=left+G.staffW;
+  if(line.cro&&line.cro.g.X)x=Math.max(x,line.cro.g.X);else if(G.staffW&&(x>left||line.empty)&&x-left<G.staffW-0.5&&!(o.trim&&x>left))x=left+G.staffW;
   const addBtn=false;const lcb=false;const secF0=line.mes.length?line.mes[line.mes.length-1].secFois:0;line.xEnd=x;const xr=line.cro&&line.cro.g.X?Math.max(x,line.cro.g.X):x;const crw=line.cro?(line.cro.first?26+String(line.cro.fois).length*12+10:22):0;const cw=(xr-x)+crw;const RM=exp?110:120;const W=Math.max(x,left+(G.staffW||0))+RM+(edit?50:0);
   if(line.swMark){const yS=Math.round(((top-5)+(top-(showCh?32:18)-(Ly.fois?23:0)-15-(Ly.tx?16:0)-(Ly.foisUp?10:0)-(Ly.stUp?10:0)+12))/2);Ptop.push(swingSym(left+2+(line.tempo?String(line.tempo).length*7+34:0),yS,line.swMark==='on').replace('<g class="swing">',`<g class="swing" data-sb="${line.bi}">`));}
   if(line.tempo){const yT=Math.round(((top-5)+(top-(showCh?32:18)-(Ly.fois?23:0)-15-(Ly.tx?16:0)-(Ly.foisUp?10:0)-(Ly.stUp?10:0)+12))/2);Ptop.push(`<text class="tempo" data-tb="${line.bi}" x="${left+2}" y="${yT}">♩ = ${line.tempo}</text>`);}
@@ -1561,25 +1533,12 @@ function lineSVG(G,line,li,o){o=o||{mode:'notes'};const mode=o.mode,exp=!!o.exp,
   P.push(...Ptop);return`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="${line.cro?'overflow:visible;':''}min-width:${Math.round(W*0.8)}px" role="img" aria-label="Tablature, ligne ${li+1}">${P.join('')}</svg>`;}
 
 /* ===================== Sorties ===================== */
-function gridText(g,S){const a=gridArr(g,S.n)||[];const per=S.comp?3:4;const out=[];for(let i=0;i<a.length;i+=per)out.push(a.slice(i,i+per).join(' '));return out.join(' | ');}
-function evJSON(e){if(e.kind==='rest')return{t:'silence',duree:e.d,points:e.p,triolet:!!e.tri};
-  if(e.kind==='morte')return{t:'morte',corde:e.corde,duree:e.d,points:e.p,triolet:!!e.tri};
-  return{t:'note',notes:[{corde:e.corde,case:e.case},...(e.xs||[]).map(z=>({corde:z.corde,case:z.case}))],duree:e.d,points:e.p,triolet:!!e.tri,staccato:!!e.st,appog:null,lie:!!e.tie,slide:!!e.slide,slide_entree:e.se==='b'?'bas':e.se==='h'?'haut':null,slide_sortie:null,point_orgue:false,doute:false};}
-function toJSON(G){return{v:2,titre:M.titre,sous_titre:M.sous_titre,tempo:+M.tempo,cordes:+M.cordes,preset:M.preset,accordage:G.tun,signature:M.signature,
-  lignes:G.lines.map((line,li)=>{const els=[];line.rappels.filter(r=>r.pre).forEach(r=>els.push({t:'rappel',texte:r.texte,fois:r.fois>1?r.fois:null}));if(line.label||line.tempo)els.push({t:'section',label:line.label,...(line.tempo?{tempo:line.tempo}:{})});
-    line.mes.forEach(mo=>mo.tz?els.push({t:'texte',texte:mo.m.tz,largeur:+mo.m.tw||null}):els.push({t:'mesure',...(mo.m.tx&&mo.m.tx.length?{textes:mo.m.tx.map(o=>({texte:o.t,croche:o.c+1}))}:{}),ouverture:mo.open==='repO'?'reprise':mo.open==='double'?'double':'simple',fermeture:mo.close==='repC'?'reprise':mo.close==='fin'?'finale':'simple',
-      ...(mo.sigShow?{signature:{temps:mo.S.temps,unite:mo.S.unite}}:{}),accords:mo.chords.map((c,i)=>({nom:c.en,debut:mo.cst[i]})).filter((a,i)=>!(i===0&&mo.carry)),fois:mo.fois||null,volta:mo.m.vo?voList(mo.m.vo).join(','):null,simile:mo.sim?2-(mo.sim===1):0,pause:!!mo.pause,doute:!!(mo.err||mo.doute),evenements:mo.sim?[]:mo.events.map(evJSON)}));
-    line.rappels.filter(r=>!r.pre).forEach(r=>els.push({t:'rappel',texte:r.texte,fois:r.fois>1?r.fois:null}));
-    return{id:li+1,page:1,idx:li+1,crochet:{debut:!!(line.cro&&line.cro.first),fin:!!(line.cro&&line.cro.last),fois:line.cro&&line.cro.last?line.cro.fois:null},elements:els};})};}
 
 /* ===================== Interface ===================== */
 const $=s=>document.querySelector(s);
-function styleOpts(v,withSec){return(withSec?`<option value="">${esc((STYLES[withSec]||{nom:'Style de la section'}).nom)} (par défaut)</option>`:'')+Object.entries(STYLES).map(([k,s])=>`<option value="${k}"${k===v?' selected':''}>${s.nom}</option>`).join('');}
-function figOpts(sk,v,withDef){const st=STYLES[sk];if(!st)return'';const gen=M.expert&&(CELLS[sk]||sigInfo(M.signature).comp);return(withDef?`<option value="">${esc(typeof withDef==='string'?withDef:'Figure de la section')} (par défaut)</option>`:'')+(gen?`<option value="gen"${v==='gen'?' selected':''}>Variations du style</option>`:'')+st.figs.map(f=>`<option value="${f.id}"${f.id===v?' selected':''}>${f.nom}</option>`).join('');}
 const nOpts=(v,list)=>{const L=[...list];if(+v>1&&!L.includes(+v))L.push(+v);L.sort((a,b)=>a-b);return L.map(k=>`<option value="${k}"${+v===k?' selected':''}>×${k}</option>`).join('')+'<option value="__autre">Autre…</option>';};
 const foisOpts=v=>`<option value="1">—</option>`+nOpts(v,[2,3,4,5,6,8]);
 const xsel=(b,k,opts,label)=>{const X={...XDEF,...(b.x||{})};return`<label>${label}<select id="x${k}-${b.id}" data-f="x.${k}">${opts.map(([v,t])=>`<option value="${v}"${String(X[k])===String(v)?' selected':''}>${t}</option>`).join('')}</select></label>`;};
-function xRy(b){return`<h3>Mode expert</h3>${xsel(b,'dens',[[0,'Sobre'],[1,'Normale'],[2,'Chargée']],'Densité')}${xsel(b,'vari',[[0,'Aucune'],[1,'Légère (1 mesure sur 2)'],[2,'Forte (chaque mesure)']],'Variation')}${xsel(b,'fill',[[0,'Aucun'],[1,'Fin de section']],'Remplissage')}`;}
 function xNo(b){const X={...XDEF,...(b.x||{})};return`<h3>Mode expert</h3>${xsel(b,'reg',[['grave','Grave'],['medium','Médium'],['aigu','Aigu'],['manche','Tout le manche']],'Registre')}${xsel(b,'voc',[['simple','Notes de l’accord'],['gammes','Gammes'],['chromatique','Gammes et chromatismes']],'Vocabulaire')}<label class="tog"><input type="checkbox" id="xs-${b.id}" data-f="x.slide" ${X.slide?'checked':''}> Slides aux grands déplacements</label>`;}
 const STD_LABELS=['OPENING','INTRO','VERSE 1','VERSE 2','VERSE 3','PRE-CHORUS','CHORUS 1','CHORUS 2','CHORUS 3','POST-CHORUS','BRIDGE','INTERLUDE','SOLO','BASELINE 1','BASELINE 2','BOUCLE 1','BOUCLE 2','OUTRO'];
 function labelField(b){const v=b.label||'';const std=!v||STD_LABELS.includes(v);
@@ -1589,44 +1548,33 @@ function tempoAvant(bi){let t=+M.tempo||100;for(let i=0;i<bi;i++){const b=M.bloc
 const KEYS_MAJ=[['Do','C'],['Réb','Db'],['Ré','D'],['Mib','Eb'],['Mi','E'],['Fa','F'],['Fa#','F#'],['Sol','G'],['Lab','Ab'],['La','A'],['Sib','Bb'],['Si','B']];
 const KEYS_MIN=[['Do','Cm'],['Do#','C#m'],['Ré','Dm'],['Mib','Ebm'],['Mi','Em'],['Fa','Fm'],['Fa#','F#m'],['Sol','Gm'],['Sol#','G#m'],['La','Am'],['Sib','Bbm'],['Si','Bm']];
 /* menu des 24 tonalités ; une valeur saisie auparavant est rattachée à la tonalité équivalente */
-function keyOpts(val,inherit,inhLabel){const k=val&&val.trim()?parseKey(val):null;
-  const same=(name,minor)=>{if(!k)return false;const q=parseKey(name+(minor?' mineur':' majeur'));return q&&q.pc===k.pc&&q.minor===k.minor;};
-  let h=inherit!=null?`<option value=""${k?'':' selected'}>${inhLabel==='Choisir'?'Choisir…':esc(inherit)+' (par défaut)'}</option>`:'';let found=false;
-  const grp=(list,minor,label)=>`<optgroup label="${label}">`+list.map(([fr,en])=>{const v=fr+(minor?' mineur':' majeur');const on=!found&&same(fr,minor);if(on)found=true;return`<option value="${esc(v)}"${on?' selected':''}>${esc(v)} (${en})</option>`;}).join('')+'</optgroup>';
-  h+=grp(KEYS_MAJ,false,'Majeur')+grp(KEYS_MIN,true,'Mineur');
-  if(val&&val.trim()&&!found)h=`<option value="${esc(val)}" selected>${esc(val)} (non reconnue)</option>`+h;
-  return h;}
-function ryHint(b){const st=STYLES[b.style],{fig}=figOf(b.style,b.fig);const S=sigInfo(M.signature);
-  return esc([st.tempo?'♩ '+st.tempo:'',fig.tech||st.tech,st.sig&&st.sig!==`${M.signature.temps}/${M.signature.unite}`?'se joue en '+st.sig:'',st.swing&&!S.comp?'écriture simplifiée, jouer '+st.swing.toLowerCase():''].filter(Boolean).join(' · '));}
-function noHint(bi){const sec=lastG&&lastG.secs.find(s=>s.bi===bi);if(!sec)return'';const ch=sec.mes.map(mo=>mo.pause?'—':mo.chords.map(c=>c.fr).join(' ')||'?').join(' | ');return(sec.key?esc(sec.key.nom)+' · ':'')+esc(ch);}
 /* rythme joué d'une mesure, écrit en grille (ou en durées s'il ne tient pas dans la grille) */
-function evToText(mo,S){if(!mo||mo.pause)return mo&&mo.pause?'mesure de silence':'';const ev=mo.events;if(!ev.length)return'';
-  const ok=ev.every(e=>!e.tri&&e.start%S.caseT===0&&e.tics%S.caseT===0);
-  if(ok){const a=Array(S.n).fill('.');ev.forEach(e=>{const c=e.start/S.caseT,L=e.tics/S.caseT;if(e.kind==='rest')return;
-      a[c]=e.cont?'-':(e.kind==='morte'?'x':'X');for(let k=1;k<L;k++)a[c+k]='-';});
-    const per=S.comp?3:4,out=[];for(let i=0;i<a.length;i+=per)out.push(a.slice(i,i+per).join(''));return out.join(' ');}
-  return ev.map(tokText).join(' ');}
 
 /* ---------- Partition éditable ---------- */
 /* section 128 : numéros de mesure masqués par défaut (Atelier seulement, jamais en Concert / PDF / SVG) */
 let SHOWNUM=false;try{SHOWNUM=localStorage.getItem('atelier-num')==='1';}catch(e){}
 const FSAVE=!!window.showSaveFilePicker&&!(window.claude&&window.claude.use)&&location.protocol!=='about:';
 const HELP_TXT='Zones : marge gauche = étiquette (section) et début de ligne (lignes) ; au-dessus de la portée = la mesure (glisser pour la déplacer, ⇧+clic pour un groupe) ; clic sur une barre de mesure = ses réglages ; sur la portée = la note ; sous la portée = le temps (rythmes). Clic : sélectionner ; clic droit, double-clic ou Entrée : menu ; fenêtres et menus déplaçables par leur titre ou la poignée ⠿. — Note : chiffres (avec ou sans Maj) = case ; ← → ½ ton ; ↑ ↓ corde ; ⌥↑ ⌥↓ curseur d’accord ; Espace note ↔ silence ; f + chiffre fin alternée (f seule : la retirer) ; s staccato ; % ou ù rejouer la mesure précédente (2 appuis : les deux précédentes) ; . pointée ; l liaison ; / slide ; x note morte ; g appogiature ; ⇧→ / ⇧← étendre la sélection de notes (puis l : liaison de phrasé) ; ⌫ supprimer. — Navigation : Tab / ⇧Tab élément suivant / précédent du même niveau (section, ligne, mesure, temps, note, barre) ; ⌥Tab prochaine chose à vérifier ; ← → (mesure, temps, section) voisin ; Échap fermer. — Édition : ⌘C / ⌘V copier / coller ; ⌘Z / ⇧⌘Z annuler / rétablir ; ⌘Y répéter la dernière action ; T texte libre'+(FSAVE?' ; ⌘S enregistrer ; ⇧⌘S enregistrer sous':'')+'. — Espace (sans note sélectionnée) : lecture / arrêt ; pendant l’écoute, clic au-dessus d’une mesure : y sauter ; ⌥N mode nuit ; ? cette aide.';
-const MODE_HINT={
-  structure:'Glisser une mesure pour la déplacer (aussi vers la ligne voisine). Clic : sélectionner (⇧+clic : plusieurs mesures, ou plusieurs lignes depuis leur début à gauche). Clic droit ou Entrée : menu de l’élément — étiquette (nom, mesures, tempo, reprise), mesure (ajouter, reprise, réglages), barre, rappel, début de ligne (mesures sur la ligne, répéter). ⌫ supprime la sélection, Échap ferme.',
-  rythmes:'Cliquez un temps pour choisir son rythme : le menu passe ensuite au temps suivant. ← → : temps voisin, Entrée : ouvrir le menu, ⌫ : silence, Échap : fermer.',
-  notes:'Au-dessus de la portée : la mesure ; sur la portée : la note ; sous la portée : le temps (rythmes). Clic : sélectionner ; clic droit, double-clic ou Entrée : menu. Note : → ← ½ ton, ↑ ↓ corde, chiffres = case, Espace note ↔ silence, « . » staccato, « x » note morte. Tab / ⇧Tab : note suivante / précédente (saisie rapide) ; ⌥Tab : prochaine chose à vérifier. Échap ferme.'};
-let lcT=null;function lineCount(){clearTimeout(lcT);lcT=setTimeout(()=>{try{const n=lastG.lines.length,p=paginate().length;$('#lcount').textContent=`${n} ligne${n>1?'s':''} · ${p} page${p>1?'s':''}`;}catch(e){}},400);}
-function renderScore(){const G=generate();lastG=G;renderSum();setTimeout(drawScans,0);setTimeout(applyZoom,0);lineCount();
+function lineCount(){try{const n=lastG.lines.length,p=APAGES.length||1;$('#lcount').textContent=`${n} ligne${n>1?'s':''} · ${p} page${p>1?'s':''}`;}catch(e){}}
+/* sections 135 et 146 : pages de l'Atelier (même découpage que le PDF) — sauts de page en pointillés, ou affichage séquentiel (portrait) */
+let APAGES=[],APG=0,ASEQ=false;try{ASEQ=localStorage.getItem('atelier-at-seq')==='1';}catch(e){}
+const aPortrait=()=>innerHeight>innerWidth;const aSeqOn=()=>ASEQ&&aPortrait()&&APAGES.length>0;
+function atelierPages(G){try{const L=exportLines();APAGES=pageGroups(L).map(pg=>pg.map(it=>G.lines.indexOf(it.l)));}catch(e){APAGES=[G.lines.map((l,i)=>i)];}prepCros(G,'notes');}
+function atelierPagesView(){const tabs=[...document.querySelectorAll('#lines > .tab')];if(!tabs.length)return;const pgOf=[];APAGES.forEach((pg,k)=>pg.forEach(i=>pgOf[i]=k));
+  const el=sel&&selEl();const ti=el?tabs.indexOf(el.closest('.tab')):-1;if(ti>=0&&pgOf[ti]!=null)APG=pgOf[ti];APG=Math.max(0,Math.min(APG,APAGES.length-1));
+  const sq=aSeqOn();tabs.forEach((t,i)=>{const k=pgOf[i]||0;t.classList.toggle('pghid',sq&&k!==APG);const br=!sq&&k>0&&APAGES[k][0]===i;t.classList.toggle('pbk',br);if(br)t.dataset.pg='page '+(k+1);else delete t.dataset.pg;});
+  const b=$('#b-seq');b.setAttribute('aria-pressed',ASEQ);b.disabled=!aPortrait();b.title=aPortrait()?'Affichage page par page (comme le PDF)':'Page par page : seulement en portrait';
+  $('#pgnav').hidden=!sq;$('#pg-n').textContent=`page ${APG+1} / ${APAGES.length}`;$('#pg-prev').disabled=APG<=0;$('#pg-next').disabled=APG>=APAGES.length-1;}
+function renderScore(){const G=generate();lastG=G;renderSum();setTimeout(applyZoom,0);
   G.labelW=Math.max(0,...G.lines.filter(l=>l.first).map(l=>labelW(l.label||'SECTION')+6));G.labN=Math.max(1,...G.lines.filter(l=>l.first).map(l=>splitLabel(l.label||'SECTION').length));
   document.querySelectorAll('.layers [data-l]').forEach(b=>b.setAttribute('aria-selected',b.dataset.l===layer));
   $('#modehint').textContent=HELP_TXT;$('#structadd').hidden=true;
-  layer='notes';prepCros(G,layer);$('#lines').innerHTML=G.lines.map((l,i)=>`<div class="tab${l.cro?' incro':''}">${lineSVG(G,l,i,{mode:layer})}</div>`).join('')||'<p class="legend">Ajoutez une section.</p>';
+  layer='notes';atelierPages(G);$('#lines').innerHTML=G.lines.map((l,i)=>`<div class="tab${l.cro?' incro':''}">${lineSVG(G,l,i,{mode:layer})}</div>`).join('')||'<p class="legend">Ajoutez une section.</p>';
   $('#alerts').innerHTML=(G.alerts.length>1?`<li class="ahead"><button class="btn small" data-ignall title="Supprime définitivement toutes ces remarques">Tout ignorer</button></li>`:'')+
     G.alerts.map((a,i)=>`<li data-bi="${a.bi==null?'':a.bi}" data-mi="${a.mi==null?'':a.mi}">${esc(a.msg)}${a.fix?`<button class="btn small afix" data-fx="${i}">Appliquer ${esc(a.fix.label)}</button>`:''}<button class="btn small afix" data-ign="${i}">Ignorer</button></li>`).join('')+
     (G.ignored.length?`<li class="ahead"><button class="btn small" data-showign>${showIgn?'Masquer':'Afficher'} les remarques ignorées (${G.ignored.length})</button></li>`+(showIgn?G.ignored.map((a,i)=>`<li class="ignd">${esc(a.msg)}<button class="btn small afix" data-rest="${i}">Rétablir</button></li>`).join(''):''):'');
-  $('#o-chk').textContent=`À vérifier (${G.alerts.length})`;{const ba=$('#b-alerts');ba.hidden=!G.alerts.length;ba.textContent=`⚠ ${G.alerts.length} à vérifier`;}
-  renderOut();if(sel&&!$('#panel').hidden)renderPanel();requestAnimationFrame(fitPanel);
+  atelierPagesView();lineCount();{const ba=$('#b-alerts');ba.hidden=!G.alerts.length;ba.textContent=`⚠ ${G.alerts.length} à vérifier`;}
+  if(sel&&!$('#panel').hidden)renderPanel();requestAnimationFrame(fitPanel);
   $('#b-undo').disabled=!hist.length;$('#b-redo').disabled=!fut.length;}
 const renderTabs=renderScore,renderAll=renderScore;
 function renderSum(){const pre={standard:'',dropd:'Drop D',demi:'½ ton plus bas',ton:'1 ton plus bas'}[M.preset];
@@ -1634,28 +1582,12 @@ function renderSum(){const pre={standard:'',dropd:'Drop D',demi:'½ ton plus bas
 function setSettings(open){$('#settings').classList.toggle('closed',!open);$('#b-stog').setAttribute('aria-expanded',open);try{localStorage.setItem('atelier-reglages',open?'1':'0');}catch(e){}}
 function renderHeader(){renderSum();$('#p-titre').value=M.titre||'';$('#p-sous').value=M.sous_titre||'';$('#p-tempo').value=M.tempo;$('#p-cordes').value=M.cordes;$('#p-preset').value=M.preset;
   $('#p-sig').value=`${M.signature.temps}/${M.signature.unite}`;$('#p-expert').checked=!!M.expert;$('#p-swing').checked=!!M.swing;$('#p-pl').value=String(M.parLigne||4);}
-function renderOut(){return;const G=lastG;let t='';
-  if(outMode==='json')t=JSON.stringify(toJSON(G),null,1);
-  else t=G.alerts.length?G.alerts.map(a=>'• '+a.msg).join('\n'):'Aucun point à vérifier : chaque mesure fait le compte.';
-  $('#outpre').textContent=t;document.querySelectorAll('.otabs [data-o]').forEach(b=>b.setAttribute('aria-selected',b.dataset.o===outMode));}
-function setMode(l){l='notes';layer=l;try{localStorage.setItem('atelier-mode',l);}catch(e){}
-  if(sel&&sel.t==='ev'&&l==='structure')sel={t:'mes',bi:sel.bi,mi:sel.mi};
-  if(sel&&sel.t==='bar'&&l!=='structure')sel={t:'mes',bi:sel.bi,mi:sel.mi};
-  if(sel&&sel.t==='ev'){const mo=findMo(sel.bi,sel.mi);const e=mo&&mo.events.find(x=>x.ei===sel.ei);if(false)sel={t:'mes',bi:sel.bi,mi:sel.mi};}
-  renderScore();}
 
 /* ---------- Rythmes types d'une mesure ---------- */
 const RP_LAB={style:'Rythme du style',pause:'Mesure de silence',n:'Noires',c:'Croches',b:'Blanches',r:'Ronde'};
 function rpText(kind,S){const base={n:48,c:24,b:96,r:192}[kind];const out=[];let rem=S.cap;
   while(rem>=base){out.push(tokText({kind:'note',...adm(base),tics:base}));rem-=base;}
   while(rem>0){const a=ADM.find(x=>x.t<=rem);out.push(tokText({kind:'note',d:a.d,p:a.p,tics:a.t}));rem-=a.t;}return out.join(' ');}
-function rpName(kind,S){const t=rpText(kind,S).split(' ');const n=t.length;
-  if(kind==='n')return n===4?'4 noires':`${n} noires`;if(kind==='c')return n===8?'8 croches':`${n} croches`;
-  if(kind==='b')return S.cap===192?'2 blanches':'Blanches ('+t.join(' ')+')';return S.cap===192?'1 ronde':'Note tenue ('+t.join(' ')+')';}
-function mesRp(m,S){if(m.pause)return{v:'pause',S};if(!m.rythme)return{v:'style',S};for(const k of['n','c','b','r'])if(m.rythme===rpText(k,S))return{v:k,S};return{v:'own',S};}
-function secRp(b,sec){const vs=b.mesures.map((m,i)=>mesRp(m,sec.mes[i].S).v);const u=[...new Set(vs)];return{v:u.length===1?u[0]:'mix',S:sec.mes[0].S};}
-function rpOpts({v,S}){return(v==='own'?'<option value="own" selected>Rythme retouché</option>':'')+(v==='mix'?'<option value="mix" selected>Rythmes différents</option>':'')+
-  [['style','Aucun'],['pause','Mesure de silence'],['n',rpName('n',S)],['c',rpName('c',S)],['b',rpName('b',S)],['r',rpName('r',S)]].map(([k,l])=>`<option value="${k}"${v===k?' selected':''}>${esc(l)}</option>`).join('');}
 function applyRp(m,v,S){m.ov={};if(v==='pause'){m.pause=true;m.rythme='';return;}m.pause=false;m.rythme=v==='style'?'':rpText(v,S);}
 
 /* ---------- Copier / remplacer une mesure (le contenu seulement : barres, signature et mise en page restent) ---------- */
@@ -1886,10 +1818,10 @@ let ZOOM=1;try{ZOOM=Math.min(2.5,Math.max(ZMIN,+localStorage.getItem('atelier-zo
 const ZSTEPS=[0.5,0.75,1,1.25,1.5,1.75,2,2.5];
 function applyZoom(){const L=$('#lines');if(!L)return;const svgs=[...L.querySelectorAll('.tab > svg')];if(!svgs.length)return;
   const maxW=Math.max(1,...svgs.map(sv=>sv.viewBox.baseVal.width));
-  if(!IS_MAC&&ZOOM<=1.001&&isPhone()){L.classList.remove('zoomed');svgs.forEach(sv=>{sv.style.width='';sv.style.maxWidth='';});}
+  if(!IS_MAC&&ZOOM<=1.001&&isPhone()&&!aSeqOn()){L.classList.remove('zoomed');svgs.forEach(sv=>{sv.style.width='';sv.style.maxWidth='';});}
   else{/* tablette (section 123) : la ligne la plus large tient exactement dans la largeur de l'écran *//* Mac : échelle d'impression (pleine largeur A4, section 76) convertie en pixels réels de l'écran */
-    const base=IS_MAC?(567.28/Math.max(1,maxW-60))*PPI/72:(isPhone()?Math.min(1,L.clientWidth/maxW):(L.clientWidth-2)/maxW);const sc=ZOOM*base;
-    const narrow=maxW*sc<L.clientWidth-2;svgs.forEach(sv=>{sv.style.width=Math.round(sv.viewBox.baseVal.width*sc)+'px';sv.style.maxWidth='none';sv.style.height='auto';sv.style.display=narrow?'block':'';sv.style.margin=narrow?'0 auto':'';});
+    const base=IS_MAC?(567.28/Math.max(1,maxW-60))*PPI/72:(isPhone()?Math.min(1,L.clientWidth/maxW):(L.clientWidth-2)/maxW);let fitB=base;if(aSeqOn()){const vis=svgs.filter(sv=>!sv.parentNode.classList.contains('pghid'));const sumH=vis.reduce((a,sv)=>a+sv.viewBox.baseVal.height,0);const ob=$('.otabs');const avail=innerHeight-(ob?ob.offsetHeight:0)-24-vis.length*8;if(sumH>0)fitB=Math.min(base,avail/sumH);}const sc=ZOOM*fitB;
+    const narrow=maxW*sc<L.clientWidth-2;svgs.forEach(sv=>{sv.style.width=Math.round(sv.viewBox.baseVal.width*sc)+'px';sv.style.maxWidth='none';sv.style.minWidth='0';sv.style.height='auto';sv.style.display=narrow?'block':'';sv.style.margin=narrow?'0 auto':'';});
     L.classList.toggle('zoomed',maxW*sc>L.clientWidth+1);}
   const zb=$('#z-fit');if(zb)zb.textContent=Math.abs(ZOOM-1)>0.001?Math.round(ZOOM*100)+' %':'Zoom';}
 function setZoom(z){ZOOM=Math.min(2.5,Math.max(ZMIN,z));try{localStorage.setItem('atelier-zoom',ZOOM);}catch(e){}applyZoom();if(sel)requestAnimationFrame(revealSel);}
@@ -2258,7 +2190,7 @@ function lineMenu(el){closeLineMenu();const bi=+el.dataset.bi,mi=+el.dataset.mi;
 document.addEventListener('click',e=>{if(!e.target.closest('#lmenu')&&!e.target.closest('.lcnt')&&!e.target.closest('.lstart')&&!e.target.closest('.fixb'))closeLineMenu();if(!e.target.closest('#rmenu')&&!e.target.closest('.bzone')&&!e.target.closest('.ev'))closeBeatMenu();if(!e.target.closest('#amenu')&&!e.target.closest('.chn')&&!e.target.closest('.cband')&&!e.target.closest('[data-pa="aadd"]'))closeAccMenu();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&(document.getElementById('lmenu')||document.getElementById('amenu')||document.getElementById('rmenu'))){e.stopImmediatePropagation();closeLineMenu();closeAccMenu();closeBeatMenu();}},true);
 document.addEventListener('pointerdown',e=>{const p=$('#panel');if(!p.hidden&&!e.target.closest('#panel')&&!e.target.closest('#lmenu,#amenu,#rmenu')){p.hidden=true;document.body.classList.remove('has-panel');}},true);
-window.addEventListener('resize',()=>{placePanel();clearTimeout(window.__rz);window.__rz=setTimeout(()=>{const k=screenPL();if(k!==window.__pl){window.__pl=k;renderScore();}else applyZoom();if(typeof CC!=='undefined'&&CC)ccPageUI();},250);});window.__pl=screenPL();
+window.addEventListener('resize',()=>{placePanel();clearTimeout(window.__rz);window.__rz=setTimeout(()=>{const k=screenPL();if(k!==window.__pl){window.__pl=k;renderScore();}else{atelierPagesView();applyZoom();}if(typeof CC!=='undefined'&&CC)ccLayout();},250);});window.__pl=screenPL();
 window.addEventListener('scroll',()=>{placePanel();closeLineMenu();closeAccMenu();if(!document.activeElement.closest||!document.activeElement.closest('#rmenu'))closeBeatMenu();},{passive:true});
 /* Partition : clics */
 $('#b-help').addEventListener('click',()=>{const h=$('#modehint');h.hidden=!h.hidden;$('#calibp').hidden=h.hidden||!IS_MAC;$('#b-help').setAttribute('aria-expanded',!h.hidden);});
@@ -2345,10 +2277,6 @@ $('#newbox').addEventListener('click',ev=>{const box=$('#newbox');
   if(ev.target.id==='b-new-ok'||ev.target.id==='b-new-no')box.innerHTML=`<button class="btn" id="b-new">Nouvelle partition</button>`;});
 
 /* Sortie */
-document.querySelectorAll('.otabs[role=tablist]').forEach(el=>el.addEventListener('click',ev=>{const b=ev.target.closest('[data-o]');if(b){outMode=b.dataset.o;renderOut();}}));
-$('#b-copy').addEventListener('click',()=>{const t=$('#outpre').textContent;const done=()=>toast(outMode==='json'?'JSON copié : collez-le dans un fichier « Titre - Sous-titre.json »':'Copié');
-  const fallback=()=>{const r=document.createRange();r.selectNodeContents($('#outpre'));const s=getSelection();s.removeAllRanges();s.addRange(r);toast('Texte sélectionné : ⌘C pour copier');};
-  try{navigator.clipboard.writeText(t).then(done,fallback);}catch(e){fallback();}});
 
 /* ---------- Accords placés sur la portée ---------- */
 function ensureAcc(m,mo){if(!m.acc||!m.acc.length)m.acc=mo.chords.map((c,i)=>(i===0&&mo.carry)?null:{t:mo.cst[i],c:c.en}).filter(Boolean);}
@@ -2596,8 +2524,8 @@ $('#a-scope').addEventListener('change',()=>{if(Player.playing)stopPlay();});
 
 /* ===================== Export SVG et PDF ===================== */
 const EXPORT_CSS=`.st{stroke:#8B95A4;stroke-width:1}.bar{stroke:#17202C;stroke-width:1.1}.barT{stroke:#17202C;stroke-width:3.2}.dot,.rhf,.rsf{fill:#17202C}.tn{font:700 19.5px 'Barlow Semi Condensed','Arial Narrow','Helvetica Neue',Helvetica,Arial,sans-serif;font-variant-numeric:tabular-nums;fill:#17202C}.tng{font:600 10px 'Barlow Semi Condensed','Arial Narrow',Helvetica,Arial,sans-serif;fill:#17202C}.swg{fill:#17202C}.swgl{stroke:#17202C;stroke-width:1.1;fill:none}.bgn{fill:#fff}.sn{font:500 9px Helvetica,Arial,sans-serif;fill:#5A6676}.mn{font:500 8.5px Menlo,"Courier New",monospace;fill:#5A6676}.txl{font:600 11px Menlo,"Courier New",monospace;fill:#17202C}.chd{font:600 11px Helvetica,Arial,sans-serif;fill:#17202C}.lbl{fill:#17202C}.lblt{font:700 17px Helvetica,Arial,sans-serif;fill:#17202C}.lblbox{fill:none}.rap{font:700 17px Helvetica,Arial,sans-serif;fill:#17202C}.fois{font:700 21px Helvetica,Arial,sans-serif;fill:#17202C}.rh,.rs,.tie{stroke:#17202C;fill:none}.rh{stroke-width:1.2}.rs{stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}.tie{stroke-width:1}.volta,.cro{stroke:#17202C;stroke-width:1.3;fill:none}.vnum{font:700 12px Helvetica,Arial,sans-serif;fill:#17202C}.sim{stroke:#17202C;stroke-width:2.6;stroke-linecap:round}.hit,.mhit,.hov,.msel,.doute,.nsel,.mhit-a{fill:none;stroke:none}.tempo{font:700 12.5px Helvetica,Arial,sans-serif;fill:#17202C}.sig{font:700 16px Helvetica,Arial,sans-serif;fill:#fff}.sigb{fill:#17202C}.kch{font:italic 600 9.5px Helvetica,Arial,sans-serif;fill:#5A6676}.hdr{font:500 10px Helvetica,Arial,sans-serif;fill:#17202C}.hdrt{font:700 11px Helvetica,Arial,sans-serif;fill:#17202C}`;
-function exportLines(){const keep=sel;sel=null;const G=lastG;const kw=G.labelW;G.labelW=Math.max(0,...G.lines.filter(l=>l.label).map(l=>labelW(l.label)+6));G.labN=Math.max(1,...G.lines.filter(l=>l.label).map(l=>splitLabel(l.label).length));
-  prepCros(G,'notes',true);const out=G.lines.map((l,i)=>{const s=lineSVG(G,l,i,{mode:'notes',exp:true});const m=s.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/);
+function exportLines(eo){eo=eo||{};const keep=sel;sel=null;const G=lastG;const kw=G.labelW;G.labelW=Math.max(0,...G.lines.filter(l=>l.label).map(l=>labelW(l.label)+6));G.labN=Math.max(1,...G.lines.filter(l=>l.label).map(l=>splitLabel(l.label).length));
+  prepCros(G,'notes',true);const out=G.lines.map((l,i)=>{const s=lineSVG(G,l,i,{mode:'notes',exp:true,trim:!!eo.trim});const m=s.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/);
     return{W:+m[1],H:+m[2],svg:s,inner:s.replace(/^<svg[^>]*>/,'').replace(/<\/svg>$/,''),l};});sel=keep;G.labelW=kw;return out;}
 function headerBits(){const tun=TUNINGS[M.preset][M.cordes];const extra=[];
   if(M.preset!=='standard'||+M.cordes===5)extra.push(`${M.cordes} cordes · ${{standard:'standard',dropd:'Drop D',demi:'½ ton plus bas',ton:'1 ton plus bas'}[M.preset]} (${tun.slice().reverse().map(p=>pcName(p)).join(' ')})`);
@@ -2669,9 +2597,7 @@ $('#b-svg').addEventListener('click',()=>{EXP_NIGHT=false;saveFile(fileBase()+'.
 $('#b-pdf').addEventListener('click',()=>{EXP_NIGHT=false;exportPDF();});
 $('#b-svgn').addEventListener('click',()=>{EXP_NIGHT=true;const t=buildSVGfile();EXP_NIGHT=false;saveFile(fileBase()+' (nuit).svg',t);});
 $('#b-pdfn').addEventListener('click',()=>{EXP_NIGHT=true;exportPDF();});
-$('#b-savejson').addEventListener('click',()=>saveFile(fileBase()+'.json',JSON.stringify(toJSON(lastG),null,1)));
 
-$('#b-otog').addEventListener('click',()=>{const c=$('#outcard'),open=c.classList.contains('closed');c.classList.toggle('closed',!open);$('#b-otog').setAttribute('aria-expanded',open);});
 $('#b-stog').addEventListener('click',()=>setSettings($('#settings').classList.contains('closed')));
 
 /* ===================== Import MusicXML (.mxl, .musicxml, .xml) ===================== */
@@ -2822,6 +2748,8 @@ async function doImport(file){toast('Lecture du fichier…');
   catch(e){toast('Import impossible : '+(e&&e.message||e));}}
 $('#b-imp').addEventListener('click',async()=>{const fs=await pickFiles({desc:'MusicXML',accept:{'application/vnd.recordare.musicxml':['.mxl','.musicxml','.xml']}});if(fs){if(fs.length)feedInput($('#f-imp'),fs);return;}$('#f-imp').click();});
 /* Enregistrer / Ouvrir une partition de l'Atelier */
+$('#b-seq').addEventListener('click',()=>{ASEQ=!ASEQ;try{localStorage.setItem('atelier-at-seq',ASEQ?'1':'0');}catch(e){}atelierPagesView();applyZoom();});
+$('#pg-prev').addEventListener('click',()=>{if(APG>0){APG--;sel=null;renderScore();}});$('#pg-next').addEventListener('click',()=>{if(APG<APAGES.length-1){APG++;sel=null;renderScore();}});
 $('#b-num').setAttribute('aria-pressed',SHOWNUM);$('#b-num').addEventListener('click',()=>{SHOWNUM=!SHOWNUM;try{localStorage.setItem('atelier-num',SHOWNUM?'1':'0');}catch(e){}$('#b-num').setAttribute('aria-pressed',SHOWNUM);renderScore();});
 $('#b-save').addEventListener('click',()=>quickSave());$('#b-saveas').hidden=!FSAVE;$('#b-saveas').addEventListener('click',()=>saveAs());
 if(FSAVE)$('#b-save').title='Enregistrer dans le même fichier (⌘S) ; nouvelle partition : choisir le nom et le dossier';
@@ -3047,6 +2975,12 @@ function showView(v){document.querySelectorAll('[data-view]').forEach(e=>e.hidde
 document.querySelector('.vtabs').addEventListener('click',e=>{const b=e.target.closest('[data-v]');if(b)showView(b.dataset.v);});
 /* ----- inventaire ----- */
 let invSort={k:'titre',dir:1},confirmDel=null,renaming=null;
+/* sections 141-143 : colonnes Basse / Accordage, actions en icônes */
+const ICO={add:'<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 6h12M3 11h12M3 16h8M17 13v8M13 17h8"/></svg>',
+  open:'<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></svg>',
+  play:'<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg>',
+  del:'<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>'};
+function accNotes(x){const t=(TUNINGS[x.preset]||TUNINGS.standard)[x.cordes]||TUNINGS.standard[4];return t.map(m=>EN_B[m%12].replace('b','♭')).join('');}
 function renderRep(){const q=($('#inv-q').value||'').toLowerCase(),fc=$('#inv-c').value,fa=$('#inv-a').value;
   let L=Object.values(REP.parts).map(p=>({p,...partInfo(p)}));
   L=L.filter(x=>(!q||x.titre.toLowerCase().includes(q)||x.inter.toLowerCase().includes(q))&&(!fc||String(x.cordes)===fc)&&(!fa||x.preset===fa));
@@ -3054,8 +2988,8 @@ function renderRep(){const q=($('#inv-q').value||'').toLowerCase(),fc=$('#inv-c'
   $('#inv-head').querySelectorAll('[data-k]').forEach(th=>th.dataset.on=th.dataset.k===k?(invSort.dir>0?'▲':'▼'):'');
   $('#inv-body').innerHTML=L.map(x=>{const id=x.p.id,cur=M&&M.id===id;
     const t=renaming===id?`<input class="inv-ren" data-id="${id}" value="${esc(x.titre)}"> <input class="inv-ren2" data-id="${id}" value="${esc(x.inter)}" placeholder="Interprète">`:`<button class="lnk" data-act="open" data-id="${id}">${esc(x.titre)}</button>${cur?' <span class="cur">en cours</span>':''}`;
-    return`<tr><td>${t}</td><td>${renaming===id?'':esc(x.inter)}</td><td>${x.cordes} cordes</td><td>${esc(x.acc)}</td><td class="acts">
-      <button class="btn small" data-act="add" data-id="${id}" title="Ajouter à la setlist affichée">+ Setlist</button><button class="btn small" data-act="open" data-id="${id}">Ouvrir</button><button class="btn small" data-act="cc" data-id="${id}" title="Jouer cette partition en Concert">▶ Concert</button><button class="btn small${confirmDel===id?' danger':''}" data-act="del" data-id="${id}">${confirmDel===id?'Confirmer ?':'Supprimer'}</button></td></tr>`;}).join('')||'<tr><td colspan="5" class="legend">Aucune partition.</td></tr>';
+    return`<tr><td>${t}</td><td>${renaming===id?'':esc(x.inter)}</td><td>${x.cordes}</td><td title="${esc(x.acc)}">${esc(accNotes(x))}</td><td class="acts">
+      <button class="ibtn sm ico" data-act="add" data-id="${id}" title="Ajouter à la setlist" aria-label="Ajouter à la setlist">${ICO.add}</button><button class="ibtn sm ico" data-act="open" data-id="${id}" title="Ouvrir dans l’Atelier" aria-label="Ouvrir dans l’Atelier">${ICO.open}</button><button class="ibtn sm ico" data-act="cc" data-id="${id}" title="Jouer en Concert" aria-label="Jouer en Concert">${ICO.play}</button>${confirmDel===id?`<button class="btn small danger" data-act="del" data-id="${id}">Confirmer ?</button>`:`<button class="ibtn sm ico del" data-act="del" data-id="${id}" title="Supprimer du Répertoire" aria-label="Supprimer du Répertoire">${ICO.del}</button>`}</td></tr>`;}).join('')||'<tr><td colspan="5" class="legend">Aucune partition.</td></tr>';
   $('#inv-n').textContent=`${L.length} / ${Object.keys(REP.parts).length} partition${Object.keys(REP.parts).length>1?'s':''}`;renderSet();}
 ['#inv-q','#inv-c','#inv-a'].forEach(s=>$(s).addEventListener('input',renderRep));
 $('#inv-head').addEventListener('click',e=>{const th=e.target.closest('[data-k]');if(!th)return;invSort=invSort.k===th.dataset.k?{k:invSort.k,dir:-invSort.dir}:{k:th.dataset.k,dir:1};renderRep();});
@@ -3091,10 +3025,14 @@ function curSet(){return REP.setlists.find(s=>s.id===REP.curSet)||REP.setlists[0
 function renderSet(){const s=curSet();$('#set-sel').innerHTML=REP.setlists.map(x=>`<option value="${x.id}"${s&&x.id===s.id?' selected':''}>${esc(x.name)}</option>`).join('')||'<option value="">— aucune setlist —</option>';
   ['#set-ren','#set-dup','#set-del','#set-sep','#set-print'].forEach(q=>$(q).disabled=!s);
   if(!s){$('#set-list').innerHTML='<li class="legend">Créez une setlist, puis ajoutez des morceaux avec « + Setlist ».</li>';$('#set-tot').textContent='';return;}
-  let tot=0,num=0;$('#set-list').innerHTML=s.items.map((x,i)=>{if(x.t==='sep')return`<li class="sep" draggable="true" data-i="${i}"><span class="grip">⠿</span><input class="sep-lab" data-i="${i}" value="${esc(x.label)}"><button class="ibtn sm" data-rm="${i}" title="Retirer">✕</button></li>`;
+  let tot=0,num=0;$('#set-list').innerHTML=s.items.map((x,i)=>{if(x.t==='sep')return`<li class="sep${window._setSel&&_setSel()===i?' sel':''}" data-i="${i}"><span class="grip">⠿</span><input class="sep-lab" data-i="${i}" value="${esc(x.label)}"><button class="ibtn sm" data-rm="${i}" title="Retirer">✕</button></li>`;
     const p=REP.parts[x.id];if(!p)return'';num++;const inf=partInfo(p);let d=0;try{d=durOf(p.M);}catch(e){}tot+=d;
-    return`<li draggable="true" data-i="${i}"><span class="grip">⠿</span><b>${num}.</b> <span class="st-t">${esc(inf.titre)}</span><span class="st-i">${esc(inf.inter)}</span><span class="st-d">${fmtDur(d)}</span><input class="it-note" data-i="${i}" value="${esc(x.note||'')}" placeholder="Note (intro ×4…)"><button class="ibtn sm" data-play="${i}" title="Concert à partir de ce morceau">▶</button><button class="ibtn sm" data-rm="${i}" title="Retirer">✕</button></li>`;}).join('')||'<li class="legend">Setlist vide : ajoutez des morceaux depuis l’inventaire (« + Setlist »).</li>';
+    return`<li class="${window._setSel&&_setSel()===i?'sel':''}" data-i="${i}"><span class="grip">⠿</span><b>${num}.</b> <span class="st-t">${esc(inf.titre)}</span><span class="st-i">${esc(inf.inter)}</span><span class="st-d">${fmtDur(d)}</span><input class="it-note" data-i="${i}" value="${esc(x.note||'')}" placeholder="Note (intro ×4…)"><button class="ibtn sm" data-play="${i}" title="Concert à partir de ce morceau">▶</button><button class="ibtn sm" data-rm="${i}" title="Retirer">✕</button></li>`;}).join('')||'<li class="legend">Setlist vide : ajoutez des morceaux depuis l’inventaire (« + Setlist »).</li>';
   $('#set-tot').textContent=`${num} morceau${num>1?'x':''} · durée estimée ${fmtDur(tot)}`;}
+/* section 139 : cadres Inventaire et Setlist repliables (état mémorisé) */
+document.querySelectorAll('.card.fold').forEach(c=>{const k='atelier-fold-'+c.id,t=c.querySelector('.foldt');const set=cl=>{c.classList.toggle('closed',cl);t.setAttribute('aria-expanded',!cl);};
+  try{set(localStorage.getItem(k)==='1');}catch(e){}const tg=()=>{const cl=!c.classList.contains('closed');set(cl);try{localStorage.setItem(k,cl?'1':'0');}catch(e){}};
+  t.addEventListener('click',tg);t.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tg();}});});
 $('#set-sel').addEventListener('change',e=>{REP.curSet=e.target.value;repStore();renderSet();});
 $('#set-new').addEventListener('click',()=>{const s={id:uid(),name:'Setlist '+(REP.setlists.length+1),items:[]};REP.setlists.push(s);REP.curSet=s.id;repStore();renderSet();setTimeout(()=>$('#set-ren').click(),0);});
 $('#set-ren').addEventListener('click',()=>{const s=curSet();if(!s)return;const w=$('#set-name');w.hidden=false;w.value=s.name;w.focus();w.select();});
@@ -3105,10 +3043,23 @@ let delSet=false;$('#set-del').addEventListener('click',()=>{const s=curSet();if
 $('#set-sep').addEventListener('click',()=>{const s=curSet();if(!s)return;s.items.push({t:'sep',label:'Pause'});repStore();renderSet();});
 $('#set-list').addEventListener('click',e=>{const pl=e.target.closest('[data-play]');if(pl){const s=curSet();if(!s)return;const it=s.items[+pl.dataset.play];const steps=s.items.filter(x=>x.t==='sep'||REP.parts[x.id]);return ccStart(steps,steps.indexOf(it),false);}const r=e.target.closest('[data-rm]');if(!r)return;const s=curSet();s.items.splice(+r.dataset.rm,1);repStore();renderSet();});
 $('#set-list').addEventListener('change',e=>{const s=curSet();const t=e.target;if(t.classList.contains('it-note'))s.items[+t.dataset.i].note=t.value;if(t.classList.contains('sep-lab'))s.items[+t.dataset.i].label=t.value;repStore();});
-{let dragI=null;const L=$('#set-list');L.addEventListener('dragstart',e=>{const li=e.target.closest('li[data-i]');if(!li)return;dragI=+li.dataset.i;e.dataTransfer.effectAllowed='move';li.classList.add('drag');});
-  L.addEventListener('dragover',e=>{if(dragI!=null)e.preventDefault();});
-  L.addEventListener('drop',e=>{e.preventDefault();const li=e.target.closest('li[data-i]');const s=curSet();if(dragI==null||!li||!s)return;const to=+li.dataset.i;const [x]=s.items.splice(dragI,1);s.items.splice(to,0,x);dragI=null;repStore();renderSet();});
-  L.addEventListener('dragend',()=>{dragI=null;L.querySelectorAll('.drag').forEach(x=>x.classList.remove('drag'));});}
+/* section 140 : déplacer un morceau par sa poignée (souris ou doigt), repère d'insertion, défilement auto ; ⌥↑ / ⌥↓ */
+{const L=$('#set-list');let D=null,setSel=null;const mark=document.createElement('div');mark.id='setmark';mark.hidden=true;document.body.appendChild(mark);
+  const lis=()=>[...L.querySelectorAll('li[data-i]')];
+  const target=y=>{const o=lis().filter(li=>li!==D.li);let to=o.length;for(let k=0;k<o.length;k++){const r=o[k].getBoundingClientRect();if(y<r.top+r.height/2){to=k;break;}}
+    const r=(o[to]||o[o.length-1]).getBoundingClientRect();mark.style.left=r.left+'px';mark.style.width=r.width+'px';mark.style.top=((o[to]?r.top:r.bottom)-2)+'px';mark.hidden=false;return to;};
+  const end=ok=>{if(!D)return;const d=D;D=null;mark.hidden=true;cancelAnimationFrame(d.raf);d.li.classList.remove('dragging');d.li.style.transform='';if(!ok||d.to==null||d.to===d.i)return;
+    const s=curSet();if(!s)return;const [x]=s.items.splice(d.i,1);s.items.splice(d.to,0,x);setSel=d.to;repStore();renderSet();};
+  L.addEventListener('pointerdown',e=>{const g=e.target.closest('.grip');if(!g||e.button>0)return;const li=g.closest('li[data-i]');e.preventDefault();
+    D={li,i:+li.dataset.i,y0:e.clientY,y:e.clientY,to:null,id:e.pointerId,raf:0};try{g.setPointerCapture(e.pointerId);}catch(err){}li.classList.add('dragging');
+    const auto=()=>{if(!D)return;const m=60;if(D.y<m)scrollBy(0,-12);else if(D.y>innerHeight-m)scrollBy(0,12);D.raf=requestAnimationFrame(auto);};D.raf=requestAnimationFrame(auto);});
+  L.addEventListener('pointermove',e=>{if(!D||e.pointerId!==D.id)return;D.y=e.clientY;D.li.style.transform=`translateY(${e.clientY-D.y0}px)`;D.to=target(e.clientY);});
+  L.addEventListener('pointerup',e=>{if(D&&e.pointerId===D.id)end(true);});L.addEventListener('pointercancel',()=>end(false));
+  document.addEventListener('keydown',e=>{if(D&&e.key==='Escape'){e.preventDefault();end(false);return;}
+    if(!e.altKey||(e.key!=='ArrowUp'&&e.key!=='ArrowDown')||document.querySelector('[data-view="rep"]').hidden||setSel==null)return;const s=curSet();if(!s)return;const j=setSel+(e.key==='ArrowUp'?-1:1);if(j<0||j>=s.items.length)return;
+    e.preventDefault();[s.items[setSel],s.items[j]]=[s.items[j],s.items[setSel]];setSel=j;repStore();renderSet();});
+  L.addEventListener('click',e=>{const li=e.target.closest('li[data-i]');if(!li||e.target.closest('input,button'))return;setSel=+li.dataset.i;renderSet();});
+  window._setSel=()=>setSel;}
 $('#set-print').addEventListener('click',async()=>{const s=curSet();if(!s)return;try{if(!window.jspdf)await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
   const pdf=new window.jspdf.jsPDF({unit:'pt',format:'a4'});let y=60,num=0;pdf.setFont('helvetica','bold');pdf.setFontSize(26);pdf.text(s.name,40,y);y+=46;
   s.items.forEach(x=>{if(y>800){pdf.addPage();y=60;}if(x.t==='sep'){pdf.setFontSize(18);pdf.setFont('helvetica','italic');pdf.text('— '+(x.label||'Pause')+' —',40,y);y+=34;return;}const p=REP.parts[x.id];if(!p)return;num++;const inf=partInfo(p);
@@ -3116,13 +3067,16 @@ $('#set-print').addEventListener('click',async()=>{const s=curSet();if(!s)return
   await saveFile('Setlist - '+s.name.replace(/[\/\\:*?"<>|]/g,'-')+'.pdf',pdf.output('blob'));}catch(e){toast('Impression impossible : '+e.message);}});
 /* ----- concert ----- */
 let CC=null;
-function renderConcertSetup(){const s=curSet();$('#cc-sel').innerHTML=REP.setlists.map(x=>`<option value="${x.id}"${s&&x.id===s.id?' selected':''}>${esc(x.name)}</option>`).join('')||'<option value="">— aucune setlist : créez-en une dans le Répertoire —</option>';
+function renderConcertSetup(){document.querySelectorAll('[data-view="concert"] [data-o]').forEach(b=>{const k=b.dataset.o;b.setAttribute('aria-pressed',ccPref(k.startsWith('seq')?'atelier-cc-seq':'atelier-cc-full')===k.endsWith('1'));});const s=curSet();$('#cc-sel').innerHTML=REP.setlists.map(x=>`<option value="${x.id}"${s&&x.id===s.id?' selected':''}>${esc(x.name)}</option>`).join('')||'<option value="">— aucune setlist : créez-en une dans le Répertoire —</option>';
   let dev='mac';try{dev=localStorage.getItem('atelier-concert-app')||'mac';}catch(e){}document.querySelectorAll('#cc-dev [data-dev]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.dev===dev));$('#cc-go').disabled=!REP.setlists.length;}
+document.querySelectorAll('[data-view="concert"] [data-o]').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.o;ccSetPref(k.startsWith('seq')?'atelier-cc-seq':'atelier-cc-full',k.endsWith('1'));renderConcertSetup();}));
 $('#cc-dev').addEventListener('click',e=>{const b=e.target.closest('[data-dev]');if(!b)return;try{localStorage.setItem('atelier-concert-app',b.dataset.dev);}catch(err){}renderConcertSetup();});
 $('#cc-go').addEventListener('click',()=>{const s=REP.setlists.find(x=>x.id===$('#cc-sel').value);if(!s)return;const steps=s.items.filter(x=>x.t==='sep'||REP.parts[x.id]);if(!steps.length)return toast('Setlist vide');ccStart(steps,0,false);});
+function ccPref(k){try{return localStorage.getItem(k)==='1';}catch(e){return false;}}
+function ccSetPref(k,v){try{localStorage.setItem(k,v?'1':'0');}catch(e){}}
 function ccStart(steps,k0,single){if(Player.playing)stopPlay();
   let dev='mac';try{dev=localStorage.getItem('atelier-concert-app')||'mac';}catch(e){}
-  CC={steps,k:Math.max(0,k0||0),single:!!single,dev,pl:dev==='ipad'?2:4,night:document.documentElement.hasAttribute('data-night'),lock:null,num:''};ccApplyDN(ccNightPref());
+  CC={steps,k:Math.max(0,k0||0),single:!!single,dev,pl:dev==='ipad'?2:4,night:document.documentElement.hasAttribute('data-night'),lock:null,num:'',pg:0,seq:ccPref('atelier-cc-seq'),full:ccPref('atelier-cc-full')};ccApplyDN(ccNightPref());
   const o=$('#concert');o.hidden=false;o.dataset.dev=dev;o.classList.toggle('single',CC.single);try{if(o.requestFullscreen)o.requestFullscreen().catch(()=>{});}catch(e){}
   try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(l=>CC&&(CC.lock=l)).catch(()=>{});}catch(e){}ccShow();}
 /* section 113.2 : Concert en mode jour ou nuit, choix mémorisé */
@@ -3135,24 +3089,41 @@ function ccShow(){if(!CC)return;const x=CC.steps[CC.k],nx=CC.steps[CC.k+1];const
   if(x.t==='sep'){head.innerHTML=`<span class="cc-t">${esc(x.label||'Pause')}</span>`;body.innerHTML=`<div class="cc-sep">${esc(x.label||'Pause')}</div>`;}
   else{const p=REP.parts[x.id];const inf=partInfo(p);let html='',key='',tempo=p.M.tempo;
     /* sections 123-124 : mise en page de l'Atelier, découpée en pages comme le PDF */
-    try{html=withPart(p.M,G=>{key=G.keyTxt;const pages=pageGroups(exportLines());CC.np=pages.length;
-      return pages.map((pg,i)=>`<div class="cc-page" data-p="${i}"><div class="cc-pno">page ${i+1}/${pages.length}</div>${pg.map(l=>`<div class="cc-line">${l.svg}</div>`).join('')}</div>`).join('');});}finally{}
+    /* 136 : portées arrêtées à leur dernière barre ; 137 : mode complet (rappels développés) ; 133 : portées 10 % plus rapprochées */
+    try{html=withPart(CC.full?ccExpand(p.M):p.M,G=>{key=G.keyTxt;const pages=pageGroups(exportLines({trim:true}));CC.np=pages.length;
+      return pages.map((pg,i)=>`<div class="cc-page" data-p="${i}"><div class="cc-pno">page ${i+1}/${pages.length}</div>${pg.map(l=>`<div class="cc-line" style="margin-bottom:calc(5.4px - ${(10*l.H/l.W).toFixed(3)}% * var(--ccz,1))">${l.svg}</div>`).join('')}</div>`).join('');});}finally{}
     head.innerHTML=`<span class="cc-t">${esc(inf.titre)}</span><span class="cc-i">${esc(inf.inter)}</span><span class="cc-k">♩ = ${tempo}</span><span class="cc-n"><span id="cc-pg"></span> · ${num} / ${numTot}</span>${x.note?`<span class="cc-note">${esc(x.note)}</span>`:''}`;body.innerHTML=html;}
-  {const cb=$('#cc-clic');if(x.t==='sep')cb.textContent='♩ Clic';else cb.textContent='♩ Clic ×'+ccBeat(REP.parts[x.id]).beats;}CC.tgtT=0;ccPageUI();$('#cc-next').textContent=CC.single?'':nx?'Suivant : '+ccStepTitle(nx):'Fin de la setlist';body.scrollTop=0;ccListClose();if(CC.mt||CC.mtOn){CC.mtOn=false;const x2=CC.steps[CC.k];if(x2.t==='sep')ccMetroStop();else ccMetroStart();}}
+  {const cb=$('#cc-clic');if(x.t==='sep')cb.textContent='♩ Clic';else cb.textContent='♩ Clic ×'+ccBeat(REP.parts[x.id]).beats;}CC.tgtT=0;if(CC.pgEnd){CC.pg=Math.max(0,(CC.np||1)-1);CC.pgEnd=false;}else CC.pg=0;ccLayout();ccFootShow();ccPageUI();$('#cc-next').textContent=CC.single?'':nx?'Suivant : '+ccStepTitle(nx):'Fin de la setlist';body.scrollTop=0;ccListClose();if(CC.mt||CC.mtOn){CC.mtOn=false;const x2=CC.steps[CC.k];if(x2.t==='sep')ccMetroStop();else ccMetroStart();}}
 function ccPages(){return[...document.querySelectorAll('#cc-body .cc-page')];}
 function ccPos(){const b=$('#cc-body');return CC&&CC.tgtT&&Date.now()-CC.tgtT<800?CC.tgt:b.scrollTop;}
 function ccCurPage(pos){const b=$('#cc-body'),ps=ccPages();if(pos==null)pos=b.scrollTop;let k=0;ps.forEach((p,i)=>{if(p.offsetTop-b.offsetTop<=pos+8)k=i;});if(pos+b.clientHeight>=b.scrollHeight-6&&ps.length)k=Math.max(k,ps.length-1);return k;}
-function ccPageUI(){const e=$('#cc-pg');if(!e)return;const ps=ccPages();e.textContent=ps.length?`p. ${ccCurPage()+1} / ${ps.length}`:'';}
+function ccPageUI(){const e=$('#cc-pg');if(!e)return;const ps=ccPages();e.textContent=ps.length?`p. ${(ccSeq()?CC.pg:ccCurPage())+1} / ${ps.length}`:'';}
+/* section 137 : mode complet — chaque rappel remplacé par la section rappelée (mise en page comprise), ×N gardé une fois */
+function ccExpand(m0){const m=clone(m0);const out=[];const secs=[];m.blocs.forEach(b=>{if(b.t==='section'){out.push(b);if(b.label)secs.push(b);return;}
+  const ref=normLabel(b.ref);const src=ref&&[...secs].reverse().find(x=>normLabel(x.label)===ref);if(!src||!src.mesures.length){out.push(b);return;}
+  const c=clone(src);c.id=uid();c.apr=false;if(+b.fois>1)c.fois=+b.fois;out.push(c);});m.blocs=out;return m;}
+/* section 135 : affichage séquentiel (une page à la fois, portrait seulement) */
+const ccPortrait=()=>innerHeight>innerWidth;
+function ccSeq(){return !!(CC&&CC.seq&&ccPortrait()&&ccPages().length);}
+function ccLayout(){if(!CC)return;const b=$('#cc-body'),ps=ccPages();const sq=ccSeq();b.classList.toggle('seq',sq);
+  ps.forEach((p,i)=>p.hidden=sq&&i!==CC.pg);
+  if(sq&&ps[CC.pg]){b.style.setProperty('--ccz',1);const h=ps[CC.pg].offsetHeight;const fit=Math.min(1,(b.clientHeight-12)/Math.max(1,h));b.style.setProperty('--ccz',fit*CCZ);b.scrollTop=0;}
+  else b.style.setProperty('--ccz',CCZ);
+  const sb=$('#cc-seq');if(sb){sb.textContent=CC.seq?'Séquentiel':'Déroulant';sb.disabled=!ccPortrait();sb.title=ccPortrait()?'Affichage : déroulant ou page par page':'Page par page : seulement en portrait';}
+  const fb=$('#cc-full');if(fb)fb.textContent=CC.full?'Complet':'Simplifié';ccPageUI();}
+/* section 134 : barre du bas masquée 2 s après la dernière interaction */
+function ccFootShow(){const f=$('.cc-foot');if(!f||!CC)return;f.classList.remove('hid');clearTimeout(CC.ft);CC.ft=setTimeout(()=>{if(!CC||ccListOpen()||f.matches(':hover'))return ccFootShow();f.classList.add('hid');},2000);}
 /* section 124 : tourner les pages comme dans le PDF (une page plus haute que l'écran défile d'abord) */
 function ccMove(dir){if(!CC)return;const b=$('#cc-body'),ps=ccPages();const maxT=Math.max(0,b.scrollHeight-b.clientHeight);
   const to=t=>{t=Math.max(0,Math.min(maxT,t));CC.tgt=t;CC.tgtT=Date.now();b.scrollTo({top:t,behavior:'smooth'});};const go=p=>to(p.offsetTop-b.offsetTop);const next=()=>{if(CC.k<CC.steps.length-1){CC.tgtT=0;CC.k++;ccShow();}};const prev=()=>{if(CC.k>0){CC.tgtT=0;CC.k--;ccShow();}};
   /* section 129 : position d'arrivée d'un défilement en cours ; bas de la partition visible → morceau suivant */
+  if(ccSeq()){if(dir>0){if(CC.pg<ps.length-1){CC.pg++;return ccLayout();}return next();}if(CC.pg>0){CC.pg--;return ccLayout();}if(CC.k>0){CC.pgEnd=true;}return prev();}
   const pos=ccPos();if(dir>0&&pos>=maxT-6)return next();
   if(!ps.length){const page=b.clientHeight*0.9;if(dir>0){if(b.scrollTop+b.clientHeight<b.scrollHeight-4)b.scrollBy({top:page,behavior:'smooth'});else if(CC.k<CC.steps.length-1){CC.k++;ccShow();}}else{if(b.scrollTop>4)b.scrollBy({top:-page,behavior:'smooth'});else if(CC.k>0){CC.k--;ccShow();}}return;}
   const k=ccCurPage(pos),p=ps[k];const pTop=p.offsetTop-b.offsetTop,pBot=pTop+p.offsetHeight;
   if(dir>0){if(pBot>pos+b.clientHeight+8)return to(pos+Math.min(b.clientHeight*0.9,pBot-(pos+b.clientHeight)));if(k<ps.length-1&&ps[k+1].offsetTop-b.offsetTop>pos+8)return go(ps[k+1]);return next();}
   else{if(pos>Math.min(pTop,maxT)+8)return go(p);if(k>0)return go(ps[k-1]);if(pos>8)return to(0);return prev();}}
-function ccExit(){if(!CC)return;ccListClose();ccMetroStop();if(CC.night)document.documentElement.setAttribute('data-night','');else document.documentElement.removeAttribute('data-night');$('#concert').classList.remove('day');try{if(CC.lock)CC.lock.release();}catch(e){}try{if(document.fullscreenElement)document.exitFullscreen();}catch(e){}CC=null;$('#concert').hidden=true;}
+function ccExit(){if(!CC)return;clearTimeout(CC.ft);$('.cc-foot').classList.remove('hid');ccListClose();ccMetroStop();if(CC.night)document.documentElement.setAttribute('data-night','');else document.documentElement.removeAttribute('data-night');$('#concert').classList.remove('day');try{if(CC.lock)CC.lock.release();}catch(e){}try{if(document.fullscreenElement)document.exitFullscreen();}catch(e){}CC=null;$('#concert').hidden=true;}
 /* section 116 : temps par mesure (ternaire : noire pointée) et durée d'un temps */
 function ccBeat(p){const sg=p.M.signature||{temps:4,unite:4};const ternary=sg.unite===8&&sg.temps%3===0;return{beats:ternary?sg.temps/3:sg.temps,spb:60/(+p.M.tempo||100)*(ternary?1.5:4/(sg.unite||4))};}
 function ccClick(){if(!CC)return;const x=CC.steps[CC.k];if(x.t==='sep'||!ensureCtx())return;const p=REP.parts[x.id];const {beats,spb}=ccBeat(p);const t0=Player.ctx.currentTime+0.1;if(Player.playing)stopPlay(true);try{if(Player.ctx.state!=='running')Player.ctx.resume();}catch(e){}Player.master=Player.ctx.createGain();Player.master.gain.value=0.9;Player.master.connect(Player.ctx.destination);
@@ -3176,10 +3147,13 @@ document.addEventListener('keydown',e=>{if(!CC)return;const k=e.key;
 $('#cc-body').addEventListener('scroll',()=>ccPageUI(),{passive:true});
 /* section 132 : zoom du Concert 50-200 % (pincement, ⌘+ / ⌘− / ⌘0), mémorisé par appareil */
 let CCZ=1;try{CCZ=Math.min(2,Math.max(0.5,+localStorage.getItem('atelier-cczoom')||1));}catch(e){}
-function ccZoom(z,keep){const b=$('#cc-body');const r=b.scrollHeight?b.scrollTop/b.scrollHeight:0;CCZ=Math.min(2,Math.max(0.5,z));b.style.setProperty('--ccz',CCZ);b.scrollTop=r*b.scrollHeight;if(!keep){try{localStorage.setItem('atelier-cczoom',CCZ);}catch(e){}}ccPageUI();}
+function ccZoom(z,keep){const b=$('#cc-body');const r=b.scrollHeight?b.scrollTop/b.scrollHeight:0;CCZ=Math.min(2,Math.max(0.5,z));if(ccSeq())ccLayout();else{b.style.setProperty('--ccz',CCZ);b.scrollTop=r*b.scrollHeight;}if(!keep){try{localStorage.setItem('atelier-cczoom',CCZ);}catch(e){}}ccPageUI();}
 $('#cc-body').style.setProperty('--ccz',CCZ);pinchZoom($('#cc-body'),()=>CCZ,z=>ccZoom(z,true),()=>ccZoom(CCZ));
-$('#cc-body').addEventListener('click',e=>{const r=$('#cc-body').getBoundingClientRect();ccMove(e.clientX>r.left+r.width/3?1:-1);});
-$('#cc-exit').addEventListener('click',ccExit);$('#cc-dn').addEventListener('click',e=>{e.stopPropagation();ccToggleDN();});
+$('#cc-body').addEventListener('click',e=>{const r=$('#cc-body').getBoundingClientRect();const f=$('.cc-foot');const hid=f.classList.contains('hid');ccFootShow();if(hid&&e.clientY>innerHeight-Math.max(70,f.offsetHeight+20))return;ccMove(e.clientX>r.left+r.width/3?1:-1);});
+$('#concert').addEventListener('mousemove',()=>{if(CC)ccFootShow();});$('.cc-foot').addEventListener('pointerdown',()=>ccFootShow());
+$('#cc-exit').addEventListener('click',ccExit);
+$('#cc-seq').addEventListener('click',e=>{e.stopPropagation();CC.seq=!CC.seq;ccSetPref('atelier-cc-seq',CC.seq);CC.pg=0;ccLayout();$('#cc-body').scrollTop=0;});
+$('#cc-full').addEventListener('click',e=>{e.stopPropagation();CC.full=!CC.full;ccSetPref('atelier-cc-full',CC.full);ccShow();});$('#cc-dn').addEventListener('click',e=>{e.stopPropagation();ccToggleDN();});
 /* section 112.2 : liste rapide, numéro direct */
 function ccListOpen(){return !!document.getElementById('cc-qlist');}
 function ccListClose(){const o=document.getElementById('cc-qlist');if(o)o.remove();}
@@ -3200,541 +3174,11 @@ function ccMetroStart(count){if(!CC)return;ccMetroStop();const x=CC.steps[CC.k];
 function ccMetroToggle(){if(CC&&CC.mt)ccMetroStop();else ccMetroStart(true);}
 $('#cc-metro').addEventListener('click',e=>{e.stopPropagation();ccMetroToggle();});
 
-/* ===================== Lecture des manuscrits (moteur repris du Lecteur) ===================== */
-const LECT=(()=>{
-let RONLY=true;
-function readPromptR(sc,ln,ctx){let p=readPromptBase(sc,ln,ctx,null);
-  p=p.replace(/PORTÉE\n[\s\S]*?(?=\nRYTHMES)/,`PORTÉE\n- NE LIS PAS les chiffres (numéros de case) ni les cordes : on ne te demande que la STRUCTURE et les RYTHMES. Chaque chiffre (ou groupe de chiffres superposés) est une note : écris-la avec "notes":[] (liste vide) ; sa position horizontale sert seulement à l'associer à son symbole rythmique. Un « x » à la place d'un chiffre reste une note étouffée (t "morte", sans corde).\n- Ignore ce qui appartient aux portées voisines : les rythmes visibles au-dessus de la portée appartiennent à la ligne précédente ; un texte tout en bas à gauche est l'étiquette de la ligne suivante.\n`);
-  return p;}
-const lessonsPrompt=()=>`
-ERREURS LES PLUS FRÉQUENTES SUR CES MANUSCRITS (relevées en corrigeant l'auteur ; prioritaires sur les règles générales)
-- Élément oublié ou ajouté dans une mesure : recompte les notes ET les symboles rythmiques, et associe-les par position horizontale, pas par ordre.
-- Point d'augmentation oublié ou ajouté : le point d'une croche pointée est souvent à l'intérieur du groupe, collé à la poutre, juste à droite de la première tige.
-- Liaison oubliée : un arc court entre deux chiffres, même dessiné entre eux, est une liaison ("lie" sur la première note).
-- Croche et double-croche confondues : examine chaque tige ; un second trait (complet, demi-trait ou en croix) = double-croche ; la poutre principale seule = croche.
-- Silence lu à la place d'une note : un grand « 7 » entre les lignes est un demi-soupir ; un « 7 » de la taille des autres chiffres, centré sur une ligne, est la case 7.
-- Note oubliée : il y a un symbole rythmique par note ou silence ; compte-les.
-- Slide oublié : un trait oblique, même très court, est un slide, jamais un staccato.
-`;let _say=()=>{};const setStatus=m=>_say(m);
-/*ENGINE-START*/
-const DUR={ronde:192,blanche:96,noire:48,croche:24,double:12,triple:6};
-const DUR_KEYS=Object.keys(DUR);
-const FLAGS={ronde:0,blanche:0,noire:0,croche:1,double:2,triple:3};
-const DUR_LABEL={ronde:'Ronde',blanche:'Blanche',noire:'Noire',croche:'Croche',double:'Double-croche',triple:'Triple-croche'};
-const REST_LABEL={ronde:'Pause',blanche:'Demi-pause',noire:'Soupir',croche:'Demi-soupir',double:'Quart de soupir',triple:'Huitième de soupir'};
-const PRESETS={4:{standard:[28,33,38,43],drop_d:[26,33,38,43],demi_ton:[27,32,37,42],un_ton:[26,31,36,41]},
-               5:{standard:[23,28,33,38,43],drop_d:[23,26,33,38,43],demi_ton:[22,27,32,37,42],un_ton:[21,26,31,36,41]}};
-const PRESET_LABEL={standard:'Standard',drop_d:'Drop D',demi_ton:'½ ton plus bas',un_ton:'1 ton plus bas'};
-const NOMS=['Do','Do#','Ré','Ré#','Mi','Fa','Fa#','Sol','Sol#','La','La#','Si'];
-const LABEL_RE=/^(INTRO|OPENING|OUTRO|SOLO(?: [A-Z]+)?|(?:BASELINE|BOUCLE|VERSE|PRE-CHORUS|CHORUS|POST-CHORUS|INTERLUDE|BRIDGE|SOLO)(?: [1-9][0-9]?)?)$/;
 
-const norm=s=>String(s==null?'':s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim();
-const intOr=v=>{const n=parseInt(v,10);return Number.isFinite(n)?n:null;};
-const clone=o=>JSON.parse(JSON.stringify(o));
-function normLabel(s){let l=String(s||'').toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/_/g,' ').replace(/\s+/g,' ').trim();
-  l=l.replace(/^BASE ?LINE$/,'BASELINE').replace(/^(PRE|POST)[ -]?CHORUS/,'$1-CHORUS');return l;}
-function normDuree(d){if(d==null||d==='')return null;const s=norm(d).replace(/[-_]/g,' ').replace(/\s+/g,' ');
-  const map={ronde:'ronde',blanche:'blanche',noire:'noire',croche:'croche',double:'double','double croche':'double',triple:'triple','triple croche':'triple',
-    pause:'ronde','demi pause':'blanche',soupir:'noire','demi soupir':'croche','quart de soupir':'double','huitieme de soupir':'triple'};return map[s]||null;}
-
-let NEXT_ID=1;
-const nid=()=>NEXT_ID++;
-function newScore(){return {v:2,titre:'',sous_titre:'',tempo:null,cordes:4,preset:'standard',accordage:PRESETS[4].standard.slice(),
-  signature:{temps:4,unite:4},pages:[],lignes:[]};}
-const openOf=(sc,k)=>sc.accordage[sc.accordage.length-k];
-const capOf=sc=>sc.signature.temps*192/sc.signature.unite;
-function beatOf(sc){const {temps,unite}=sc.signature;if(unite===8&&temps%3===0&&temps>3)return 72;return 192/unite;}
-function ticksOf(e){let t=DUR[e.duree]||0;if(e.points===1)t*=1.5;else if(e.points===2)t*=1.75;if(e.triolet)t=t*2/3;return t;}
-const cordeName=(sc,k)=>NOMS[((openOf(sc,k)%12)+12)%12];
-
-/* ---- normalisation of what Claude reads ---- */
-function normEvent(raw,sc,A,where){
-  if(!raw||typeof raw!=='object')return null;
-  const t=norm(raw.t||raw.type);
-  let duree=normDuree(raw.duree);let doute=!!raw.doute;
-  if(!duree){duree='noire';doute=true;A.push(`${where} : durée illisible, noire supposée.`);}
-  let points=intOr(raw.points);if(points==null)points=raw.pointee?1:0;points=Math.max(0,Math.min(2,points));
-  const base={id:nid(),duree,points,triolet:!!raw.triolet,doute};
-  if(t==='silence'||t==='soupir'||t==='rest')return {t:'silence',...base};
-  if(t==='morte'||t==='x'){let k=intOr(raw.corde);if(!(k>=1&&k<=sc.cordes))k=null;return {t:'morte',corde:k,staccato:!!raw.staccato,...base};}
-  if(t==='note'){
-    let notes=Array.isArray(raw.notes)?raw.notes:(raw.corde!=null?[{corde:raw.corde,case:raw.case}]:[]);
-    notes=notes.map(n=>({corde:intOr(n&&n.corde),case:intOr(n&&n.case)})).filter(n=>n.corde>=1&&n.corde<=sc.cordes&&n.case>=0&&n.case<=24);
-    if(!notes.length&&!RONLY){A.push(`${where} : note illisible, ignorée.`);return null;}
-    const ap=intOr(raw.appog);
-    return {t:'note',notes,...base,staccato:!!raw.staccato,appog:ap!=null&&ap>=0&&ap<=24?ap:null,lie:!!raw.lie,slide:!!raw.slide,
-      slide_entree:['bas','haut'].includes(raw.slide_entree)?raw.slide_entree:null,slide_sortie:['bas','haut'].includes(raw.slide_sortie)?raw.slide_sortie:null,
-      point_orgue:!!raw.point_orgue};
-  }
-  A.push(`${where} : élément « ${raw.t} » non reconnu.`);return null;
-}
-const BAR_OPEN=['simple','double','reprise'],BAR_CLOSE=['simple','double','reprise','finale'];
-function simOf(v){if(v===true)return 1;const n=intOr(v);return n===2?2:n===1||(typeof v==='string'&&/%|1/.test(v))?1:0;}
-function normLine(raw,sc,ln){
-  const A=[];const out=[];const where=`Page ${ln.page}, ligne ${ln.idx}`;
-  const els=Array.isArray(raw&&raw.elements)?raw.elements:[];
-  let mi=0;
-  els.forEach(e=>{
-    if(!e||typeof e!=='object')return;
-    const t=norm(e.t);
-    if(t==='section'){const l=normLabel(e.label||e.etiquette);if(!l)return;
-      if(!LABEL_RE.test(l))A.push(`${where} : étiquette « ${e.label} » hors de la liste autorisée.`);
-      out.push({id:nid(),t:'section',label:l});return;}
-    if(t==='rappel'){const txt=String(e.texte||e.label||'').trim();if(!txt)return;
-      out.push({id:nid(),t:'rappel',texte:txt.toUpperCase().startsWith('ETC')?txt:normLabel(txt)===txt.toUpperCase()?normLabel(txt):txt,fois:Math.max(1,intOr(e.fois)||1)});return;}
-    if(t==='mesure'){mi++;
-      const ev=(Array.isArray(e.evenements)?e.evenements:[]).map(x=>normEvent(x,sc,A,`${where}, mesure ${mi}`)).filter(Boolean);
-      out.push({id:nid(),t:'mesure',ouverture:BAR_OPEN.includes(e.ouverture)?e.ouverture:'simple',fermeture:BAR_CLOSE.includes(e.fermeture)?e.fermeture:'simple',
-        fois:intOr(e.fois)>1?intOr(e.fois):null,volta:e.volta?String(e.volta).replace(/\s+/g,'').replace(/\.$/,''):null,
-        simile:simOf(e.simile),pause:!!e.pause,doute:!!e.doute,evenements:ev});return;}
-  });
-  (Array.isArray(raw&&raw.doutes)?raw.doutes:[]).forEach(d=>d&&A.push(`${where} : ${d}`));
-  return {elements:out,alerts:A};
-}
-
-/* ---- structure ---- */
-function buildUnits(sc,mode){
-  const units=[];let pend=null,no=0,secLabel='';
-  sc.lignes.forEach(ln=>{
-    if(ln.statut!=='ok'||ln.vide){if(mode==='orig')units.push({kind:'placeholder',line:ln});return;}
-    ln.elements.forEach(el=>{
-      if(el.t==='section'){pend=el;secLabel=el.label;return;}
-      const u={kind:el.t==='mesure'?'measure':'rappel',el,line:ln,section:pend,secLabel};pend=null;
-      if(u.kind==='measure')u.no=++no;
-      units.push(u);
-    });
-  });
-  if(pend)units.push({kind:'labelonly',section:pend,line:sc.lignes[sc.lignes.length-1]});
-  units.forEach(u=>{
-    if(u.kind==='measure'){u.open=u.section?(u.el.ouverture==='reprise'?'reprise':'double'):u.el.ouverture;u.close=u.el.fermeture;u.fois=u.el.fois;u.volta=u.el.volta;}
-    else if(u.kind==='rappel'){u.open='double';u.close='double';u.fois=u.el.fois>1?u.el.fois:null;u.volta=null;}
-    else {u.open='simple';u.close='simple';u.fois=null;u.volta=null;}
-  });
-  if(mode==='opt'){
-    sc.lignes.forEach(ln=>{if(!ln.crochet||!ln.crochet.debut)return;
-      const i0=sc.lignes.indexOf(ln);let endLn=null;for(let i=i0;i<sc.lignes.length;i++){if(sc.lignes[i].crochet&&sc.lignes[i].crochet.fin){endLn=sc.lignes[i];break;}}
-      if(!endLn)return;
-      const first=units.find(u=>u.line===ln&&u.kind!=='placeholder');const lastIdx=units.map(u=>u.line===endLn).lastIndexOf(true);const last=units[lastIdx];
-      if(first&&last){first.open='reprise';last.close='reprise';last.fois=(endLn.crochet.fois||ln.crochet.fois||2);}
-    });
-  }
-  return units;
-}
-function measureStatus(sc,u){
-  const el=u.el;if(el.simile||el.pause)return 'ok';
-  const s=el.evenements.reduce((a,e)=>a+ticksOf(e),0);const cap=capOf(sc);
-  if(Math.abs(s-cap)<1e-6)return 'ok';return s<cap?'court':'long';
-}
-function fmtBeats(t){return `${+(t/48).toFixed(2)} temps`;}
-function analyse(sc,mode){
-  const units=buildUnits(sc,mode);const alerts=[];
-  units.forEach(u=>{if(u.kind!=='measure')return;u.status=measureStatus(sc,u);
-    const where=`${u.secLabel?u.secLabel+' · ':''}page ${u.line.page}, ligne ${u.line.idx}, mesure ${u.no}`;
-    if(u.status!=='ok'){const s=u.el.evenements.reduce((a,e)=>a+ticksOf(e),0);
-      alerts.push({lvl:u.status==='long'?'err':'warn',msg:`${where} : ${fmtBeats(s)} au lieu de ${fmtBeats(capOf(sc))}.`,unit:u});}
-    if(u.el.doute)alerts.push({lvl:'warn',msg:`${where} : lecture incertaine.`,unit:u});
-    u.el.evenements.forEach(e=>{if(e.doute)alerts.push({lvl:'warn',msg:`${where} : ${e.t==='silence'?'silence':'note'} incertain${e.t==='silence'?'':'e'}.`,unit:u,ev:e.id});});
-  });
-  // pitch coherence
-  const flags=new Map();const cnt=new Array(12).fill(0);let total=0;
-  const allNotes=[];units.forEach(u=>{if(u.kind==='measure')u.el.evenements.forEach(e=>{if(e.t==='note')e.notes.forEach(n=>{const pc=((openOf(sc,n.corde)+n.case)%12+12)%12;cnt[pc]++;total++;allNotes.push({u,e,n,pc});});});});
-  if(total>=16){
-    const scale=new Set([...cnt.keys()].sort((a,b)=>cnt[b]-cnt[a]).slice(0,7).filter(p=>cnt[p]>0));
-    allNotes.forEach(({u,e,n,pc})=>{
-      if(scale.has(pc)||cnt[pc]>Math.max(1,total*0.03))return;
-      const alts=[n.corde-1,n.corde+1].filter(k=>k>=1&&k<=sc.cordes&&scale.has(((openOf(sc,k)+n.case)%12+12)%12));
-      if(!alts.length)return;
-      flags.set(e.id,true);
-      alerts.push({lvl:'warn',kind:'corde',unit:u,ev:e.id,msg:`Page ${u.line.page}, ligne ${u.line.idx}, mesure ${u.no} : case ${n.case} sur la corde de ${cordeName(sc,n.corde)} donne ${NOMS[pc]}, hors de la gamme du morceau. Corde de ${alts.map(k=>cordeName(sc,k)).join(' ou ')} ?`});
-    });
-  }
-  if(sc.totalPages){for(let k=sc.totalPages;k>=1;k--)if(!sc.pages.some(p=>p.n===k))alerts.unshift({lvl:'err',msg:`Page ${k}/${sc.totalPages} manquante : ajoutez-la pour compléter la partition.`});}
-  // repeated motifs: the same frets and rhythms played elsewhere on other strings point to a misread string
-  const motifs=new Map();
-  units.forEach(u=>{if(u.kind!=='measure')return;const ev=u.el.evenements;if(ev.filter(e=>e.t==='note').length<3)return;
-    const key=ev.map(e=>e.t==='note'?e.notes.map(n=>n.case).join('+')+':'+e.duree+e.points:e.t+':'+e.duree+e.points).join('|');
-    const str=ev.map(e=>e.t==='note'?e.notes.map(n=>n.corde).join('+'):'-').join('|');
-    if(!motifs.has(key))motifs.set(key,[]);motifs.get(key).push({u,str});});
-  motifs.forEach(list=>{const kinds=new Map();list.forEach(m=>kinds.set(m.str,(kinds.get(m.str)||0)+1));if(kinds.size<2)return;
-    const best=[...kinds.entries()].sort((a,b)=>b[1]-a[1]);const tie=best[0][1]===best[1][1];
-    list.forEach(m=>{if(!tie&&m.str===best[0][0])return;
-      const ref=list.find(o=>o.str!==m.str&&(tie||o.str===best[0][0]));
-      const refStr=ref.str.split('|');m.u.el.evenements.forEach((e,i)=>{if(e.t==='note'&&e.notes.map(n=>n.corde).join('+')!==refStr[i])flags.set(e.id,true);});
-      alerts.push({lvl:'warn',kind:'corde',unit:m.u,ev:(m.u.el.evenements.find(e=>flags.has(e.id))||{}).id,msg:`Page ${m.u.line.page}, ligne ${m.u.line.idx}, mesure ${m.u.no} : même motif (cases et rythmes) que la mesure ${ref.u.no}, mais sur d'autres cordes. Corde mal lue ?`});});});
-  sc.lignes.forEach(ln=>{if(ln.statut==='erreur')alerts.unshift({lvl:'err',msg:`Page ${ln.page}, ligne ${ln.idx} : ${ln.message||'lecture impossible'}.`,line:ln});
-    (ln.alerts||[]).forEach(m=>alerts.push({lvl:'warn',msg:m,line:ln}));});
-  return {units,alerts,flags};
-}
-/*ENGINE-END*/
-/* ---- reading prompt ---- */
-function readPrompt(sc,ln,ctx,opt){opt=opt||{};const multi=opt.lines&&opt.lines.length>1?opt.lines:null;
-  const base=readPromptBase(sc,ln,ctx,multi);return opt.eco?ecoPrompt(base,multi):base;}
-function readPromptBase(sc,ln,ctx,multi){
-  const strings=[];for(let k=1;k<=sc.cordes;k++)strings.push(`${k} = ${cordeName(sc,k)}`);
-  return `Tu es un expert en solfège et en tablature de basse. ${multi?`Tu reçois ${multi.length} images. Chacune est une bande découpée dans une page de tablature manuscrite pour basse ${sc.cordes} cordes, centrée sur UNE portée de ${sc.cordes} lignes ; elles se suivent dans l'ordre de la page (lignes ${multi.map(l=>l.idx).join(', ')}). Transcris exactement le contenu de CHAQUE portée en JSON, image par image, sans jamais mélanger deux portées. Les règles ci-dessous valent pour chaque image.`:`L'image est une bande découpée dans une page de tablature manuscrite pour basse ${sc.cordes} cordes. Elle est centrée sur UNE portée de ${sc.cordes} lignes. Transcris exactement le contenu de CETTE portée en JSON.`}
-
-PORTÉE
-- Chaque ligne horizontale est une corde. Ligne du haut = corde 1 (la plus aiguë), ligne du bas = corde ${sc.cordes} (la plus grave). Cordes : ${strings.join(', ')}.
-- Un chiffre posé sur une ligne (la ligne le traverse ou il est centré dessus) = numéro de case sur cette corde. La portée peut être légèrement inclinée sur la photo : pour chaque chiffre, compare sa hauteur aux lignes AU MÊME ENDROIT horizontal, pas au début de la portée. Un chiffre écrit un peu au-dessus ou un peu au-dessous d'une ligne appartient à la ligne la plus proche de son centre ; il ne passe à la ligne voisine que s'il en est nettement plus proche. Quand un même motif revient (mêmes cases, mêmes rythmes), vérifie que tu l'as lu sur les mêmes cordes.
-- Particularité de ces manuscrits : les chiffres sont souvent écrits POSÉS sur leur ligne, comme sur une ligne d'écriture (la ligne passe par le bas du chiffre), ou au contraire suspendus sous elle (la ligne touche le haut du chiffre). Règle de décision : un chiffre appartient à la ligne qu'il TOUCHE ou qui le TRAVERSE. Un chiffre qui flotte entre deux lignes sans toucher aucune appartient à la plus proche de sa base. Un chiffre placé sous la dernière ligne appartient à la corde la plus grave ; au-dessus de la première ligne, à la corde la plus aiguë.
-- Exemple fréquent : « 3 [demi-soupir] 4 5 [demi-soupir] 1 » où le 3 est sous ou sur la ligne du bas (corde grave), le 4 et le 5 posés sur la ligne juste au-dessus, le 1 accroché à la ligne du bas : ne remonte pas le 4 et le 5 d'une corde parce qu'ils dépassent vers le haut. Regarde avec soin sur quelle ligne est centré chaque chiffre : c'est l'information la plus importante. Plusieurs chiffres superposés au même endroit = notes jouées ensemble.
-- Ignore ce qui appartient aux portées voisines : les symboles rythmiques visibles AU-DESSUS de la portée appartiennent à la ligne précédente ; un texte écrit tout en bas à gauche, sous la ligne de rythmes, est l'étiquette de la ligne suivante.
-- Une portée vide, ou la partie vide d'une portée après la dernière barre, ne produit rien.
-
-RYTHMES (écrits sous la portée, un symbole par note ou silence, dans l'ordre)
-- Barre verticale seule = noire ; blanche = tige avec tête vide (ou « d ») ; ronde = tête vide sans tige.
-- Tige isolée avec un petit crochet (♪), non reliée aux autres = croche seule ; avec deux crochets = double-croche seule.
-- Le point d'une croche pointée est souvent dessiné à l'intérieur du groupe, juste à droite de la première tige, près de la poutre (└·┤) : c'est bien un point d'augmentation.
-- Tiges reliées par une poutre en bas = croches ; deux poutres = doubles-croches ; un demi-trait de poutre = double-croche dans un groupe.
-- Un point À DROITE d'un symbole rythmique = durée allongée de moitié (points:1), deux points = de trois quarts (points:2). Cela vaut aussi pour les silences.
-- Figures à reconnaître avec soin, car elles se ressemblent :
-  · deux tiges reliées par une poutre, SANS point ni demi-trait = deux croches (1 temps) ;
-  · deux tiges reliées, avec un point juste à droite de la PREMIÈRE tige et un demi-trait court de seconde poutre sur la DEUXIÈME tige (└·┘) = croche pointée + double-croche (1 temps). Le point peut être petit et collé à la poutre : cherche-le, ne le confonds pas avec deux croches ;
-  · inversement, un demi-trait sur la première tige et un point après la seconde = double-croche + croche pointée ;
-  · trois tiges dont la première est reliée par une poutre simple et les deux suivantes par une poutre double (└┴┴┘ avec demi-poutre à droite) = croche + deux doubles-croches (1 temps) ;
-  · deux doubles-croches + croche (└┴┘ avec la seconde poutre entre les deux premières tiges) = 1 temps ;
-  · SYNCOPETTE = double-croche + croche + double-croche (1 temps) : trois tiges reliées par une poutre ; la première tige porte un demi-trait court de seconde poutre tourné vers la droite, la dernière un demi-trait tourné vers la gauche, la tige du milieu n'en a pas. Ne la confonds pas avec croche + deux doubles-croches, où la seconde poutre relie les deux DERNIÈRES tiges : regarde où se trouvent les demi-traits ;
-  · syncope = croche + noire + croche (2 temps) ;
-  · quatre doubles-croches = quatre tiges reliées par deux poutres complètes (1 temps).
-- Les symboles rythmiques sont alignés sous les notes qu'ils décrivent : associe-les par position horizontale, pas seulement par ordre.
-- Dans ces manuscrits, les tiges descendent et la poutre principale est en bas. La SECONDE poutre (doubles-croches) est un trait plus court tracé juste AU-DESSUS de la poutre principale, à l'intérieur du groupe. Pour un groupe de trois tiges, regarde précisément entre quelles tiges se trouve ce second trait :
-  · entre la 2e et la 3e tige (la 1re tige n'a que la poutre principale) = croche + deux doubles-croches ;
-  · entre la 1re et la 2e tige (la 3e tige n'a que la poutre principale) = deux doubles-croches + croche ;
-  · demi-traits sur la 1re et sur la 3e tige seulement = syncopette.
-  L'ordre des durées suit l'ordre des notes de gauche à droite : ne l'inverse pas.
-- RÈGLE GÉNÉRALE pour tout groupe relié par une poutre : examine chaque tige une par une. Une tige qui porte, en plus de la poutre principale, un second trait (complet vers une tige voisine, ou court demi-trait qui ne touche qu'elle, parfois dessiné en croix « + » sur la tige) = double-croche. Une tige qui n'a QUE la poutre principale = croche. Ne déduis jamais « toutes doubles-croches » de la seule longueur du groupe.
-- Une même poutre peut relier plusieurs temps d'affilée (par exemple deux syncopettes sous une seule longue poutre, soit 6 notes en 2 temps) : découpe-la temps par temps avec la règle ci-dessus. Six notes sous une poutre ne valent pas forcément six doubles-croches : avec un demi-trait sur les tiges 1, 3, 4 et 6 seulement, ce sont deux syncopettes.
-- Crochet └3┘ sous un groupe = triolet (triolet:true sur chaque élément du groupe).
-- Les silences ont aussi leur symbole rythmique dans cette ligne.
-
-SILENCES (écrits dans la portée)
-- Bloc noir rectangulaire = mesure entière de silence → mesure avec "pause":true et aucun événement. Une case qui contient des LETTRES n'est jamais une mesure de silence (voir rappel ci-dessous).
-- Vague verticale (zigzag) = soupir (duree "noire"). Plusieurs vagues = plusieurs soupirs.
-- Grand « 7 » qui occupe l'espace ENTRE les lignes (plus grand qu'un chiffre, pas centré sur une ligne) = demi-soupir (duree "croche"). Le demi-soupir manuscrit commence souvent par un petit rond ou point plein en haut à gauche, d'où part le trait oblique : ce point fait partie du demi-soupir, ce n'est PAS un staccato ni une note. Quart de soupir = deux crochets de ce type, huitième de soupir = trois. Un « 7 » de la taille des autres chiffres, centré sur une ligne, est la case 7.
-- Silence suivi d'un point = silence pointé.
-
-SIGNES SUR LES NOTES
-- Point AU-DESSUS d'un chiffre = staccato : il est isolé, juste au-dessus d'un chiffre posé sur une ligne. Un point accroché au haut d'un trait oblique est la tête d'un demi-soupir, pas un staccato. Il n'y a jamais de point à côté d'un chiffre. Ces points sont petits et parfois éloignés du chiffre, surtout quand le chiffre est écrit plus haut sur la portée : examine le dessus de CHAQUE chiffre, un par un, avant de conclure qu'il n'y a pas de staccato.
-- (6)8 : petit chiffre entre parenthèses collé avant une note = appogiature, "appog":6 sur la note 8 (même corde).
-- « x » à la place d'un chiffre = note étouffée (t "morte", avec sa corde).
-- Arc entre deux notes = liaison : "lie":true sur la PREMIÈRE note.
-- Trait oblique entre deux notes = slide : "slide":true sur la première note si les deux notes sont sur la même corde. Si elles sont sur des cordes différentes, c'est un slide de sortie de la première note ("slide_sortie" : "haut" si le trait monte, "bas" s'il descend). Trait oblique seul avant une note = "slide_entree" ("bas" s'il monte vers la note, "haut" s'il descend) ; seul après une note = "slide_sortie".
-- Le trait de slide peut être très court (à peine plus long qu'un point), placé à hauteur des chiffres, entre deux chiffres ou collé à l'un d'eux. Un petit trait oblique, même court, est un slide, jamais un staccato : le staccato est un point rond, isolé, AU-DESSUS d'un chiffre.
-- Point d'orgue = arc avec un point placé SOUS l'arc, au centre, au-dessus d'une seule note → "point_orgue":true. Sans point sous l'arc, ce n'est jamais un point d'orgue.
-- Liaison = arc qui part au-dessus d'un chiffre et retombe au-dessus du chiffre suivant (même s'il est court et dessiné entre les deux) → "lie":true sur la première note. Si les deux chiffres sont identiques sur la même corde, c'est une prolongation.
-- Un point de staccato au-dessus d'un chiffre voisin n'appartient pas à un arc : ne combine pas un arc et un point de deux notes différentes en point d'orgue.
-
-BARRES ET STRUCTURE
-- Barre simple = fin de mesure. Double barre = début ou fin de section. Barre de reprise : deux points + barre fine + barre épaisse (ou l'inverse).
-- « ×N » au-dessus d'une barre de fin → "fois":N sur la mesure qui se termine là.
-- Crochet de fin alternée au-dessus de mesures, numéroté « 1. » ou « 1,2,3. » ou « 4. » → "volta":"1" / "1,2,3" / "4" sur chaque mesure couverte.
-- Signe de mesure répétée : il occupe une case de mesure, sans chiffres ni rythmes. Compte les barres obliques :
-  · UNE barre oblique entre deux points (%) = rejouer la mesure précédente → "simile":1, aucun événement ;
-  · DEUX barres obliques entre deux points (•//•) = rejouer les DEUX mesures précédentes → "simile":2, aucun événement. Ne le confonds pas avec %.
-  Une mesure normale a "simile":0.
-- Étiquette de section écrite au-dessus à gauche de la portée (OPENING, INTRO, VERSE 1, PRE-CHORUS, CHORUS 2, POST-CHORUS, BRIDGE, INTERLUDE, SOLO, SOLO PIANO, BASELINE 1, BOUCLE 1, OUTRO…) → élément "section" placé avant la mesure où elle commence. Lis les numéros (« CHORUS 1 »). Une étiquette absente de cette liste est quand même une section : écris-la telle qu'elle est écrite, et transcris TOUJOURS la portée qui suit. Le titre, le tempo et la pagination en haut de page ne remplacent jamais la première portée : elle se transcrit comme les autres.
-- Nom de section écrit DANS la portée, encadré par des barres = rappel d'une section → élément "rappel" avec le texte tel qu'écrit (y compris « CHORUS 2 etc… »). Les lettres sont souvent grandes, écrites à cheval sur les lignes de la portée, et peuvent occuper toute la portée (ex. « BASELINE 2 » entre deux doubles barres). Un « ×N » au-dessus de la barre qui suit → "fois":N sur ce rappel. Lis chaque case : s'il y a des lettres dedans, c'est un rappel, pas une mesure vide ni une pause.
-- Crochet vertical dans la marge droite qui englobe plusieurs portées, avec « ×N » : indique-le dans "crochet" (debut si le crochet commence au niveau de cette portée, fin s'il s'y termine).
-- Titre, sous-titre, tempo (♩=98) écrits en haut de page : renseigne-les s'ils sont visibles, sinon null.
-
-VÉRIFICATION
-Signature : ${sc.signature.temps}/${sc.signature.unite}. Une mesure complète dure ${sc.signature.temps*4/sc.signature.unite} noire(s).
-Pour chaque mesure, remplis D'ABORD le champ "rythmes_lus" : décris, temps par temps, les symboles rythmiques que tu vois sous la portée (ex. "noire | croche pointée+double | croche+2 doubles | 2 croches"), en vérifiant pour chaque groupe la présence d'un point ou d'un demi-trait. Déduis ensuite les durées des événements de cette description. Avant de répondre, additionne les durées de chaque mesure. Si le total ne tombe pas juste, relis la mesure (chiffres, rythmes, points, silences). S'il reste un doute, garde ta meilleure lecture et mets "doute":true sur l'élément concerné et une phrase dans "doutes". N'invente rien.
-
-${lessonsPrompt()}
-CONTEXTE
-Page ${ln.page}, ${multi?`lignes ${multi[0].idx} à ${multi[multi.length-1].idx}`:`ligne ${ln.idx}`}${ctx.prev?`. Ligne précédente : ${ctx.prev}`:''}${ctx.labels.length?`. Étiquettes déjà lues : ${ctx.labels.join(', ')}`:''}.
-
-RÉPONSE : uniquement ce JSON.
-{"titre":null,"sous_titre":null,"tempo":null,
- "crochet":{"debut":false,"fin":false,"fois":null},
- "elements":[
-  {"t":"section","label":"VERSE 1"},
-  {"t":"mesure","ouverture":"double","fermeture":"simple","fois":null,"volta":null,"simile":0,"pause":false,"doute":false,
-   "rythmes_lus":"noire | demi-soupir + croche | ...",
-   "evenements":[
-    {"t":"note","notes":[{"corde":3,"case":6}],"duree":"noire","points":0,"triolet":false,"staccato":true,"appog":null,"lie":false,"slide":false,"slide_entree":null,"slide_sortie":null,"point_orgue":false,"doute":false},
-    {"t":"silence","duree":"croche","points":0,"triolet":false},
-    {"t":"morte","corde":3,"duree":"croche","points":0,"triolet":false}
-   ]},
-  {"t":"rappel","texte":"CHORUS 1","fois":1}
- ],
- "doutes":[]}
-duree ∈ "ronde","blanche","noire","croche","double","triple". ouverture ∈ "simple","double","reprise". fermeture ∈ "simple","double","reprise","finale".`;
-}
-
-/* Economical reading (trial): several lines per request and a compact answer */
-function ecoPrompt(base,multi){
-  const cut=base.indexOf('\nRÉPONSE : uniquement ce JSON.');const head=cut>0?base.slice(0,cut):base;
-  return head+`
-RÉPONSE : uniquement ce JSON, en FORMAT COMPACT.
-Format compact : n'écris PAS les champs qui ont leur valeur par défaut. Valeurs par défaut : false, 0, null, "simple" (ouverture et fermeture), 1 ("fois" d'un rappel), [] (doutes). Une note s'écrit seulement {"t":"note","notes":[{"corde":3,"case":6}],"duree":"noire"} plus les signes réellement présents ("points":1, "staccato":true, "lie":true, "slide":true, "triolet":true, "appog":6, "slide_entree":"bas", "slide_sortie":"haut", "point_orgue":true, "doute":true). Le champ "rythmes_lus" reste écrit EN TOUTES LETTRES, comme demandé plus haut : c'est ta vérification des rythmes, ne l'abrège pas.
-VÉRIFICATION DES CORDES : pour chaque mesure, remplis aussi "cordes_lues" AVANT "evenements" : pour chaque chiffre, de gauche à droite, écris case:corde suivi d'une lettre qui dit comment tu as décidé — T = la ligne traverse le chiffre, P = le chiffre est posé sur la ligne (elle touche sa base), S = il est suspendu sous la ligne (elle touche son haut), F = il flotte entre deux lignes (corde de la ligne la plus proche de sa base). Exemple : "3:4S 4:3P 5:3P 1:4S". Regarde chaque chiffre à part, à l'endroit exact où il est écrit (la portée peut être inclinée). Les notes de "evenements" doivent reprendre exactement ces cordes. Pas d'espaces ni de retours à la ligne inutiles.
-{"titre":null,"sous_titre":null,"tempo":null,
- "lignes":[${multi?`
-  {"elements":[...],"doutes":[]}   ← une entrée par image, dans le même ordre (${multi.length} entrées)`:''}
-  {"crochet":{"debut":true,"fois":2},
-   "elements":[
-    {"t":"section","label":"VERSE 1"},
-    {"t":"mesure","ouverture":"double","rythmes_lus":"noire | demi-soupir + croche | ...","cordes_lues":"6:3P ...","evenements":[
-     {"t":"note","notes":[{"corde":3,"case":6}],"duree":"noire","staccato":true},
-     {"t":"silence","duree":"croche"},
-     {"t":"morte","corde":3,"duree":"croche"}]},
-    {"t":"mesure","simile":1},
-    {"t":"rappel","texte":"CHORUS 1","fois":2}],
-   "doutes":["…"]}]}
-duree ∈ "ronde","blanche","noire","croche","double","triple". ouverture ∈ "simple","double","reprise". fermeture ∈ "simple","double","reprise","finale". "crochet" seulement s'il y en a un.`;
-}
-/* rough usage estimate (no exact count is available to the page): text ≈ 1 token per 3.3 characters,
-   an image ≈ its pixels / 750 after Claude reduces it to at most 1568 px and 1.15 megapixels */
-function estText(str){return Math.ceil(String(str||'').length/3.3);}
-async function estImage(b){try{const bm=await createImageBitmap(typeof b==='string'?await (await fetch(b)).blob():b);let w=bm.width,h=bm.height;
-  const k=Math.min(1,1568/Math.max(w,h),Math.sqrt(1150000/(w*h)));return Math.ceil(w*k*h*k/750);}catch(e){return 500;}}
-/* ---- image pipeline ---- */
-function loadImage(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file);const im=new Image();im.onload=()=>res(im);im.onerror=()=>rej(new Error('image'));im.src=u;});}
-function grayOf(src,maxDim){const s=Math.min(1,maxDim/Math.max(src.width,src.height));const w=Math.round(src.width*s),h=Math.round(src.height*s);
-  const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(src,0,0,w,h);
-  const d=x.getImageData(0,0,w,h).data;const g=new Float32Array(w*h);for(let i=0;i<w*h;i++)g[i]=0.299*d[i*4]+0.587*d[i*4+1]+0.114*d[i*4+2];return {g,w,h,s};}
-function binarize({g,w,h}){
-  const I=new Float64Array((w+1)*(h+1));
-  for(let y=0;y<h;y++){let row=0;for(let x=0;x<w;x++){row+=g[y*w+x];I[(y+1)*(w+1)+x+1]=I[y*(w+1)+x+1]+row;}}
-  const r=Math.max(6,Math.round(w/24));const b=new Uint8Array(w*h);
-  for(let y=0;y<h;y++){const y0=Math.max(0,y-r),y1=Math.min(h-1,y+r);for(let x=0;x<w;x++){const x0=Math.max(0,x-r),x1=Math.min(w-1,x+r);
-    const n=(y1-y0+1)*(x1-x0+1);const sum=I[(y1+1)*(w+1)+x1+1]-I[y0*(w+1)+x1+1]-I[(y1+1)*(w+1)+x0]+I[y0*(w+1)+x0];
-    const m=sum/n;if(m>70&&g[y*w+x]<m*0.8)b[y*w+x]=1;}}
-  return b;
-}
-function thinMap({g,w,h},vertical){const b=new Uint8Array(w*h);const d=2;
-  if(!vertical){for(let y=d;y<h-d;y++)for(let x=0;x<w;x++){const v=g[y*w+x];if(v<175&&g[(y-d)*w+x]-v>22&&g[(y+d)*w+x]-v>22)b[y*w+x]=1;}}
-  else{for(let y=0;y<h;y++)for(let x=d;x<w-d;x++){const v=g[y*w+x];if(v<175&&g[y*w+x-d]-v>22&&g[y*w+x+d]-v>22)b[y*w+x]=1;}}
-  return b;}
-function rowScore(b,w,h,ang){const t=Math.tan(ang*Math.PI/180);const prof=new Float32Array(h+Math.ceil(Math.abs(t)*w)+2);const off=t<0?Math.ceil(-t*w):0;
-  const x0=Math.floor(w*0.12),x1=Math.ceil(w*0.88);
-  for(let y=0;y<h;y+=1)for(let x=x0;x<x1;x+=2)if(b[y*w+x])prof[Math.round(y-x*t)+off]++;
-  let s=0;for(const v of prof)s+=v*v;return s;}
-function drawRotated(src,quarter,deg){
-  const W=src.width,H=src.height;const rad=(quarter*90+deg)*Math.PI/180;
-  const cw=Math.round(Math.abs(W*Math.cos(rad))+Math.abs(H*Math.sin(rad))),ch=Math.round(Math.abs(W*Math.sin(rad))+Math.abs(H*Math.cos(rad)));
-  const c=document.createElement('canvas');c.width=cw;c.height=ch;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cw,ch);
-  x.translate(cw/2,ch/2);x.rotate(rad);x.drawImage(src,-W/2,-H/2);return c;}
-function orient(src){
-  const G=grayOf(src,900);const bh=thinMap(G,false),bv=thinMap(G,true);
-  const tb=new Uint8Array(G.w*G.h);for(let y=0;y<G.h;y++)for(let x=0;x<G.w;x++)tb[x*G.h+y]=bv[y*G.w+x];
-  const hS=rowScore(bh,G.w,G.h,0)/G.h,vS=rowScore(tb,G.h,G.w,0)/G.w;
-  const quarter=vS>hS*1.2?1:0;
-  const c=drawRotated(src,quarter,0);
-  const G2=grayOf(c,900);const b2=thinMap(G2,false);let best=0,bs=-1;
-  for(let a=-4;a<=4.001;a+=0.25){const s=rowScore(b2,G2.w,G2.h,a);if(s>bs){bs=s;best=a;}}
-  return {quarter,deg:-best};
-}
-function findStaves(canvas,cordes){
-  const G=grayOf(canvas,1100);const b=binarize(G);const t=thinMap(G,false);const tv=thinMap(G,true);const {w,h}=G;
-  const x0=Math.floor(w*0.15),x1=Math.ceil(w*0.85);const prof=new Float32Array(h);
-  // lines are found in a central band only, so that a page photographed slightly askew (lines not parallel) still gives sharp peaks
-  const px0=Math.floor(w*0.36),px1=Math.ceil(w*0.64);
-  for(let y=0;y<h;y++){let c=0;for(let x=px0;x<px1;x++)c+=t[y*w+x]|t[Math.min(h-1,y+1)*w+x];prof[y]=c/(px1-px0);}
-  const peaks=[];let run=null;
-  for(let y=0;y<h;y++){if(prof[y]>0.32){if(!run)run={a:y,b:y,m:prof[y]};else{run.b=y;run.m=Math.max(run.m,prof[y]);}}else if(run){peaks.push((run.a+run.b)/2);run=null;}}
-  if(run)peaks.push((run.a+run.b)/2);
-  const maxSp=h/40;const staves=[];let i=0;
-  while(i<peaks.length){const grp=[peaks[i]];let s=null,j=i+1;
-    while(j<peaks.length){const d=peaks[j]-grp[grp.length-1];
-      if(s==null){if(d>2&&d<maxSp){s=d;grp.push(peaks[j]);}else break;}
-      else if(Math.abs(d-s)<0.35*s){grp.push(peaks[j]);s=(grp[grp.length-1]-grp[0])/(grp.length-1);}else break;j++;}
-    if(grp.length>=cordes){for(let k=0;k+cordes<=grp.length;k+=cordes)staves.push(grp.slice(k,k+cordes));i=j;}
-    else if(grp.length>=Math.max(3,cordes-1)&&s){staves.push(grp);i=j;}
-    else i++;}
-  const res=staves.map(gp=>{const sp=(gp[gp.length-1]-gp[0])/(gp.length-1);const top=gp[0],bot=gp[0]+sp*(cordes-1);
-    // ink inside staff (excluding the printed lines) to spot blank staves
-    let ink=0,area=0;const ya=Math.round(top-sp*0.5),yb=Math.round(bot+sp*0.5);
-    for(let y=Math.max(0,ya);y<=Math.min(h-1,yb);y++){for(let x=x0;x<x1;x++){ink+=tv[y*w+x];area++;}}
-    // horizontal extent of the staff
-    let L=w,R=0;const yl=Math.round(top),ylb=Math.round(bot);
-    for(let x=0;x<w;x++){let hits=0;for(const c of gp){const yy=Math.round(c);if(t[yy*w+x]||t[Math.min(h-1,yy+1)*w+x]||t[Math.max(0,yy-1)*w+x])hits++;}if(hits>=gp.length-1){L=Math.min(L,x);R=Math.max(R,x);}}
-    let below=0,above=0;
-    for(let y=Math.round(bot+sp*0.8);y<Math.min(h,Math.round(bot+sp*2.4));y++)for(let x=x0;x<x1;x++)below+=tv[y*w+x];
-    for(let y=Math.max(0,Math.round(top-sp*2.4));y<Math.round(top-sp*0.8);y++)for(let x=x0;x<x1;x++)above+=tv[y*w+x];
-    // local tilt of this staff: centre of the printed lines measured on its left and right quarters
-    const ya0=Math.max(0,Math.round(top-sp)),yb0=Math.min(h-1,Math.round(bot+sp));
-    const yAt=(xa,xb)=>{let sy=0,n=0;for(let y=ya0;y<=yb0;y++)for(let x=xa;x<xb;x+=2)if(t[y*w+x]){sy+=y;n++;}return n?sy/n:null;};
-    const span=Math.max(10,R-L),qa=Math.round(L+span*0.05),qb=Math.round(L+span*0.25),qc=Math.round(R-span*0.25),qd=Math.round(R-span*0.05);
-    const tyl=yAt(qa,qb),tyr=yAt(qc,qd);let ang=0;
-    if(tyl!=null&&tyr!=null){ang=Math.atan2(tyr-tyl,((qc+qd)-(qa+qb))/2);if(Math.abs(ang)>0.06)ang=0;}
-    return {top:top/G.s,bot:bot/G.s,sp:sp/G.s,ink:area?ink/area:0,L:L/G.s,R:R/G.s,below,above,ang};});
-  return res;
-}
-async function cropBlobRot(canvas,x,y,w,h,ang,cx,cy){
-  if(!ang)return cropBlob(canvas,x,y,w,h);
-  const s=Math.min(1,2000/w);const c=document.createElement('canvas');c.width=Math.round(w*s);c.height=Math.round(h*s);
-  const ctx=c.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);
-  ctx.scale(s,s);ctx.translate(cx-x,cy-y);ctx.rotate(-ang);ctx.translate(-cx,-cy);ctx.drawImage(canvas,0,0);
-  return await new Promise(r=>c.toBlob(r,'image/jpeg',0.9));}
-async function cropBlob(canvas,x,y,w,h){const s=Math.min(1,2000/w);const c=document.createElement('canvas');c.width=Math.round(w*s);c.height=Math.round(h*s);
-  const ctx=c.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(canvas,x,y,w,h,0,0,c.width,c.height);
-  return await new Promise(r=>c.toBlob(r,'image/jpeg',0.9));}
-const HEADER_PROMPT=`Voici le haut d'une page de tablature manuscrite pour basse. Lis uniquement :
-- le titre du morceau (souvent « Artiste - Titre »), tel qu'écrit ;
-- un éventuel sous-titre (ex. « VARIANTE - SOLO BASS ») ;
-- le tempo s'il est noté (♩=98 → 98) ;
-- la pagination écrite en haut à droite sous la forme k/N (ex. « 1/2 » → page 1, pages 2).
-Réponds uniquement avec ce JSON : {"titre":null,"sous_titre":null,"tempo":null,"page":null,"pages":null}. Mets null pour ce qui n'est pas écrit. N'invente rien.`;
-/* iPhone photos (.heic): Chrome cannot display them, so they are converted to JPEG first */
-function isHeic(f){return /hei[cf]/i.test(f.type||'')||/\.(heic|heif)$/i.test(f.name||'');}
-async function decodable(f,label){
-  if(!isHeic(f))return f;
-  try{await loadImage(f);return f;}catch(e){} // Safari reads HEIC natively
-  setStatus(`${label} : conversion de la photo HEIC…`);
-  if(!window.heic2any)await loadScript('https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js');
-  const out=await window.heic2any({blob:f,toType:'image/jpeg',quality:0.92});return Array.isArray(out)?out[0]:out;}
-async function blobToCanvas(blob){const b=typeof blob==='string'?await (await fetch(blob)).blob():blob;const bm=await createImageBitmap(b);
-  const c=document.createElement('canvas');c.width=bm.width;c.height=bm.height;c.getContext('2d').drawImage(bm,0,0);return c;}
-function findBarlines(canvas,cordes){
-  const G=grayOf(canvas,1600);const {w,h}=G;const t=thinMap(G,false);const b=binarize(G);
-  // staff lines of this strip
-  const prof=new Float32Array(h);const px0=Math.floor(w*0.3),px1=Math.ceil(w*0.7);
-  for(let y=0;y<h;y++){let c=0;for(let x=px0;x<px1;x++)c+=t[y*w+x]|t[Math.min(h-1,y+1)*w+x];prof[y]=c/(px1-px0);}
-  const peaks=[];let run=null;for(let y=0;y<h;y++){if(prof[y]>0.3){if(!run)run={a:y,b:y};else run.b=y;}else if(run){peaks.push((run.a+run.b)/2);run=null;}}
-  if(peaks.length<cordes)return null;
-  // the group of `cordes` regularly spaced lines nearest the middle of the strip
-  let best=null;for(let i=0;i+cordes<=peaks.length;i++){const g=peaks.slice(i,i+cordes);const sp=(g[g.length-1]-g[0])/(cordes-1);
-    if(sp<4||g.some((v,j)=>j&&Math.abs(v-g[j-1]-sp)>0.4*sp))continue;const d=Math.abs((g[0]+g[g.length-1])/2-h/2);if(!best||d<best.d)best={g,sp,d};}
-  if(!best)return null;
-  const y0=Math.round(best.g[0]),y1=Math.round(best.g[best.g.length-1]);
-  const cols=[];for(let x=0;x<w;x++){let n=0;for(let y=y0;y<=y1;y++)if(b[y*w+x]||b[y*w+Math.max(0,x-1)]||b[y*w+Math.min(w-1,x+1)])n++;cols.push(n/(y1-y0+1));}
-  // horizontal extent of the staff: the longest stretch where most staff lines are inked
-  const on=new Uint8Array(w);for(let x=0;x<w;x++){let n=0;for(const gy of best.g){let k=0;for(let dy=-2;dy<=2;dy++){const y=Math.round(gy)+dy;if(y>=0&&y<h&&b[y*w+x])k=1;}n+=k;}on[x]=n>=2?1:0;}
-  let sx0=0,sx1=w-1,bl=0;{let a=-1,last=-1;for(let x=0;x<=w;x++){if(x<w&&on[x]){if(a<0||x-last>best.sp*3){if(a>=0&&last-a>bl){bl=last-a;sx0=a;sx1=last;}a=x;}last=x;}}if(a>=0&&last-a>bl){sx0=a;sx1=last;}}
-  const xs=[];let r=null;for(let x=0;x<w;x++){if(cols[x]>=0.8){if(!r)r={a:x,b:x};else r.b=x;}else if(r){if(r.b-r.a<best.sp*1.2&&r.b>=sx0-best.sp&&r.a<=sx1+best.sp)xs.push((r.a+r.b)/2);r=null;}}
-  // merge double / repeat barlines into one boundary; the staff ends count as boundaries
-  const bars=[];xs.forEach(x=>{if(bars.length&&x-bars[bars.length-1].b<best.sp*1.6)bars[bars.length-1].b=x;else bars.push({a:x,b:x});});
-  if(!bars.length||bars[0].a-sx0>best.sp*1.6)bars.unshift({a:sx0,b:sx0});
-  if(sx1-bars[bars.length-1].b>best.sp*1.6)bars.push({a:sx1,b:sx1,end:true});
-  return {bars:bars.map(v=>({a:v.a/G.s,b:v.b/G.s,end:v.end})),sp:best.sp/G.s,y0:y0/G.s,y1:y1/G.s};
-}
-/* image agrandie d'une seule mesure (k-ième case de la ligne) ; null si les barres ne correspondent pas */
-async function measureImg(ln,k,nSlots,cordes){const canvas=await blobToCanvas(ln.blob);const B=findBarlines(canvas,cordes);if(!B||k<0)return null;
-  if(B.bars.length===nSlots+2&&B.bars[B.bars.length-1].end)B.bars.pop();if(B.bars.length!==nSlots+1)return null;
-  const x0=Math.max(0,B.bars[k].a-B.sp*1.5),x1=Math.min(canvas.width,B.bars[k+1].b+B.sp*1.5);const w=x1-x0,h=canvas.height;const s=Math.min(2.5,Math.max(1,1100/w));
-  const c=document.createElement('canvas');c.width=Math.round(w*s);c.height=Math.round(h*s);const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.imageSmoothingQuality='high';x.drawImage(canvas,x0,0,w,h,0,0,c.width,c.height);
-  return await new Promise(r=>c.toBlob(r,'image/jpeg',0.92));}
-const ONE=`\n\nIMPORTANT : cette image est un AGRANDISSEMENT centré sur UNE SEULE mesure de la portée (entre deux barres verticales ; les bords gauche et droit peuvent montrer un morceau des mesures voisines : ignore-les). Transcris uniquement cette mesure, avec le plus grand soin, tige par tige et chiffre par chiffre. "elements" ne doit contenir qu'un seul élément "mesure".`;
-const WHY={compte:`\n\nATTENTION : à la première lecture, la somme des durées de cette mesure ne correspondait pas à la signature. Recompte chaque symbole rythmique, les points et les demi-traits.`,
-  corde:`\n\nATTENTION : la CORDE d'au moins une note de cette mesure semble mal lue (note hors de la gamme du morceau, ou motif lu ailleurs sur d'autres cordes). Pour chaque chiffre, regarde précisément quelle ligne le traverse ou le touche, à l'endroit exact où il est écrit.`};
-/* relecture fine automatique : mesures qui ne font pas le compte ou dont la corde semble fausse ; garde-fous de la skill */
-async function fixPass(sample,sc,lignes,say,signal){const bud={left:8,miss:0,stop:false,done:0};const cap=capOf(sc);const notes=[];
-  const off=e=>Math.abs(e.evenements.reduce((a,v)=>a+ticksOf(v),0)-cap)>1e-6;
-  const view={...sc,lignes:lignes.filter(l=>!l.blank).map(l=>Object.assign(l,{statut:'ok',vide:!l.elements.length}))};
-  const susp=ln=>{const A=analyse(view,'orig');const st=new Set();A.alerts.forEach(a=>{if(a.kind==='corde'&&a.unit&&a.unit.line===ln&&!a.unit.el.relu)st.add(a.unit.el);});return st;};
-  for(const ln of view.lignes){if(bud.stop||bud.left<=0||(signal&&signal.aborted))break;
-    const bad=ln.elements.filter(e=>e.t==='mesure'&&!e.relu&&!e.simile&&!e.pause&&off(e));
-    if(bad.length>2){notes.push(`Page ${ln.page}, ligne ${ln.idx} : ${bad.length} mesures ne font pas le compte ; la ligne semble mal lue (relecture fine non lancée) : corrigez à la main ou reprenez une photo plus nette.`);continue;}
-    const sus=[...susp(ln)].filter(e=>!bad.includes(e));const todo=[...bad.map(el=>({el,why:'compte'})),...sus.map(el=>({el,why:'corde'}))].slice(0,2);
-    for(const {el,why} of todo){if(bud.stop||bud.left<=0)break;const slots=ln.elements.filter(e=>e.t==='mesure'||e.t==='rappel');
-      const img=await measureImg(ln,slots.indexOf(el),slots.length,sc.cordes);if(!img)continue;bud.left--;bud.done++;_say(`Relecture fine : page ${ln.page}, ligne ${ln.idx}…`);
-      let fixed=false;
-      try{const res=await sample.json(readPrompt(sc,ln,{labels:[],prev:null})+WHY[why]+ONE,{images:img,modelTier:'complex',cache:false,signal});
-        const nm=normLine(res,sc,ln).elements.find(e=>e.t==='mesure');
-        if(nm){['ouverture','fermeture','fois','volta'].forEach(f=>{if(nm[f]==null||nm[f]==='simple')nm[f]=el[f];});nm.relu=true;const i=ln.elements.indexOf(el);if(i>=0)ln.elements[i]=nm;fixed=why==='compte'?!off(nm):!susp(ln).has(nm);}}
-      catch(e){if(e&&e.code==='cancelled')throw e;if(e&&e.code==='rate_limited'){bud.stop=true;notes.push('Relecture fine interrompue : limite d’usage atteinte.');break;}}
-      if(fixed)bud.miss=0;else if(++bud.miss>=3){bud.stop=true;notes.push('Relecture fine arrêtée : elle ne corrigeait rien sur ce document (photo peu lisible ?).');}}}
-  return notes;}
-/* bandes réduites gardées avec la partition (vue de contrôle) */
-async function thumb(blob){try{const bm=await createImageBitmap(blob);const s=Math.min(1,1100/bm.width);const c=document.createElement('canvas');c.width=Math.round(bm.width*s);c.height=Math.round(bm.height*s);c.getContext('2d').drawImage(bm,0,0,c.width,c.height);return c.toDataURL('image/jpeg',0.72);}catch(e){return null;}}
-/* bandes de portées d'une page, en mémoire */
-async function cutPage(f,label,cordes){const im=await loadImage(await decodable(f,label));_say(`${label} : redressement et découpage des lignes…`);
-  const o=orient(im);let canvas=drawRotated(im,o.quarter,o.deg);let st=findStaves(canvas,cordes);
-  const inked=st.filter(s=>s.ink>=0.01);const below=inked.reduce((a,s)=>a+s.below,0),above=inked.reduce((a,s)=>a+s.above,0);
-  if(above>below*1.25){canvas=drawRotated(im,o.quarter+2,o.deg);st=findStaves(canvas,cordes);}
-  if(!st.length)return null;
-  {const Ls=st.map(s=>s.L).sort((a,b)=>a-b),Rs=st.map(s=>s.R).sort((a,b)=>a-b);const mL=Ls[Ls.length>>1],mR=Rs[Rs.length>>1];st.forEach(s=>{s.L=Math.min(s.L,mL);s.R=Math.max(s.R,mR);});}
-  const s0=st[0];const headerBlob=await cropBlob(canvas,0,0,canvas.width,Math.max(s0.sp*6,s0.top-s0.sp*0.5));const lines=[];
-  for(let k=0;k<st.length;k++){const s=st[k];const sp=s.sp;const prev=st[k-1];
-    const top=k===0?Math.max(0,s.top-sp*9):Math.max(prev?prev.bot+sp*0.6:0,s.top-sp*3.2);const extra=Math.abs(Math.tan(s.ang||0))*(s.R-s.L)/2;
-    const bot=Math.min(canvas.height,s.bot+sp*3.6+extra);const L=0,R=canvas.width;
-    lines.push({blob:await cropBlobRot(canvas,L,Math.max(0,top-extra),R-L,bot-Math.max(0,top-extra),s.ang||0,(s.L+s.R)/2,(s.top+s.bot)/2),blank:s.ink<0.003});}
-  return {headerBlob,lines};}
-const PK={standard:'standard',demi:'demi_ton',ton:'un_ton'};
-async function sampler(){const s=window.claude&&window.claude.use?await window.claude.use('sample'):null;if(!s)throw new Error('la lecture par Claude n’est possible que dans l’Atelier ouvert dans claude.ai');
-  let lim=null;try{lim=await s.limits();}catch(e){}if(!lim||!lim.images)throw new Error('cette vue ne permet pas d’envoyer des images à Claude');return s;}
-/* 1) découpe et estimation */
-async function prepare(files,o){_say=o.onStatus||(()=>{});const sc=newScore();sc.cordes=o.cordes;const pk=PK[o.preset]||'standard';sc.preset=pk;sc.accordage=PRESETS[sc.cordes][pk].slice();if(o.signature)sc.signature=o.signature;
-  const pages=[];let i=0;const errs=[];
-  for(const f of files){i++;const label=files.length>1?`Image ${i}/${files.length}`:'Page';
-    try{const P=await cutPage(f,label,sc.cordes);if(!P){errs.push(`${label} : aucune portée trouvée (photo nette, page entière ?)`);continue;}P.order=i;pages.push(P);}
-    catch(e){errs.push(`${label} : image illisible${isHeic(f)?' (photo HEIC : exportez-la en JPEG depuis Aperçu)':''}`);}}
-  let lines=0,tok=0;for(const P of pages)for(const l of P.lines)if(!l.blank){lines++;tok+=await estImage(l.blob)+estText(readPromptR(sc,{page:1,idx:1},{labels:[],prev:null}))+1800;}
-  tok+=pages.length*900;return {sc,pages,errs,lines,tokens:tok,fix:Math.min(8,Math.ceil(lines/2))*5500};}
-/* 2) lecture par Claude, puis partition au format du Lecteur */
-async function read(prep,o){_say=o.onStatus||(()=>{});const sample=await sampler();const sc=prep.sc;const tier=o.tier||'default';
-  _say('Lecture des titres et de la pagination…');
-  await Promise.all(prep.pages.map(async P=>{try{const h=await sample.json(HEADER_PROMPT,{images:P.headerBlob,modelTier:'default',cache:false,signal:o.signal});
-    P.titre=h&&h.titre||null;P.sous_titre=h&&h.sous_titre||null;P.tempo=intOr(h&&h.tempo);const k=intOr(h&&h.page),N=intOr(h&&h.pages);if(k&&N&&k>=1&&k<=N&&N<=40)P.page=k;}catch(e){if(e&&e.code==='cancelled')throw e;}}));
-  prep.pages.sort((a,b)=>(a.page||a.order)-(b.page||b.order));
-  const head=prep.pages.find(P=>P.titre)||{};sc.titre=head.titre||'';sc.sous_titre=(prep.pages[0]||{}).sous_titre||'';sc.tempo=(prep.pages.find(P=>P.tempo)||{}).tempo||null;
-  const lignes=[];prep.pages.forEach((P,pi)=>P.lines.forEach((l,k)=>lignes.push({id:nid(),page:pi+1,idx:k+1,blob:l.blob,blank:l.blank,elements:[],alerts:[],crochet:null,done:!!l.blank})));
-  const todo=lignes.filter(l=>!l.blank);let done=0;const alerts=[];
-  const ctxOf=ln=>{const i=lignes.indexOf(ln);const labels=[];lignes.slice(0,i).forEach(l=>l.elements.forEach(e=>{if(e.t==='section')labels.push(e.label);}));
-    const p=lignes.slice(0,i).reverse().find(l=>l.done&&!l.blank&&l.page===ln.page&&l.elements.length);let prev=null;if(p){const last=p.elements.filter(e=>e.t==='mesure').slice(-1)[0];prev=last?`dernière mesure fermée par une barre ${last.fermeture}${last.volta?`, fin ${last.volta}`:''}`:null;}
-    return {labels:[...new Set(labels)],prev};};
-  let next=0;const worker=async()=>{while(next<todo.length){if(o.signal&&o.signal.aborted)return;const ln=todo[next++];
-    try{const res=await sample.json(readPromptR(sc,ln,ctxOf(ln)),{images:ln.blob,modelTier:tier,cache:false,signal:o.signal});const r=normLine(res,sc,ln);ln.elements=r.elements;r.alerts.forEach(m=>alerts.push(m));
-      if(res&&res.crochet&&(res.crochet.debut||res.crochet.fin))ln.crochet={debut:!!res.crochet.debut,fin:!!res.crochet.fin,fois:intOr(res.crochet.fois)};}
-    catch(e){if(e&&e.code==='cancelled')return;alerts.push(`Page ${ln.page}, ligne ${ln.idx} : lecture impossible (${e&&(e.message||e.code)||'erreur'})`);
-      if(['not_granted','sampling_disabled','images_unavailable','capability_disabled'].includes(e&&e.code))throw e;}
-    ln.done=true;done++;_say(`Lecture des portées : ${done} / ${todo.length}`);}};
-  await Promise.all([worker(),worker()]);
-  if(o.signal&&o.signal.aborted)throw {code:'cancelled'};
-  if(o.autofix){const nt=await fixPass(sample,sc,lignes,_say,o.signal);nt.forEach(m=>alerts.push(m));}
-  const scans=[];for(const l of lignes)if(!l.blank&&l.elements.length){const d=await thumb(l.blob);if(d)scans.push({p:l.page,l:l.idx,src:d});}
-  return {v:2,titre:sc.titre,sous_titre:sc.sous_titre,tempo:sc.tempo||100,cordes:sc.cordes,preset:o.preset,accordage:sc.accordage,signature:sc.signature,
-    lignes:lignes.filter(l=>l.elements.length).map(l=>({id:l.id,page:l.page,idx:l.idx,crochet:l.crochet||{debut:false,fin:false,fois:null},elements:l.elements})),alertes:alerts,scans};}
-return {prepare,read,isHeic};
-})();
-
-/* ----- scans des manuscrits (IndexedDB : trop lourds pour la mémoire simple du navigateur) ----- */
+/* ----- IndexedDB : fichiers et dossiers mémorisés (⌘S, section 118-119) ----- */
 let _idb=null;function idb(){if(_idb)return _idb;_idb=new Promise((ok,ko)=>{try{const r=indexedDB.open('atelier-basse',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>ok(r.result);r.onerror=()=>ko(r.error);}catch(e){ko(e);}});return _idb;}
 async function idbSet(k,v){try{const d=await idb();await new Promise((ok,ko)=>{const t=d.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=ok;t.onerror=()=>ko(t.error);});}catch(e){toast('Les images du manuscrit n’ont pas pu être gardées');}}
 async function idbGet(k){try{const d=await idb();return await new Promise((ok,ko)=>{const r=d.transaction('kv').objectStore('kv').get(k);r.onsuccess=()=>ok(r.result);r.onerror=()=>ko(r.error);});}catch(e){return null;}}
-let showScan=false;const scanCache={};
-async function scansOf(id){if(!id)return null;if(!(id in scanCache))scanCache[id]=await idbGet('scan:'+id)||null;return scanCache[id];}
-/* sous chaque ligne de la partition : la (ou les) portée(s) du manuscrit d'où viennent ses mesures */
-async function drawScans(){document.querySelectorAll('#lines .scanrow').forEach(e=>e.remove());const b=$('#b-scan');b.hidden=true;return;
-  const sc=await scansOf(M.id);if(!sc||!sc.length)return;const by={};sc.forEach(x=>by[`${x.p}-${x.l}`]=x);
-  const tabs=[...document.querySelectorAll('#lines .tab')];lastG.lines.forEach((l,i)=>{const keys=[...new Set(l.mes.map(mo=>mo.m.src).filter(Boolean))];if(!keys.length||!tabs[i])return;
-    const d=document.createElement('div');d.className='scanrow';d.innerHTML=keys.map(k=>by[k]?`<img src="${by[k].src}" alt="Manuscrit, page ${by[k].p}, ligne ${by[k].l}" title="Page ${by[k].p}, ligne ${by[k].l} — cliquer pour agrandir">`:'').join('');tabs[i].before(d);});}
-document.addEventListener('click',e=>{const im=e.target.closest('.scanrow img');if(im){const z=$('#zoom');z.innerHTML=`<img src="${im.src}" alt="">`;z.hidden=false;return;}if(e.target.closest('#zoom'))$('#zoom').hidden=true;});
-/* ----- « Lire un manuscrit… » (claude.ai seulement) ----- */
-$('#b-scan').addEventListener('click',()=>{showScan=!showScan;$('#b-scan').setAttribute('aria-pressed',showScan);drawScans();});
-{let prep=null,ctl=null;const box=$('#lm');
-  const show=h=>{box.innerHTML=`<div class="lm-card">${h}</div>`;box.hidden=false;};const close=()=>{if(ctl)ctl.abort();ctl=null;prep=null;box.hidden=true;};
-  const st=m=>{const e=box.querySelector('.lm-st');if(e)e.textContent=m;};
-  $('#b-lire').addEventListener('click',()=>{
-    if(!(window.claude&&window.claude.use)){toast('La lecture des manuscrits passe par Claude : ouvrez l’Atelier dans claude.ai.');return;}
-    let tier='default';try{tier=localStorage.getItem('atelier-tier')||'default';}catch(e){}
-    show(`<h3>Lire un manuscrit</h3><p class="legend">Photos ou scans (JPEG, PNG, HEIC), une page par image, dans l’ordre. La partition lue devient une nouvelle partition du Répertoire.</p>
-      <div class="lm-row"><label>Basse<select id="lm-c"><option value="4"${+M.cordes!==5?' selected':''}>4 cordes</option><option value="5"${+M.cordes===5?' selected':''}>5 cordes</option></select></label>
-      <label>Accordage<select id="lm-a">${Object.entries(PRESET_NOM).map(([k,v])=>`<option value="${k}"${M.preset===k?' selected':''}>${v}</option>`).join('')}</select></label>
-</div>
-      <p class="legend">Lecture de la structure et des rythmes seulement : les notes sont choisies automatiquement, à corriger ensuite dans Mélodie (bouton « Afficher le manuscrit »).</p>
-      <div class="lm-row"><button class="btn primary" id="lm-pick">Choisir les pages…</button><button class="btn" id="lm-x">Annuler</button></div><p class="lm-st legend"></p>`);});
-  box.addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
-    if(b.id==='lm-x')return close();
-    if(b.id==='lm-pick')return $('#f-lire').click();
-    if(b.id==='lm-go'){const tier='default';
-      ctl=new AbortController();box.querySelector('.lm-acts').innerHTML='<button class="btn" id="lm-stop">Arrêter la lecture</button>';
-      try{const sc=await LECT.read(prep,{tier,preset:prep.preset,autofix:prep.autofix,signal:ctl.signal,onStatus:st});const al=sc.alertes||[];
-        const o=fromLecteur(sc);o.id=uid();o.impInfo=['Partition lue depuis un manuscrit : vérifiez-la en la comparant aux pages.',...al].slice(0,40);
-        o.scan=!!(sc.scans&&sc.scans.length);if(o.scan)await idbSet('scan:'+o.id,sc.scans);REP.parts[o.id]={id:o.id,M:o,upd:Date.now()};repStore();ctl=null;close();openPart(o.id);toast(`Manuscrit lu : ${o.blocs.reduce((a,x)=>a+(x.mesures?x.mesures.length:0),0)} mesures${al.length?`, ${al.length} point(s) à vérifier`:''}`);}
-      catch(err){if(err&&err.code==='cancelled'){st('Lecture arrêtée.');}else st('Lecture impossible : '+(err&&(err.message||err.code)||err));
-        const a=box.querySelector('.lm-acts');if(a)a.innerHTML='<button class="btn" id="lm-x">Fermer</button>';ctl=null;}return;}
-    if(b.id==='lm-stop'){if(ctl)ctl.abort();st('Arrêt en cours…');}});
-  $('#f-lire').addEventListener('change',async e=>{const fs=[...(e.target.files||[])].filter(f=>/^image\//.test(f.type)||LECT.isHeic(f));e.target.value='';if(!fs.length)return;
-    const cordes=+$('#lm-c').value,preset=$('#lm-a').value,tier='default';
-    st('Préparation des pages…');try{prep=await LECT.prepare(fs,{cordes,preset,signature:M.signature,onStatus:st});prep.preset=preset;}catch(err){return st('Préparation impossible : '+err.message);}
-    const fix=false;const k=Math.round(prep.tokens/1000);prep.autofix=false;
-    const card=box.querySelector('.lm-card');card.insertAdjacentHTML('beforeend',`<div class="lm-est"><b>${prep.pages.length} page${prep.pages.length>1?'s':''}, ${prep.lines} portée${prep.lines>1?'s':''} à lire</b> — coût estimé ≈ ${k} k tokens (lecture standard : structure et rythmes).${prep.errs.length?`<br>${prep.errs.map(esc).join('<br>')}`:''}</div><div class="lm-row lm-acts">${prep.lines?'<button class="btn primary" id="lm-go">Lancer la lecture</button>':''}<button class="btn" id="lm-x">Annuler</button></div>`);
-    card.querySelectorAll('.lm-row')[1].remove();st('');});}
-
 /* ----- Structure : glisser-déposer une mesure (dans sa section ; change aussi de ligne) ----- */
 {let D=null;const mark=document.createElement('div');mark.id='dropmark';mark.hidden=true;document.body.appendChild(mark);
   const L=$('#lines');
@@ -3909,8 +3353,8 @@ function gsAgo(t){const d=Math.round((Date.now()-t)/60000);return d<1?'à l’in
 function gsUI(){if(!GSYNC_OK)return;const st=$('#gs-st'),bd=$('#gs-badge');let t,c='';
   if(GS.busy){t='Synchronisation…';c='busy';}else if(!GS.on){t='Non connectée';}else if(GS.auth||!GS.tok){t='Reconnexion nécessaire : touchez « Synchroniser maintenant » ou ☁';c='err';}
   else if(GS.err){t='Erreur : '+GS.err;c='err';}else if(!navigator.onLine){t='Hors ligne (dernière synchronisation '+gsAgo(GS.last)+')';c='err';}else{t='Synchronisé '+(GS.last?gsAgo(GS.last):'');c='ok';}
-  st.textContent=t;bd.className='ibtn '+c;bd.title='Google Drive : '+t;bd.hidden=!GS.on;$('#gs-conn').hidden=GS.on;$('#gs-now').hidden=!GS.on;$('#gs-off').hidden=!GS.on;}
-if(GSYNC_OK){$('#gs-card').hidden=false;gsLoadState();$('#gs-cid').value=gsCid();
+  st.textContent=t;bd.className='ibtn '+c;$('#gs-gear').classList.toggle('warn',c==='err');bd.title='Google Drive : '+t;bd.hidden=!GS.on;$('#gs-conn').hidden=GS.on;$('#gs-now').hidden=!GS.on;$('#gs-off').hidden=!GS.on;}
+if(GSYNC_OK){$('#gs-gear').hidden=false;$('#gs-gear').addEventListener('click',()=>{const c=$('#gs-card');c.hidden=!c.hidden;$('#gs-gear').setAttribute('aria-expanded',!c.hidden);});gsLoadState();$('#gs-cid').value=gsCid();
   $('#gs-cid').addEventListener('change',e=>{try{const v=e.target.value.trim();if(v&&v!==GDEF)localStorage.setItem('atelier-gclient',v);else localStorage.removeItem('atelier-gclient');}catch(err){}toast('ID client enregistré');});
   $('#gs-conn').addEventListener('click',()=>gsSync(true));$('#gs-now').addEventListener('click',()=>gsSync(true));$('#gs-badge').addEventListener('click',()=>gsSync(true));
   $('#gs-off').addEventListener('click',()=>{try{if(GS.tok&&window.google&&google.accounts)google.accounts.oauth2.revoke(GS.tok,()=>{});}catch(e){}GS.on=false;GS.tok=null;GS.exp=0;GS.fid=null;gsSave();gsBaseSet({});gsUI();toast('Déconnectée de Google Drive (le Répertoire reste sur cet appareil)');});
