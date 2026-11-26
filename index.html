@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<!-- Atelier de lignes de basse — fonctionne sans Claude et hors ligne (JSZip et jsPDF intégrés) — version 119 -->
+<!-- Atelier de lignes de basse — fonctionne sans Claude et hors ligne (JSZip et jsPDF intégrés) — version 121 -->
 <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Atelier basse"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="theme-color" content="#17202C">
 </head><body>
 <title>Atelier de lignes de basse</title>
@@ -62,6 +62,10 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--paper)}
 .btn.primary:hover{filter:brightness(1.08);color:var(--paper)}
 .btn.small{padding:4px 8px;font-size:12px}
+/* section 150 : champs numériques des réglages : boutons − / + de l'Atelier à la place des flèches du navigateur */
+#panel input[type=number]{-moz-appearance:textfield;appearance:textfield}#panel input[type=number]::-webkit-inner-spin-button,#panel input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.nwrap{display:flex;gap:3px;align-items:stretch;min-width:0}.nwrap input{flex:1;min-width:2.5em}.nwrap .nst{flex:none;width:26px;padding:0;border:1px solid var(--rule);border-radius:6px;background:var(--paper);color:var(--fg);font:600 15px var(--body);cursor:pointer;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.nwrap .nst:hover{border-color:var(--accent)}
 .btn:disabled{opacity:.45;cursor:default}
 .tools{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 /* Éditeur en couches */
@@ -166,9 +170,11 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 .rmenu .crow{display:flex;flex-wrap:wrap;gap:4px}
 .rmenu hr{border:0;border-top:1px solid var(--rule);margin:2px 0;width:100%}
 .rmenu .cbtn{padding:3px 5px;border:1px solid transparent;border-radius:6px;background:none;cursor:pointer;color:var(--fg);display:grid;place-items:center;min-width:34px}
-.rmenu .cbtn:hover:not(:disabled),.rmenu .cbtn:focus-visible{background:var(--accent-soft);border-color:var(--accent);outline:none}
+.rmenu .cbtn:hover:not(:disabled),.rmenu .cbtn:focus-visible,.rmenu .cbtn.kf{background:var(--accent-soft);border-color:var(--accent);outline:none}
 .rmenu .cbtn.on{background:var(--accent-soft);border-color:var(--accent)}
+.rmenu .cbtn.kf{box-shadow:0 0 0 2px var(--accent)}
 .rmenu .cbtn:disabled{opacity:.3;cursor:default}
+.rmenu .myr0{font-size:12px;color:var(--muted);max-width:420px}
 .cghost{pointer-events:none}.kchc{cursor:pointer}.kchc:hover{fill:var(--accent)}.cghost line{stroke:var(--accent);stroke-width:2}.cghost text{font:600 10px var(--body);fill:var(--accent)}
 .chn{cursor:pointer}.chn rect{fill:transparent}.chn:hover rect{fill:var(--accent-soft)}.chn.on rect{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1}
 .mnum{cursor:pointer}.mnum rect{fill:transparent}.mnum:hover rect,.mnum.on rect{fill:var(--accent-soft)}.mnum:hover .mn,.mnum.on .mn{fill:var(--accent);font-weight:700}
@@ -1265,9 +1271,9 @@ function generate(){const R3=M.rv>=3;
       if(fois){const lm=sec.mes[sec.mes.length-1];lm.secFois=+b.fois;lm.close='repC';}
       {let op=null;sec.mes.forEach((mo,mi)=>{if(mo.m.bo==='repO')op=mi;if(mo.close==='repC')op=null;});if(op!=null)G.alerts.push({bi,mi:op,msg:`${b.label||'Section'} : reprise sans barre de fin (début avant la mesure ${op+1} de la section)`});}
       const grp=groupsOf(sec.mes);
-      let join=null;if(b.apr&&!b.label&&sec.mes.length){const last=G.lines[G.lines.length-1];if(last&&!last.mes.length&&last.rappels.length&&!last.empty){const rem=(last.cap||PL)-last.rappels.length;if(rem>0)join={last,rem};}}
+      let join=null;if(b.apr&&!b.label&&sec.mes.length){const last=G.lines[G.lines.length-1];if(last&&!last.mes.length&&last.rappels.length){const rem=(last.cap||PL)-last.rappels.length;if(rem>0)join={last,rem};}}
       for(let i=0;i<sec.mes.length;){const lc=+sec.mes[i].m.lc||0;let cap=lc||PL;if(i===0&&join&&!lc)cap=join.rem;
-        if(!lc&&i+cap<sec.mes.length){const bd=i+cap;const g=grp.find(g=>g.s<bd&&g.e>=bd&&g.e-g.s+1<=PL);if(g)cap=g.s>i?g.s-i:g.e-i+1;}let j=i,c=0;while(j<sec.mes.length){const mj=sec.mes[j];if(!mj.tz){if(c>=cap)break;c++;}else if(c>=cap&&mj.m.tzn)break;j++;}G.lines.push({label:i===0?b.label:'',first:i===0,lastOfSec:j>=sec.mes.length,tempo:i===0&&b.tempo?+b.tempo:null,swMark:i===0?swMark:null,bi,mi0:i,cap,forced:!!lc,mes:sec.mes.slice(i,j),rappels:[]});if(i===0&&join){const L=G.lines[G.lines.length-1];join.last.rappels.forEach(r=>r.pre=true);L.rappels=join.last.rappels;L.cap=join.last.cap||PL;G.lines.splice(G.lines.indexOf(join.last),1);}i=j;}
+        if(!lc&&i+cap<sec.mes.length){const bd=i+cap;const g=grp.find(g=>g.s<bd&&g.e>=bd&&g.e-g.s+1<=PL);if(g)cap=g.s>i?g.s-i:g.e-i+1;}let j=i,c=0;while(j<sec.mes.length){const mj=sec.mes[j];if(!mj.tz){if(c>=cap)break;c++;}else if(c>=cap&&mj.m.tzn)break;j++;}G.lines.push({label:i===0?b.label:'',first:i===0,lastOfSec:j>=sec.mes.length,tempo:i===0&&b.tempo?+b.tempo:null,swMark:i===0?swMark:null,bi,mi0:i,cap,forced:!!lc,mes:sec.mes.slice(i,j),rappels:[]});if(i===0&&join){const L=G.lines[G.lines.length-1];join.last.rappels.forEach(r=>r.pre=true);L.rappels=join.last.rappels;L.cap=join.last.cap||PL;/* section 149 : ligne d'une section à 0 mesure : son étiquette reste en marge */if(join.last.empty){L.label=join.last.label;L.labBi=join.last.bi;if(join.last.tempo&&!L.tempo)L.tempo=join.last.tempo;if(join.last.swMark&&!L.swMark)L.swMark=join.last.swMark;}G.lines.splice(G.lines.indexOf(join.last),1);}i=j;}
       if(!sec.mes.length)G.lines.push({label:b.label,first:true,lastOfSec:true,tempo:b.tempo?+b.tempo:null,swMark,bi,mi0:0,cap:PL,forced:false,mes:[],rappels:[],empty:true});}
     else{const ref=normLabel(b.ref);if(!ref)G.alerts.push({bi,msg:'Rappel sans section'});else if(!labels.has(ref))G.alerts.push({bi,msg:`Rappel « ${ref} » : aucune section de ce nom plus haut (non joué à l’écoute)`});
       const r={texte:ref||'?',fois:+b.fois||1,bi};const last=G.lines[G.lines.length-1];
@@ -1404,7 +1410,7 @@ function lineSVG(G,line,li,o){o=o||{mode:'notes'};const mode=o.mode,exp=!!o.exp,
   const addBtn=false;const lcb=false;const secF0=line.mes.length?line.mes[line.mes.length-1].secFois:0;line.xEnd=x;const xr=line.cro&&line.cro.g.X?Math.max(x,line.cro.g.X):x;const crw=line.cro?(line.cro.first?26+String(line.cro.fois).length*12+10:22):0;const cw=(xr-x)+crw;const RM=exp?110:120;const W=Math.max(x,left+(G.staffW||0))+RM+(edit?50:0);
   if(line.swMark){const yS=Math.round(((top-5)+(top-(showCh?32:18)-(Ly.fois?23:0)-15-(Ly.tx?16:0)-(Ly.foisUp?10:0)-(Ly.stUp?10:0)+12))/2);Ptop.push(swingSym(left+2+(line.tempo?String(line.tempo).length*7+34:0),yS,line.swMark==='on').replace('<g class="swing">',`<g class="swing" data-sb="${line.bi}">`));}
   if(line.tempo){const yT=Math.round(((top-5)+(top-(showCh?32:18)-(Ly.fois?23:0)-15-(Ly.tx?16:0)-(Ly.foisUp?10:0)-(Ly.stUp?10:0)+12))/2);Ptop.push(`<text class="tempo" data-tb="${line.bi}" x="${left+2}" y="${yT}">♩ = ${line.tempo}</text>`);}
-  if(edit&&(mode==='rythmes'||mode==='notes'))line.mes.forEach(mo=>{if(mo.sim||mo.tz)return;for(let b=0;b<beatCount(mo.S);b++){const t0=b*mo.S.beat,t1=Math.min(mo.S.cap,t0+mo.S.beat);const xa=xAt(mo,t0),xb=xAt(mo,t1);const on=sel&&sel.t==='beat'&&sel.bi===mo.bi&&sel.mi===mo.mi&&sel.b===b;
+  if(edit&&(mode==='rythmes'||mode==='notes'))line.mes.forEach(mo=>{if(mo.sim||mo.tz)return;for(let b=0;b<beatCount(mo.S);b++){const t0=b*mo.S.beat,t1=Math.min(mo.S.cap,t0+mo.S.beat);const xa=xAt(mo,t0),xb=xAt(mo,t1);const on=sel&&(sel.t==='beat'&&sel.bi===mo.bi&&sel.mi===mo.mi&&sel.b===b||sel.t==='brange'&&sel.bi===mo.bi&&sel.mi===mo.mi&&b>=Math.min(sel.b,sel.b2)&&b<=Math.max(sel.b,sel.b2));
     Pz.push(`<rect class="bzone${on?' on':''}" data-bi="${mo.bi}" data-mi="${mo.mi}" data-b="${b}" x="${xa+1}" y="${mode==='notes'?bot+8:top-9}" width="${Math.max(6,xb-xa-2)}" height="${mode==='notes'?y2-bot+6:y2-top+14}" rx="4"/>`);}});
   line.mes.forEach(mo=>{const g=mo.geo;const s=isS('mes',mo.bi,mo.mi);
     P.push(`<rect class="${s?'msel':((mo.err&&!mo.quiet)||mo.doute?'doute':'mhit')} mhit-a${edit?'':' noexp'}" data-bi="${mo.bi}" data-mi="${mo.mi}" data-ty="${TY}" x="${g.x0+1}" y="${top-14}" width="${g.xe-g.x0-2}" height="${H-top+12}" rx="4"/>`);});
@@ -1417,8 +1423,8 @@ function lineSVG(G,line,li,o){o=o||{mode:'notes'};const mode=o.mode,exp=!!o.exp,
   for(let k=1;k<=n;k++){const y=top+(k-1)*SS;P.push(`<line class="st" x1="${left}" y1="${y}" x2="${x}" y2="${y}"/>`);
     P.push(`<text class="sn" x="${left-6}" y="${y+3}" text-anchor="end">${pcName(G.tun[n-k],false)}</text>`);}
   if(line.first){const lab=line.label||(edit?'SECTION':'');
-    if(lab){const bw=Math.max(labelW(lab),(G.labelW||0)-6);const lfs=Math.max(8,Math.min(17,Math.floor((bw-4)/labTW('CHORUS',17)*17*10)/10));const ls=line.label?wrapLab(lab,bw-2,lfs):splitLabel(lab);const LH=line.label?Math.round(lfs*1.15):14;const bh=Math.max(bot-top+8,ls.length*LH+8,(G.labN||1)*15+8),by=cy-bh/2;const s=isS('sec',line.bi);
-      P.push(`<g class="${edit?'lab':''}" data-bi="${line.bi}"><rect class="${line.label?'lblbox':'lblph'}${s?' lsel':''}" x="${G.labelW-bw-2}" y="${by}" width="${bw}" height="${bh}" rx="3"/>`+
+    if(lab){const bw=Math.max(labelW(lab),(G.labelW||0)-6);const lfs=Math.max(8,Math.min(17,Math.floor((bw-4)/labTW('CHORUS',17)*17*10)/10));const ls=line.label?wrapLab(lab,bw-2,lfs):splitLabel(lab);const LH=line.label?Math.round(lfs*1.15):14;const bh=Math.max(bot-top+8,ls.length*LH+8,(G.labN||1)*15+8),by=cy-bh/2;const lbi=line.labBi!=null?line.labBi:line.bi;const s=isS('sec',lbi);
+      P.push(`<g class="${edit?'lab':''}" data-bi="${lbi}"><rect class="${line.label?'lblbox':'lblph'}${s?' lsel':''}" x="${G.labelW-bw-2}" y="${by}" width="${bw}" height="${bh}" rx="3"/>`+
         ls.map((t,i)=>`<text class="${line.label?'lblt rapn':'lblpt'}"${line.label?` style="font-size:${lfs}px"`:''} x="${G.labelW-2-bw/2}" y="${cy+(line.label?lfs*0.36:4)+(i-(ls.length-1)/2)*LH}" text-anchor="middle">${esc(t)}</text>`).join('')+`</g>`);}}
   line.mes.forEach((mo,k)=>{const g=mo.geo;
     if(mo.open)P.push(bar(g.x0,mo.open,top,bot,n,SS));else if(k===0)P.push(bar(g.x0,'simple',top,bot,n,SS));
@@ -1554,7 +1560,7 @@ const KEYS_MIN=[['Do','Cm'],['Do#','C#m'],['Ré','Dm'],['Mib','Ebm'],['Mi','Em']
 /* section 128 : numéros de mesure masqués par défaut (Atelier seulement, jamais en Concert / PDF / SVG) */
 let SHOWNUM=false;try{SHOWNUM=localStorage.getItem('atelier-num')==='1';}catch(e){}
 const FSAVE=!!window.showSaveFilePicker&&!(window.claude&&window.claude.use)&&location.protocol!=='about:';
-const HELP_TXT='Zones : marge gauche = étiquette (section) et début de ligne (lignes) ; au-dessus de la portée = la mesure (glisser pour la déplacer, ⇧+clic pour un groupe) ; clic sur une barre de mesure = ses réglages ; sur la portée = la note ; sous la portée = le temps (rythmes). Clic : sélectionner ; clic droit, double-clic ou Entrée : menu ; fenêtres et menus déplaçables par leur titre ou la poignée ⠿. — Note : chiffres (avec ou sans Maj) = case ; ← → ½ ton ; ↑ ↓ corde ; ⌥↑ ⌥↓ curseur d’accord ; Espace note ↔ silence ; f + chiffre fin alternée (f seule : la retirer) ; s staccato ; % ou ù rejouer la mesure précédente (2 appuis : les deux précédentes) ; . pointée ; l liaison ; / slide ; x note morte ; g appogiature ; ⇧→ / ⇧← étendre la sélection de notes (puis l : liaison de phrasé) ; ⌫ supprimer. — Navigation : Tab / ⇧Tab élément suivant / précédent du même niveau (section, ligne, mesure, temps, note, barre) ; ⌥Tab prochaine chose à vérifier ; ← → (mesure, temps, section) voisin ; Échap fermer. — Édition : ⌘C / ⌘V copier / coller ; ⌘Z / ⇧⌘Z annuler / rétablir ; ⌘Y répéter la dernière action ; T texte libre'+(FSAVE?' ; ⌘S enregistrer ; ⇧⌘S enregistrer sous':'')+'. — Espace (sans note sélectionnée) : lecture / arrêt ; pendant l’écoute, clic au-dessus d’une mesure : y sauter ; ⌥N mode nuit ; ? cette aide.';
+const HELP_TXT='Zones : marge gauche = étiquette (section) et début de ligne (lignes) ; au-dessus de la portée = la mesure (glisser pour la déplacer, ⇧+clic pour un groupe) ; clic sur une barre de mesure = ses réglages ; sur la portée = la note ; sous la portée = le temps (rythmes ; ⇧+clic sur 4 temps puis clic droit : enregistrer dans mes rythmes). Clic : sélectionner ; clic droit, double-clic ou Entrée : menu ; fenêtres et menus déplaçables par leur titre ou la poignée ⠿. — Note : chiffres (avec ou sans Maj) = case ; ← → ½ ton ; ↑ ↓ corde ; ⌥↑ ⌥↓ curseur d’accord ; Espace note ↔ silence ; f + chiffre fin alternée (f seule : la retirer) ; s staccato ; % ou ù rejouer la mesure précédente (2 appuis : les deux précédentes) ; . pointée ; l liaison ; / slide ; x note morte ; g appogiature ; ⇧→ / ⇧← étendre la sélection de notes (puis l : liaison de phrasé) ; ⌫ supprimer. — Navigation : Tab / ⇧Tab élément suivant / précédent du même niveau (section, ligne, mesure, temps, note, barre) ; ⌥Tab prochaine chose à vérifier ; ← → (mesure, temps, section) voisin ; Échap fermer. — Édition : ⌘C / ⌘V copier / coller ; ⌘Z / ⇧⌘Z annuler / rétablir ; ⌘Y répéter la dernière action ; T texte libre'+(FSAVE?' ; ⌘S enregistrer ; ⇧⌘S enregistrer sous':'')+'. — Espace (sans note sélectionnée) : lecture / arrêt ; pendant l’écoute, clic au-dessus d’une mesure : y sauter ; ⌥N mode nuit ; ? cette aide.';
 function lineCount(){try{const n=lastG.lines.length,p=APAGES.length||1;$('#lcount').textContent=`${n} ligne${n>1?'s':''} · ${p} page${p>1?'s':''}`;}catch(e){}}
 /* sections 135 et 146 : pages de l'Atelier (même découpage que le PDF) — sauts de page en pointillés, ou affichage séquentiel (portrait) */
 let APAGES=[],APG=0,ASEQ=false;try{ASEQ=localStorage.getItem('atelier-at-seq')==='1';}catch(e){}
@@ -1643,6 +1649,11 @@ function pasteBeat(){if(!CB||CB.k!=='beat')return;if(!sel||sel.t!=='beat')return
   const keep={...sel};if(applyCell(keep.bi,keep.mi,keep.b,null,toks)){sel={t:'beat',bi:keep.bi,mi:keep.mi,b:keep.b};renderScore();toast('Temps collé — '+cbLab());}}
 function nextLabel(l){if(!l)return l;const used=new Set(M.blocs.filter(b=>b.t==='section').map(b=>b.label));if(!used.has(l))return l;
   const mm=l.match(/^(.*?)\s*(\d+)$/);const base=mm?mm[1]:l;let k=mm?+mm[2]+1:2;while(used.has(`${base} ${k}`))k++;return`${base} ${k}`;}
+function copyRap(bi){const b=M.blocs[bi];if(!b||b.t!=='rappel')return;const c={ref:b.ref||'',fois:b.fois||1};if(b.tx)c.tx=cbl(b.tx);
+  CB={k:'rap',b:c,lab:'rappel '+(normLabel(c.ref)||'sans section')+(c.fois>1?' ×'+c.fois:''),from:cbFrom()};cbSave();toast('Rappel copié');}
+function pasteRap(bi){if(!CB||CB.k!=='rap'||!M.blocs[bi])return;const c=cbl(CB.b);mutate(()=>{M.blocs.splice(bi+1,0,newRappel({ref:c.ref,fois:c.fois,...(c.tx?{tx:c.tx}:{})}));sel={t:'rap',bi:bi+1};},'Rappel collé');requestAnimationFrame(revealSel);}
+function addMesAfterRap(bi,n){n=Math.max(1,Math.min(64,Math.round(+n)||0));if(!n)return;mutate(()=>{const at=bi+1,nx=M.blocs[at];const ms=Array.from({length:n},()=>newMeasure());
+  if(nx&&nx.t==='section'&&!nx.label){nx.mesures.unshift(...ms);nx.nb=nx.mesures.length;nx.apr=true;}else{const sc=newSection({label:'',nb:n,apr:true});sc.mesures=ms;sc.nb=n;M.blocs.splice(at,0,sc);}sel={t:'mes',bi:at,mi:0};},n>1?`${n} mesures ajoutées après le rappel`:'Mesure ajoutée après le rappel');}
 function pasteSecAfter(bi){if(!CB||CB.k!=='sec')return;const c=cbl(CB.b);c.id=uid();remapSlurs(c);const bad=cbAdapt(c.mesures||[]);c.label=nextLabel(c.label);
   mutate(()=>{M.blocs.splice(bi+1,0,c);sel={t:'sec',bi:bi+1};});pasteDone(`Section ${c.label||''} collée`,bad);}
 function remapSlurs(c){const mp={};(c.mesures||[]).forEach(m=>{const o=m.id;m.id=uid();mp[o]=m.id;});if(c.slurs)c.slurs=c.slurs.filter(sl=>mp[sl.a.m]&&mp[sl.b.m]).map(sl=>({a:{m:mp[sl.a.m],t:sl.a.t},b:{m:mp[sl.b.m],t:sl.b.t}}));}
@@ -1673,11 +1684,11 @@ function foisMenu(ev,el){closeLineMenu();closeAccMenu();const k=el.dataset.fx;le
 /* clic droit sur l'étiquette d'une section */
 function secMenu(ev,bi){closeLineMenu();closeAccMenu();const b=M.blocs[bi];if(!b)return;sel={t:'sec',bi};renderScore();
   const d=document.createElement('div');d.id='lmenu';d.className='lmenu';d.setAttribute('role','menu');const nm=esc(b.label||'sans étiquette');
-  d.innerHTML=`${b.t==='section'?`<button data-op="psec">▶ Lire la section ${nm}</button>`:''}<button data-op="pall">▶ Lire depuis le début</button><hr><button data-op="settings">Réglages de la section ${nm}…</button><div class="lrow">Swing ${[["","Comme précédemment"],["1","Swing"],["0","Binaire"]].map(([v,l])=>`<button data-sw="${v}" class="${(b.swing||"")===v?"on":""}">${l}</button>`).join("")}</div><hr><button data-op="dup">Dupliquer la section</button><button data-op="addsec">Ajouter une section après</button><button data-op="addrap">Ajouter un rappel après</button><button data-op="addsecend">Ajouter une section à la fin</button><button data-op="addrapend">Ajouter un rappel à la fin</button><hr><button data-op="copy">Copier la section ${nm}</button>${CB&&CB.k==='sec'?`<button data-op="paste">Coller la ${esc(cbLab())} après</button>`:''}${CB&&CB.k==='mes'?`<button data-op="pastem">Coller la ${esc(cbLab())} à la fin de la section</button>`:''}<hr><button data-op="del">Supprimer la section</button>`;
+  d.innerHTML=`${b.t==='section'?`<button data-op="psec">▶ Lire la section ${nm}</button>`:''}<button data-op="pall">▶ Lire depuis le début</button><hr><button data-op="settings">Réglages de la section ${nm}…</button><div class="lrow">Swing ${[["","Comme précédemment"],["1","Swing"],["0","Binaire"]].map(([v,l])=>`<button data-sw="${v}" class="${(b.swing||"")===v?"on":""}">${l}</button>`).join("")}</div><hr><button data-op="dup">Dupliquer la section</button><button data-op="addsec">Ajouter une section après</button><button data-op="addrap">Ajouter un rappel après</button><button data-op="addsecend">Ajouter une section à la fin</button><button data-op="addrapend">Ajouter un rappel à la fin</button><hr><button data-op="copy">Copier la section ${nm}</button>${CB&&CB.k==='sec'?`<button data-op="paste">Coller la ${esc(cbLab())} après</button>`:''}${CB&&CB.k==='rap'?`<button data-op="paster">Coller le ${esc(cbLab())} après</button>`:''}${CB&&CB.k==='mes'?`<button data-op="pastem">Coller la ${esc(cbLab())} à la fin de la section</button>`:''}<hr><button data-op="del">Supprimer la section</button>`;
   document.body.appendChild(d);placeMenu(d,ev);
   d.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;closeLineMenu();const op=t.dataset.op;
     if(t.dataset.sw!=null){const v=t.dataset.sw;return mutate(()=>{b.swing=v;},v==='1'?'Swing à partir de cette section':v==='0'?'Binaire à partir de cette section':'Swing : comme précédemment');}
-    if(op==='psec')return play('sec',{bi},false,true);if(op==='pall')return play('all',null,false,true);if(op==='settings')return openAt({t:'sec',bi});if(op==='copy')return copySec(bi);if(op==='paste')return pasteSecAfter(bi);if(op==='pastem')return pasteMesAfter(bi,b.mesures.length-1);if(op==='addsecend'){mutate(()=>{M.blocs.push(newSection({label:nextLabel('SECTION'),nb:4,style:b.style,fig:b.fig,tonalite:b.tonalite}));sel={t:'sec',bi:M.blocs.length-1};},'Section ajoutée à la fin');return requestAnimationFrame(revealSel);}
+    if(op==='psec')return play('sec',{bi},false,true);if(op==='pall')return play('all',null,false,true);if(op==='settings')return openAt({t:'sec',bi});if(op==='copy')return copySec(bi);if(op==='paste')return pasteSecAfter(bi);if(op==='paster')return pasteRap(bi);if(op==='pastem')return pasteMesAfter(bi,b.mesures.length-1);if(op==='addsecend'){mutate(()=>{M.blocs.push(newSection({label:nextLabel('SECTION'),nb:4,style:b.style,fig:b.fig,tonalite:b.tonalite}));sel={t:'sec',bi:M.blocs.length-1};},'Section ajoutée à la fin');return requestAnimationFrame(revealSel);}
     if(op==='addrapend'){mutate(()=>{M.blocs.push(newRappel({ref:b.label||''}));sel={t:'rap',bi:M.blocs.length-1};},'Rappel ajouté à la fin');return requestAnimationFrame(revealSel);}
     if(op==='dup')return dupSec(bi);if(op==='addsec')return mutate(()=>{M.blocs.splice(bi+1,0,newSection({label:nextLabel('SECTION'),nb:4,style:b.style,fig:b.fig,tonalite:b.tonalite}));sel={t:'sec',bi:bi+1};},'Section ajoutée');if(op==='addrap')return mutate(()=>{M.blocs.splice(bi+1,0,newRappel({ref:b.label||''}));sel={t:'rap',bi:bi+1};},'Rappel ajouté : choisissez la section rappelée (clic droit)');
     if(op==='del')return confirmMenu(ev,`Supprimer la section ${b.label||'sans étiquette'} ?`,'Supprimer',()=>{sel={t:'sec',bi};delSel();});});
@@ -1691,7 +1702,7 @@ function mesMenu(ev,bi,mi){closeLineMenu();closeAccMenu();const mo=findMo(bi,mi)
   const voCur=ms[rl].vo||'';const voH=`<div class="lrow">Fin alternée ${[1,2,3,4].map(k=>`<button data-vo="${k}" class="${voCur===String(k)?'on':''}">${k}</button>`).join('')}<input class="voin" placeholder="autre (1,3…)" style="width:7em;margin-left:4px" value="${esc(voCur&&!/^[1-4]$/.test(voCur)?voList(voCur).join(', '):'')}">${voCur?'<button data-vo="0">Retirer</button>':''}</div><hr>`;
   let feH='';if((layer==='structure'||layer==='notes')&&rl===rh){const cm=ms[mi];let op=-1;for(let j=mi;j>=0;j--){if(j<mi&&ms[j].bc==='repC')break;if(ms[j].bo==='repO'){op=j;break;}}
     feH=(cm.bo==='repO'?'<button data-op="nobo">Retirer le début de reprise</button>':'<button data-op="bo">Début de reprise ici</button>')+(op>=0&&cm.bc!=='repC'?`<div class="lrow">Fin de reprise ici ${[2,3,4,5,6,8].map(k=>`<button data-fe="${k}">×${k}</button>`).join('')}<input type="number" min="2" max="99" class="fenum" placeholder="autre" style="width:4.2em;margin-left:4px"></div>`:'')+'<hr>';}
-  d.innerHTML=`<button role="menuitem" data-op="listen">▶ Écouter la mesure ${mo.num}</button><hr>`+repH+feH+voH+`<button role="menuitem" data-op="settings">Réglages de la mesure ${mo.num}…</button><button role="menuitem" data-op="addafter">Ajouter une mesure après</button>${(layer==='structure'||layer==='notes')?`<button role="menuitem" data-op="tzafter">Ajouter une zone de texte après</button>${lastG.lines.some(l=>l.mes[0]===mo)?'<button role="menuitem" data-op="tzbefore">Ajouter une zone de texte avant</button>':''}`:''}<button role="menuitem" data-op="copy">${rl<rh?`Copier ces ${rh-rl+1} mesures`:`Copier la mesure ${mo.num}`}</button>${CB&&CB.k==='mes'?`<button role="menuitem" data-op="paster">${esc(pasteLabel(bi,rl,rl<rh?rh:null))}</button><button role="menuitem" data-op="pastea">Insérer les mesures copiées après</button>`:''}${CB&&CB.k==='sec'?`<button role="menuitem" data-op="pastes">Coller la ${esc(cbLab())} après cette section</button>`:''}<hr><button role="menuitem" data-op="delm">${rl<rh?`Supprimer ces ${rh-rl+1} mesures`:'Supprimer la mesure'}</button>`;
+  d.innerHTML=`<button role="menuitem" data-op="listen">▶ Écouter la mesure ${mo.num}</button><hr>`+repH+feH+voH+`<button role="menuitem" data-op="settings">Réglages de la mesure ${mo.num}…</button><button role="menuitem" data-op="addafter">Ajouter une mesure après</button>${(layer==='structure'||layer==='notes')?`<button role="menuitem" data-op="tzafter">Ajouter une zone de texte après</button>${lastG.lines.some(l=>l.mes[0]===mo)?'<button role="menuitem" data-op="tzbefore">Ajouter une zone de texte avant</button>':''}`:''}<button role="menuitem" data-op="copy">${rl<rh?`Copier ces ${rh-rl+1} mesures`:`Copier la mesure ${mo.num}`}</button>${CB&&CB.k==='mes'?`<button role="menuitem" data-op="paster">${esc(pasteLabel(bi,rl,rl<rh?rh:null))}</button><button role="menuitem" data-op="pastea">Insérer les mesures copiées après</button>`:''}${CB&&CB.k==='rap'?`<button role="menuitem" data-op="pasterap">Coller le ${esc(cbLab())} après cette section</button>`:''}${CB&&CB.k==='sec'?`<button role="menuitem" data-op="pastes">Coller la ${esc(cbLab())} après cette section</button>`:''}<hr><button role="menuitem" data-op="delm">${rl<rh?`Supprimer ces ${rh-rl+1} mesures`:'Supprimer la mesure'}</button>`;
   document.body.appendChild(d);placeMenu(d,ev);
   if(repH){wireRep(d,n=>{LAST={k:'rep',n};mutate(()=>{ms[rl].bo='repO';ms[rh].bc='repC';ms[rh].bf=n;sel=null;},`Reprise ×${n}`);});}
   {const vi=d.querySelector('.voin');if(vi){const go=()=>{closeLineMenu();setVo(bi,rl,rh,vi.value);};vi.addEventListener('keydown',e=>{e.stopPropagation();if(e.key==='Enter'){e.preventDefault();go();}});vi.addEventListener('change',go);}}
@@ -1706,7 +1717,7 @@ function mesMenu(ev,bi,mi){closeLineMenu();closeAccMenu();const mo=findMo(bi,mi)
     if(t.dataset.op==='tzafter'||t.dataset.op==='tzbefore'){const bef=t.dataset.op==='tzbefore';return askText(ev,'','Zone de texte',v=>{if(!v)return;mutate(()=>{const b=M.blocs[bi];const z={id:uid(),tz:v,tw:0,tzn:bef};const at=bef?mi:mi+1;
       if(bef&&b.mesures[mi].lc){z.lc=b.mesures[mi].lc;b.mesures[mi].lc=null;}b.mesures.splice(at,0,z);sel={t:'mes',bi,mi:at};},'Zone de texte ajoutée');});}
     if(t.dataset.op==='addafter')LAST={k:'addafter'};
-    if(t.dataset.op==='addafter')return mutate(()=>{const b=M.blocs[bi];b.mesures.splice(mi+1,0,newMeasure());b.nb=b.mesures.length;sel=null;},`Mesure ajoutée après la mesure ${mo.num}`);const op=t.dataset.op;if(op==='copy')return copyMes(bi,mi);if(op==='paster')return pasteReplace(bi,rl,rl<rh?rh:null);if(op==='pastea')return pasteMesAfter(bi,rh);if(op==='pastes')return pasteSecAfter(bi);if(op==='delm'){LAST={k:'delm'};return delMes(bi,rl,rh,ev);}if(op==='paste'){pasteMes(bi,mi);setTimeout(()=>autoListen('mes',{bi,mi}),0);}});
+    if(t.dataset.op==='addafter')return mutate(()=>{const b=M.blocs[bi];b.mesures.splice(mi+1,0,newMeasure());b.nb=b.mesures.length;sel=null;},`Mesure ajoutée après la mesure ${mo.num}`);const op=t.dataset.op;if(op==='pasterap')return pasteRap(bi);if(op==='copy')return copyMes(bi,mi);if(op==='paster')return pasteReplace(bi,rl,rl<rh?rh:null);if(op==='pastea')return pasteMesAfter(bi,rh);if(op==='pastes')return pasteSecAfter(bi);if(op==='delm'){LAST={k:'delm'};return delMes(bi,rl,rh,ev);}if(op==='paste'){pasteMes(bi,mi);setTimeout(()=>autoListen('mes',{bi,mi}),0);}});
   const f=d.querySelector('button');if(f)f.focus({preventScroll:true});}
 /* ---------- Textes libres : petite fenêtre de saisie ---------- */
 function askText(ev,init,title,cb,extra){closeLineMenu();closeAccMenu();const d=document.createElement('div');d.id='lmenu';d.className='lmenu';
@@ -1826,19 +1837,22 @@ function applyZoom(){const L=$('#lines');if(!L)return;const svgs=[...L.querySele
   const zb=$('#z-fit');if(zb)zb.textContent=Math.abs(ZOOM-1)>0.001?Math.round(ZOOM*100)+' %':'Zoom';}
 function setZoom(z){ZOOM=Math.min(2.5,Math.max(ZMIN,z));try{localStorage.setItem('atelier-zoom',ZOOM);}catch(e){}applyZoom();if(sel)requestAnimationFrame(revealSel);}
 /* menus : à côté de l'élément étudié, sans jamais le recouvrir (sous la portée, sinon au-dessus, à droite, à gauche ; sinon défilement) */
-function placeMenu(d,ev,el,noScroll){if(!d||!d.isConnected)return;
+function placeMenu(d,ev,el,noScroll,strict){if(!d||!d.isConnected)return;
   el=el||(ev&&ev.target&&ev.target.isConnected&&ev.target.closest&&ev.target.closest('#lines .fx,#lines .txa,#lines .lab,#lines .rap-g,#lines .lstart,#lines .ev,#lines .bzone,#lines .mhit-a,#lines .tab'))||selEl();
   const w=d.offsetWidth,h=d.offsetHeight;const ob=$('.otabs');const top0=Math.max(8,ob?ob.getBoundingClientRect().bottom+4:8);
   if(!el||!el.isConnected){d.style.left=Math.max(8,(innerWidth-w)/2)+'px';d.style.top=Math.max(top0,innerHeight/3)+'px';return;}
   const tab=el.closest('.tab')||el;let L=tab.getBoundingClientRect();const A=el.getBoundingClientRect();const x0=Math.max(8,Math.min(innerWidth-w-8,A.left));
-  const put=(x,y)=>{d.style.left=x+'px';d.style.top=y+'px';d._pl=()=>placeMenu(d,null,el,true);};
+  const put=(x,y)=>{d.style.left=x+'px';d.style.top=y+'px';d._pl=()=>placeMenu(d,null,el,true,strict);};
   if(L.bottom+4+h<=innerHeight-8)return put(x0,L.bottom+4);
   if(L.top-4-h>=top0)return put(x0,L.top-h-4);
   const ms=el.closest('svg')&&el.dataset&&el.dataset.bi!=null&&el.dataset.mi!=null?el.ownerSVGElement.querySelector(`.mhit-a[data-bi="${el.dataset.bi}"][data-mi="${el.dataset.mi}"]`):null;const B=ms?ms.getBoundingClientRect():A;
   const yy=Math.max(top0,Math.min(innerHeight-h-8,B.top));
-  if(B.right+6+w<=innerWidth-8)return put(B.right+6,yy);
-  if(B.left-6-w>=8)return put(B.left-w-6,yy);
-  if(!noScroll){window.scrollBy(0,L.bottom+4+h-(innerHeight-8));L=tab.getBoundingClientRect();}
+  if(!strict&&B.right+6+w<=innerWidth-8)return put(B.right+6,yy);
+  if(!strict&&B.left-6-w>=8)return put(B.left-w-6,yy);
+  if(!noScroll){const need=L.bottom+4+h-(innerHeight-8);
+    /* section 151 : en bas de partition, une marge temporaire permet de faire défiler pour loger le menu sous la ligne */
+    if(strict){const max=document.documentElement.scrollHeight-innerHeight-scrollY;if(need>max){let sp=document.getElementById('menuspace');if(!sp){sp=document.createElement('div');sp.id='menuspace';document.body.appendChild(sp);}sp.style.height=Math.ceil(need-max+(parseFloat(sp.style.height)||0)+40)+'px';}}
+    window.scrollBy(0,need);L=tab.getBoundingClientRect();}
   put(x0,Math.max(top0,Math.min(innerHeight-h-8,L.bottom+4)));}
 window.addEventListener('scroll',()=>{['lmenu','rmenu','amenu'].forEach(id=>{const d=document.getElementById(id);if(d&&d._pl)d._pl();});},{passive:true});
 function fmtBeats(t,S){const b=t/S.beat;const w=Math.floor(b+1e-6),r=b-w;const fr=r<0.01?'':Math.abs(r-0.5)<0.01?' ½':Math.abs(r-0.25)<0.01?' ¼':Math.abs(r-0.75)<0.01?' ¾':' '+r.toFixed(2).slice(1);return`${w||(fr?'':0)}${fr} temps`.trim();}
@@ -1924,7 +1938,7 @@ function fitPanel(){document.body.style.paddingBottom='';$('#toast').style.botto
 /* le panneau de réglages s'ouvre comme un menu, à côté de l'élément sélectionné */
 function placePanel(){const p=$('#panel');if(p.hidden)return;if(p._mv&&p._mvK===selQ())return;const el=selEl();const r=el?el.getBoundingClientRect():{left:innerWidth/2-240,right:innerWidth/2,top:100,bottom:120};
   if(el){placeMenu(p,null,el);return;}const w=p.offsetWidth,h=p.offsetHeight;let x=Math.max(8,Math.min(innerWidth-w-8,r.left));let y=r.bottom+6;if(y+h>innerHeight-8)y=Math.max(8,r.top-h-6);if(y+h>innerHeight-8)y=Math.max(8,innerHeight-h-8);p.style.left=x+'px';p.style.top=y+'px';}
-function selQ(){if(!sel)return null;return sel.t==='beat'?`.bzone[data-bi="${sel.bi}"][data-mi="${sel.mi}"][data-b="${sel.b}"]`:sel.t==='line'?`.lcnt[data-bi="${sel.bi}"][data-mi="${sel.mi}"]`:sel.t==='acc'?`.cband[data-bi="${sel.bi}"][data-mi="${sel.mi}"]`:sel.t==='sec'?`.lab[data-bi="${sel.bi}"]`:sel.t==='rap'?`.rap-g[data-bi="${sel.bi}"]`:sel.t==='bar'?`.bhit[data-bi="${sel.bi}"][data-mi="${sel.mi}"][data-side="${sel.side}"]`:sel.t==='ev'?`.ev[data-bi="${sel.bi}"][data-mi="${sel.mi}"][data-ei="${sel.ei}"]`:`.mhit-a[data-bi="${sel.bi}"][data-mi="${sel.mi}"]`;}
+function selQ(){if(!sel)return null;return sel.t==='beat'||sel.t==='brange'?`.bzone[data-bi="${sel.bi}"][data-mi="${sel.mi}"][data-b="${sel.b}"]`:sel.t==='line'?`.lcnt[data-bi="${sel.bi}"][data-mi="${sel.mi}"]`:sel.t==='acc'?`.cband[data-bi="${sel.bi}"][data-mi="${sel.mi}"]`:sel.t==='sec'?`.lab[data-bi="${sel.bi}"]`:sel.t==='rap'?`.rap-g[data-bi="${sel.bi}"]`:sel.t==='bar'?`.bhit[data-bi="${sel.bi}"][data-mi="${sel.mi}"][data-side="${sel.side}"]`:sel.t==='ev'?`.ev[data-bi="${sel.bi}"][data-mi="${sel.mi}"][data-ei="${sel.ei}"]`:`.mhit-a[data-bi="${sel.bi}"][data-mi="${sel.mi}"]`;}
 function selEl(){const q=selQ();return q?document.querySelector('#lines '+q):null;}
 function revealSel(){if(!sel)return;const q=selQ();
   const el=document.querySelector('#lines '+q);if(!el)return;{const Lw=$('#lines'),lr=Lw.getBoundingClientRect(),er=el.getBoundingClientRect();if(er.right>lr.right-10)Lw.scrollLeft+=er.right-lr.right+60;else if(er.left<lr.left+10)Lw.scrollLeft-=lr.left-er.left+60;}const r=el.getBoundingClientRect();
@@ -1941,11 +1955,22 @@ function renderPanel(){const p=$('#panel');const k=selKey();const act=document.a
     const ph=p.querySelector('.ph p'),nph=tmp.querySelector('.ph p');if(ph&&nph)ph.innerHTML=nph.innerHTML;const h2=p.querySelector('.ph h2'),nh2=tmp.querySelector('.ph h2');if(h2&&nh2)h2.innerHTML=nh2.innerHTML;
     const keyOf=el=>el.id||(el.dataset.pa+'|'+(el.dataset.k||''));const map=new Map([...tmp.querySelectorAll('[id],[data-pa]')].map(el=>[keyOf(el),el]));
     const olds=[...p.querySelectorAll('[id],[data-pa]')];
-    if(olds.length!==map.size||olds.some(el=>!map.has(keyOf(el)))){const st=p.scrollTop;p.innerHTML=tmp.innerHTML;p.scrollTop=st;const f=act&&act.id&&document.getElementById(act.id);if(f)f.focus({preventScroll:true});return;}
+    if(olds.length!==map.size||olds.some(el=>!map.has(keyOf(el)))){
+      /* section 150 : champ numérique en cours de réglage (flèches maintenues) : la fenêtre n'est reconstruite qu'au relâchement */
+      if(act&&p.contains(act)&&act.tagName==='INPUT'&&act.type==='number'){if(!p._defer){p._defer=1;const go=()=>{document.removeEventListener('pointerup',go,true);document.removeEventListener('keyup',go,true);setTimeout(()=>{p._defer=0;if(sel&&!p.hidden)renderPanel();},0);};document.addEventListener('pointerup',go,true);document.addEventListener('keyup',go,true);}return;}
+      const st=p.scrollTop;p.innerHTML=tmp.innerHTML;p.scrollTop=st;numSteppers(p);const f=act&&act.id&&document.getElementById(act.id);if(f)f.focus({preventScroll:true});return;}
     olds.forEach(el=>{const n=map.get(keyOf(el));if('disabled' in el)el.disabled=n.disabled;el.className=n.className;
       if(el===act)return;if(el.type==='checkbox')el.checked=n.checked;else if(el.tagName==='SELECT'){el.innerHTML=n.innerHTML;}else if(el.tagName==='INPUT'){el.value=n.value;el.placeholder=n.placeholder;}});
     p.querySelectorAll('.hintp').forEach((el,i)=>{const n=tmp.querySelectorAll('.hintp')[i];if(n)el.innerHTML=n.innerHTML;});return;}
-  const st=p.scrollTop;renderPanel0();p.dataset.k=k;p.scrollTop=st;}
+  const st=p.scrollTop;renderPanel0();p.dataset.k=k;p.scrollTop=st;numSteppers(p);}
+function numSteppers(root){root.querySelectorAll('input[type=number]').forEach(i=>{if(i.parentElement.classList.contains('nwrap'))return;const w=document.createElement('span');w.className='nwrap';if(i.style.width){w.style.width=`calc(${i.style.width} + 58px)`;w.style.flex='none';i.style.width='';}if(i.style.marginTop){w.style.marginTop=i.style.marginTop;i.style.marginTop='';}
+  i.before(w);w.appendChild(i);w.insertAdjacentHTML('beforeend','<button type="button" class="nst" data-st="-1" tabindex="-1" aria-label="Moins">−</button><button type="button" class="nst" data-st="1" tabindex="-1" aria-label="Plus">+</button>');});}
+/* un appui = un pas ; maintenu : répétition, arrêtée dès le relâchement */
+{let rpT=null;const stop=()=>{clearTimeout(rpT);rpT=null;};
+  $('#panel').addEventListener('pointerdown',ev=>{const b=ev.target.closest('.nst');if(!b)return;ev.preventDefault();stop();const id=b.parentElement.querySelector('input').id,dir=+b.dataset.st;
+    const step=()=>{const i=id&&document.getElementById(id);if(!i){stop();return;}const v0=i.value;if(i.value===''){const pv=parseFloat(i.placeholder);i.value=!isNaN(pv)?pv:(i.min||0);if(isNaN(pv))return i.dispatchEvent(new Event('change',{bubbles:true}));}dir>0?i.stepUp():i.stepDown();if(i.value!==v0){i.dispatchEvent(new Event('input',{bubbles:true}));i.dispatchEvent(new Event('change',{bubbles:true}));}};
+    step();const rep=d=>{rpT=setTimeout(()=>{step();if(rpT)rep(90);},d);};rep(450);});
+  ['pointerup','pointercancel'].forEach(t=>window.addEventListener(t,stop,true));window.addEventListener('blur',stop);}
 const head=(h,sub)=>`<div class="ph"><div><h2>${h}</h2>${sub?`<p>${sub}</p>`:''}</div><button class="btn small" data-pa="close" aria-label="Fermer">✕</button></div>`;
 const MODE_NAME={structure:'Structure',rythmes:'Rythmes',notes:'Mélodie'};
 function renderPanel0(tgt){const p=tgt||$('#panel');const S=lastG.S,tun=lastG.tun,n=tun.length;let h='';
@@ -1972,7 +1997,9 @@ function renderPanel0(tgt){const p=tgt||$('#panel');const S=lastG.S,tun=lastG.tu
       <label>Section rappelée<select id="pr-ref"><option value="">Choisir…</option>${known.map(k=>`<option${k===ref&&!free?' selected':''}>${esc(k)}</option>`).join('')}<option value="__libre"${free?' selected':''}>Nom libre…</option></select></label>
       <label id="pr-lfree" ${free?'':'hidden'}>Nom libre<input id="pr-name" value="${free?esc(ref):''}" placeholder="Ex. : RIFF FINAL"></label>
       <label>Nombre de fois<select id="pr-fois">${foisOpts(b.fois)}</select></label>
-      <h3>Position</h3><div class="prow"><button class="btn" data-pa="up" ${sel.bi===0?'disabled':''}>↑ Avancer</button><button class="btn" data-pa="down" ${sel.bi===M.blocs.length-1?'disabled':''}>↓ Reculer</button><button class="btn" data-pa="rmes">Ajouter une mesure après</button>${b.inl&&!b.nl?'':'<button class="btn" data-pa="rinl">Mettre à la fin de la ligne précédente</button>'}${b.nl?'':'<button class="btn" data-pa="rnl">Mettre à la ligne suivante</button>'}<button class="btn" data-pa="del">Supprimer</button></div></div>`;p.innerHTML=`<div class="pin">${h}</div>`;return;}
+      <h3>Position</h3><div class="prow"><button class="btn" data-pa="up" ${sel.bi===0?'disabled':''}>↑ Avancer</button><button class="btn" data-pa="down" ${sel.bi===M.blocs.length-1?'disabled':''}>↓ Reculer</button>${b.inl&&!b.nl?'':'<button class="btn" data-pa="rinl">Mettre à la fin de la ligne précédente</button>'}${b.nl?'':'<button class="btn" data-pa="rnl">Mettre à la ligne suivante</button>'}<button class="btn" data-pa="del">Supprimer</button></div>
+      <h3>Ajouter des mesures après</h3><div class="prow">${[1,2,3,4].map(n=>`<button class="btn" data-pa="rmes" data-k="${n}">${n}</button>`).join('')}<input id="pr-nx" type="number" min="1" max="64" placeholder="autre" style="width:5em"><button class="btn" data-pa="rmesx">Ajouter</button></div>
+      <h3>Presse-papiers</h3><div class="prow"><button class="btn" data-pa="rcopy">Copier le rappel</button>${CB&&CB.k==='rap'?`<button class="btn" data-pa="rpaste">Coller le ${esc(cbLab())} après</button>`:''}</div></div>`;p.innerHTML=`<div class="pin">${h}</div>`;return;}
   const mo=findMo(sel.bi,sel.mi);if(!mo){closePanel();return;}const m=b.mesures[sel.mi];
   if(sel.t==='line'){const line=lastG.lines.find(l=>l.bi===sel.bi&&l.mi0===sel.mi);const PL=+M.parLigne||4;const rest=b.mesures.length-sel.mi;
     const n0=line?line.mes.length:PL;const mx=Math.min(16,rest);
@@ -2044,7 +2071,9 @@ function moveBloc(bi,dir){const j=bi+dir;if(j<0||j>=M.blocs.length)return;mutate
 $('#panel').addEventListener('click',ev=>{const t=ev.target.closest('[data-pa]');if(!t||t.tagName==='INPUT'||t.disabled)return;const a=t.dataset.pa,k=t.dataset.k;
   if(a==='close')return closePanel();
   const b=M.blocs[sel.bi];const key={bi:sel.bi,mi:sel.mi};
-  if(a==='rmes')return mutate(()=>{const at=sel.bi+1,nx=M.blocs[at];if(nx&&nx.t==='section'&&!nx.label){nx.mesures.unshift(newMeasure());nx.nb=nx.mesures.length;nx.apr=true;}else M.blocs.splice(at,0,newSection({label:'',nb:1,apr:true}));sel={t:'mes',bi:at,mi:0};},'Mesure ajoutée après le rappel');
+  if(a==='rmes')return addMesAfterRap(sel.bi,+k||1);
+  if(a==='rmesx'){const v=+$('#pr-nx').value;if(!(v>=1))return toast('Indiquez un nombre de mesures');return addMesAfterRap(sel.bi,v);}
+  if(a==='rcopy')return copyRap(sel.bi);if(a==='rpaste')return pasteRap(sel.bi);
   if(a==='rnl')return mutate(()=>{b.nl=true;b.inl=false;},'Rappel mis à la ligne suivante');
   if(a==='rinl')return mutate(()=>{b.nl=false;b.inl=true;},'Rappel à la fin de la ligne précédente');
   if(a==='up')return moveBloc(sel.bi,-1);if(a==='down')return moveBloc(sel.bi,1);
@@ -2076,7 +2105,7 @@ $('#panel').addEventListener('click',ev=>{const t=ev.target.closest('[data-pa]')
   if(a==='delm')return delMes(sel.bi,sel.mi,sel.mi);});
 $('#panel').addEventListener('change',ev=>{const t=ev.target,b=M.blocs[sel.bi],id=t.id,f=t.dataset.f;const m=b.mesures&&b.mesures[sel.mi];
   /* « Autre… » : champ numérique libre à côté du menu */
-  if(t.tagName==='SELECT'&&t.value==='__autre'){let i=document.getElementById(id+'-n');if(!i){i=document.createElement('input');i.type='number';i.min=2;i.max=99;i.id=id+'-n';i.placeholder='×N';i.style.width='5em';i.style.marginTop='4px';t.after(i);}i.focus();return;}
+  if(t.tagName==='SELECT'&&t.value==='__autre'){let i=document.getElementById(id+'-n');if(!i){i=document.createElement('input');i.type='number';i.min=2;i.max=99;i.id=id+'-n';i.placeholder='×N';i.style.width='5em';i.style.marginTop='4px';t.after(i);numSteppers(t.parentElement);}i.focus();return;}
   if(id&&id.endsWith('-n')&&document.getElementById(id.slice(0,-2))){const sl=document.getElementById(id.slice(0,-2)),v=Math.max(2,Math.min(99,Math.round(+t.value)||2));
     if(![...sl.options].some(o=>o.value===String(v)))sl.add(new Option('×'+v,String(v)),sl.options.length-1);sl.value=String(v);sl.dispatchEvent(new Event('change',{bubbles:true}));return;}
   const lis=sc=>setTimeout(()=>autoListen(sc,sc==='sec'?{bi:sel.bi}:{bi:sel.bi,mi:sel.mi}),0);
@@ -2140,6 +2169,7 @@ $('#lines').addEventListener('contextmenu',ev=>{const T=ev.target;
   {const es=T.closest('.eslot');if(es){ev.preventDefault();return slotMenu({t:'slot',bi:+es.dataset.sb,mi:+es.dataset.sm,b:+es.dataset.b,k:+es.dataset.k});}}
   const fx=T.closest('.fx');if(fx){ev.preventDefault();return foisMenu(ev,fx);}
   const ta=T.closest('.txa');if(ta){ev.preventDefault();return txMenu(ev,+ta.dataset.tb,+ta.dataset.tm,+ta.dataset.tk,ta.dataset.tw);}
+  {const bz=T.closest('.bzone');if(bz&&sel&&sel.t==='brange'&&sel.bi===+bz.dataset.bi&&sel.mi===+bz.dataset.mi&&+bz.dataset.b>=Math.min(sel.b,sel.b2)&&+bz.dataset.b<=Math.max(sel.b,sel.b2)){ev.preventDefault();return rangeMenu(ev);}}
   if((layer==='rythmes'&&T.closest('.ev'))||(layer!=='structure'&&T.closest('.bzone'))){ev.preventDefault();T.dispatchEvent(new MouseEvent('click',{bubbles:true,clientX:ev.clientX,clientY:ev.clientY}));return;}
   const bh=T.closest('.bhit');if(bh){ev.preventDefault();return openAt({t:'bar',bi:+bh.dataset.bi,mi:+bh.dataset.mi,side:bh.dataset.side});}
   const lb=T.closest('.lab');if(lb){ev.preventDefault();return secMenu(ev,+lb.dataset.bi);}
@@ -2187,8 +2217,8 @@ function lineMenu(el){closeLineMenu();const bi=+el.dataset.bi,mi=+el.dataset.mi;
     const op=+t.dataset.op;
     mutate(()=>{m.lc=op===0?null:Math.max(1,Math.min(rest,n+op));if(m.lc===(Math.min(+M.parLigne||4,rest))&&op!==0)m.lc=m.lc;},op===0?'Nombre de mesures par défaut':`${Math.max(1,Math.min(rest,n+op))} mesure${n+op>1?'s':''} sur cette ligne`);});
   const f=d.querySelector('button:not([disabled])');if(f)f.focus({preventScroll:true});}
-document.addEventListener('click',e=>{if(!e.target.closest('#lmenu')&&!e.target.closest('.lcnt')&&!e.target.closest('.lstart')&&!e.target.closest('.fixb'))closeLineMenu();if(!e.target.closest('#rmenu')&&!e.target.closest('.bzone')&&!e.target.closest('.ev'))closeBeatMenu();if(!e.target.closest('#amenu')&&!e.target.closest('.chn')&&!e.target.closest('.cband')&&!e.target.closest('[data-pa="aadd"]'))closeAccMenu();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&(document.getElementById('lmenu')||document.getElementById('amenu')||document.getElementById('rmenu'))){e.stopImmediatePropagation();closeLineMenu();closeAccMenu();closeBeatMenu();}},true);
+document.addEventListener('click',e=>{if(!e.target.closest('#lmenu')&&!e.target.closest('.lcnt')&&!e.target.closest('.lstart')&&!e.target.closest('.fixb'))closeLineMenu();if(!e.target.closest('#rmenu')&&!e.target.closest('.bzone')&&!e.target.closest('.ev')&&!e.target.closest('#lmenu')){closeBeatMenu();rmForget();}if(!e.target.closest('#amenu')&&!e.target.closest('.chn')&&!e.target.closest('.cband')&&!e.target.closest('[data-pa="aadd"]'))closeAccMenu();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&(document.getElementById('lmenu')||document.getElementById('amenu')||document.getElementById('rmenu'))){e.stopImmediatePropagation();closeLineMenu();closeAccMenu();closeBeatMenu();rmForget();}},true);
 document.addEventListener('pointerdown',e=>{const p=$('#panel');if(!p.hidden&&!e.target.closest('#panel')&&!e.target.closest('#lmenu,#amenu,#rmenu')){p.hidden=true;document.body.classList.remove('has-panel');}},true);
 window.addEventListener('resize',()=>{placePanel();clearTimeout(window.__rz);window.__rz=setTimeout(()=>{const k=screenPL();if(k!==window.__pl){window.__pl=k;renderScore();}else{atelierPagesView();applyZoom();}if(typeof CC!=='undefined'&&CC)ccLayout();},250);});window.__pl=screenPL();
 window.addEventListener('scroll',()=>{placePanel();closeLineMenu();closeAccMenu();if(!document.activeElement.closest||!document.activeElement.closest('#rmenu'))closeBeatMenu();},{passive:true});
@@ -2225,6 +2255,8 @@ $('#lines').addEventListener('click',ev=>{const T=ev.target;
   const ad=T.closest('.addm');if(ad){const bi=+ad.dataset.bi;return mutate(()=>{const b=M.blocs[bi];b.mesures.push(newMeasure());b.nb=b.mesures.length;sel={t:'mes',bi,mi:b.mesures.length-1};document.body.classList.add('has-panel');$('#panel').hidden=false;},'Mesure ajoutée');}
   {const es=T.closest('.eslot');if(es){ev.stopPropagation();const s2={t:'slot',bi:+es.dataset.sb,mi:+es.dataset.sm,b:+es.dataset.b,k:+es.dataset.k};
     const key='s'+JSON.stringify(s2),now=Date.now();if(lastEvClick&&lastEvClick.key===key&&now-lastEvClick.t<450){lastEvClick=null;return slotMenu(s2);}lastEvClick={key,t:now};sel=s2;closeLineMenu();closeBeatMenu();$('#panel').hidden=true;renderScore();return;}}
+  {const bz0=T.closest('.bzone');if(bz0&&layer==='notes'&&(ev.shiftKey||multiSel)&&sel&&(sel.t==='beat'||sel.t==='brange')&&sel.bi===+bz0.dataset.bi&&sel.mi===+bz0.dataset.mi){ev.stopPropagation();closeBeatMenu();RMLAST=null;
+    sel={t:'brange',bi:sel.bi,mi:sel.mi,b:sel.b,b2:+bz0.dataset.b};renderScore();const n=Math.abs(sel.b2-sel.b)+1;toast(`${n} temps sélectionnés${n===4?' : clic droit › Enregistrer dans mes rythmes':''}`);return;}}
   {const bz0=T.closest('.bzone');if(bz0&&layer==='notes'){ev.stopPropagation();beatMenu({bi:+bz0.dataset.bi,mi:+bz0.dataset.mi,b:+bz0.dataset.b});armSelT();return;}}
   if(layer==='rythmes'){const ge=T.closest('.ev'),bz=T.closest('.bzone');if(ge||bz){ev.stopPropagation();
     if(bz)return beatMenu({bi:+bz.dataset.bi,mi:+bz.dataset.mi,b:+bz.dataset.b});const mo=findMo(+ge.dataset.bi,+ge.dataset.mi),e=mo&&mo.events.find(x=>x.ei===+ge.dataset.ei);if(!e)return;
@@ -2358,6 +2390,7 @@ document.addEventListener('keydown',ev=>{const ae=document.activeElement;const i
   if(!inField&&sel&&sel.t==='ev'&&sel.gk&&(ev.key==='Backspace'||ev.key==='Delete')){ev.preventDefault();return graceEdit(()=>null,'Appogiature retirée');}
   if(ev.key==='Escape'&&sel){if(!$('#panel').hidden){closePanel();if(inField)ae.blur();}else{sel=null;renderScore();}return;}
   if((ev.key==='Backspace'||ev.key==='Delete')&&sel&&!inField&&!ev.metaKey&&!ev.ctrlKey){ev.preventDefault();return delSel();}
+  if(ev.key==='Enter'&&sel&&sel.t==='brange'&&!inField&&!/BUTTON|^A$/.test(ae.tagName)){ev.preventDefault();return rangeMenu(null);}
   if(ev.key==='Enter'&&sel&&$('#panel').hidden&&!inField&&!/BUTTON|^A$/.test(ae.tagName)){ev.preventDefault();return openPanel();}
   if(!inField&&sel&&sel.t==='ev'&&(layer==='notes'||layer==='rythmes')&&!ev.metaKey&&!ev.ctrlKey&&!ev.altKey){
     if(ev.key===' '){ev.preventDefault();const e=curEv();if(!e)return;rhythmOp('rest');return toast(e.kind==='rest'?'Silence remplacé par une note':'Note remplacée par un silence');}
@@ -2397,10 +2430,11 @@ document.addEventListener('keydown',ev=>{const ae=document.activeElement;const i
   if(inField||!(ev.metaKey||ev.ctrlKey))return;const k=ev.key.toLowerCase();
   if(!sel||getSelection().toString())return;
   if(k==='c'&&sel.t==='beat'){ev.preventDefault();return copyBeat();}
-  if(k==='c'){if(sel.t==='mes'||sel.t==='mrange'){ev.preventDefault();copyMes(sel.bi,sel.mi);if(!$('#panel').hidden)renderPanel();}else if(sel.t==='sec'){ev.preventDefault();copySec(sel.bi);}}
+  if(k==='c'){if(sel.t==='mes'||sel.t==='mrange'){ev.preventDefault();copyMes(sel.bi,sel.mi);if(!$('#panel').hidden)renderPanel();}else if(sel.t==='sec'){ev.preventDefault();copySec(sel.bi);}else if(sel.t==='rap'){ev.preventDefault();copyRap(sel.bi);if(!$('#panel').hidden)renderPanel();}}
   else if(k==='v'&&CB){ev.preventDefault();const bi=sel.bi;const b=M.blocs[bi];
     if(CB.k==='beat')return pasteBeat();
     if(CB.k==='sec')return pasteSecAfter(bi);
+    if(CB.k==='rap'){if(['rap','sec','mes','mrange'].includes(sel.t))return pasteRap(bi);return;}
     if(sel.t==='mes')return pasteReplace(bi,sel.mi,null);
     if(sel.t==='mrange')return pasteReplace(bi,Math.min(sel.mi,sel.mi2),Math.max(sel.mi,sel.mi2));
     if(sel.t==='sec'&&b.t==='section')return pasteMesAfter(bi,b.mesures.length-1);}});
@@ -2765,7 +2799,7 @@ $('#f-imp').addEventListener('change',e=>{const f=e.target.files&&e.target.files
 /* ===================== Rythmes v2 : saisie temps par temps ===================== */
 /* rythmes élémentaires, dans la syntaxe de durées de l'atelier ; affichés en symboles */
 const CELLS_BIN={1:['n','c c','c. d','d c.','c d d','d d c','d d d d','d c d','c3 c3 c3','sp','ds c','c ds','qs d d d'],
-  2:['b','n. c','c n.','c n c','c d c d c','n3 n3 n3','dp'],3:['n.','c n'],4:['r','pa']};
+  2:['b','n. c','c n.','c n c','c d c d c','n3 n3 n3','dp'],3:['n.','c n','n c'],4:['r','pa']};
 const CELLS_TER={1:['n.','c c c','n c','c n','c. d c','d d d d d d','d d c c','c c d d','sp.','ds c c','c c ds'],
   2:['b.','n.~ n.','dp.'],4:['r.','pa.']};
 const CELLS_HALF=['c','d d','ds','d qs'];
@@ -2821,7 +2855,7 @@ function applyCell(bi,mi,b,txt,given){LAST=given?{k:'pastebeat'}:{k:'cell',txt};
       for(let j=ix-1;j>=0;j--){const evs=flat[j].events;for(let k=evs.length-1;k>=0;k--){const e=evs[k];if(e.kind==='morte')return noteTok0(e);if(e.kind==='note'){const nt=noteTok0(e);if(nt)return nt;}}}
       return`${lastG.tun.length}:0`;};
     const old=toks.filter(k=>k.start>=t0-eps&&k.start<t1-eps&&(k.kind==='note'||k.kind==='morte')).map(k=>k.kind==='morte'?(k.nt||'x'):(k.nt||null)).filter(Boolean);
-    let last=prevNt(),oi=0;cell.forEach(c=>{if(c.kind==='rest')return;if(oi<old.length){const v=old[oi++];if(/^x/.test(v)){c.kind='morte';c.nt=v;}else c.nt=v;last=v;}else{if(/^x/.test(last)){c.kind='morte';c.nt=last;}else c.nt=last;}});}
+    let last=prevNt(),oi=0;cell.forEach(c=>{if(c.kind==='rest')return;if(c.kind==='morte'){c.nt='x';return;}if(oi<old.length){const v=old[oi++];if(/^x/.test(v)){c.kind='morte';c.nt=v;}else c.nt=v;last=v;}else{if(/^x/.test(last)){c.kind='morte';c.nt=last;}else c.nt=last;}});}
   const txtM=[...before,...cell,...after].map(tokText).join(' ');
   mutate(()=>{const m=M.blocs[bi].mesures[mi];m.rythme=txtM;m.notes=notesOf([...before,...cell,...after]);m.pause=false;m.ov={};});
   setTimeout(()=>autoListen('mes',{bi,mi}),0);return true;}
@@ -2866,7 +2900,7 @@ function noteMenu(s){closeLineMenu();closeAccMenu();closeBeatMenu();sel={t:'ev',
   const d=document.createElement('div');d.id='rmenu';d.className='lmenu rmenu';d.setAttribute('role','menu');
   const tot=mo.events.reduce((a,x)=>a+x.tics,0);const fx=Math.abs(tot-S.cap)<0.5?'':`<hr><div class="lrow" style="color:var(--warn)">${fmtBeats(tot,S)} au lieu de ${fmtBeats(S.cap,S)}</div><div class="crow">${tot<S.cap?'<button class="btn small" data-op="fill">Compléter par un silence</button>':'<button class="btn small" data-op="trim">Raccourcir la fin</button>'}</div>`;
   d.innerHTML=`<div class="crow">${durB}</div><div class="crow">${extra}${conv}<button class="cbtn" data-op="del" title="Supprimer (⌫)"><svg viewBox="0 0 24 24" width="24" height="24"><path class="rs" d="M6,8 H18 M10,8 V5.5 H14 V8 M8,8 L9,19 H15 L16,8"/></svg></button></div>${!R&&e.kind==='note'?`<div class="crow"><button class="btn small${e.gr?' on':''}" data-op="grace">${e.gr?'Retirer l’appogiature':'Appogiature (g)'}</button>${e.gr?`<button class="btn small${!e.gr.sl?' on':''}" data-op="grh">Liée</button><button class="btn small${e.gr.sl?' on':''}" data-op="grs">Glissée</button>`:''}</div>`:''}${!R&&e.kind==='note'&&sel.ck&&sel.ck!==e.corde&&!memberOf(e)?`<div class="crow"><button class="btn small primary" data-op="chadd">Ajouter une note ici (corde ${sel.ck})</button></div>`:''}<div class="crow"><button class="btn small" data-op="insb">+ Insérer avant</button><button class="btn small" data-op="insa">+ Insérer après</button></div>${fx}${R?'':'<hr>'+togRow(mo,e)}`;
-  document.body.appendChild(d);placeMenu(d,null,anchor);
+  document.body.appendChild(d);rmPlace(d,anchor);
   d.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b||b.disabled)return;ev.stopPropagation();const op=b.dataset.op;closeBeatMenu();
     if(op==='del'){rhythmOp('del');toast(R?'Silence supprimé':'Note supprimée',true);if(curEv())noteMenu(sel);return;}
     if(op==='grace'){closeBeatMenu();if(e.gr)return graceEdit(()=>null,'Appogiature retirée');sel.gk=true;return graceEdit(()=>({k:e.corde,f:Math.max(0,e.case-2),sl:false}),'Appogiature ajoutée (liée) : tapez sa case');}
@@ -2876,7 +2910,27 @@ function noteMenu(s){closeLineMenu();closeAccMenu();closeBeatMenu();sel={t:'ev',
     if(['dur','dot','tri','rest','insb','insa','fill','trim'].includes(op)){rhythmOp(op,b.dataset.k);if(curEv())noteMenu(sel);return;}
     const keep={...sel};togApply(op,mo,e);sel=keep;noteMenu(keep);});
   const f=d.querySelector('.cbtn.on:not([disabled])')||d.querySelector('.cbtn:not([disabled])');if(f)f.focus({preventScroll:true});}
-function closeBeatMenu(){const o=document.getElementById('rmenu');if(o)o.remove();}
+/* section 153 : mes rythmes de 4 temps (Répertoire : REP.myr, synchronisés et sauvegardés avec lui) */
+function myrOf(S){return(REP.myr||[]).filter(x=>!!x.comp===!!S.comp);}
+function rangeMenu(ev){closeLineMenu();closeAccMenu();closeBeatMenu();if(!sel||sel.t!=='brange')return;const a=Math.min(sel.b,sel.b2),z=Math.max(sel.b,sel.b2),n=z-a+1;
+  const d=document.createElement('div');d.id='lmenu';d.className='lmenu';d.setAttribute('role','menu');
+  d.innerHTML=n===4?`<button data-x="myr">Enregistrer dans mes rythmes (4 temps)</button>`:`<div class="lrow">${n} temps sélectionnés : il en faut exactement 4 pour enregistrer un rythme.</div>`;
+  document.body.appendChild(d);placeMenu(d,ev,ev?null:selEl());d.addEventListener('click',e=>{if(e.target.closest('[data-x="myr"]')){closeLineMenu();saveMyr();}});const f=d.querySelector('button');if(f)f.focus({preventScroll:true});}
+function saveMyr(){const mo=findMo(sel.bi,sel.mi);if(!mo)return;const S=mo.S,a=Math.min(sel.b,sel.b2),z=Math.max(sel.b,sel.b2);const t0=a*S.beat,t1=Math.min(S.cap,(z+1)*S.beat);
+  if(z-a!==3||t1-t0<4*S.beat-0.5)return toast('Sélectionnez exactement 4 temps');
+  const toks=measureToks(mo).filter(k=>k.start>=t0-0.5&&k.start<t1-0.5);const tot=toks.reduce((x,k)=>x+k.tics,0);
+  if(!toks.length||Math.abs(toks[0].start-t0)>0.5||Math.abs(tot-(t1-t0))>0.5)return toast('Le rythme déborde de la sélection (une note commence avant ou finit après ces 4 temps)');
+  const tk=toks.map(k=>({...k}));tk[tk.length-1].tie=false;const txt=tk.map(tokText).join(' ');
+  if(myrOf(S).some(x=>x.txt===txt))return toast('Ce rythme est déjà dans mes rythmes');
+  REP.myr=REP.myr||[];REP.myr.push({id:uid(),txt,comp:!!S.comp,upd:Date.now()});repStore();toast('Rythme ajouté à mes rythmes (menu des rythmes, toutes les partitions)');}
+function delMyr(id){REP.myr=(REP.myr||[]).filter(x=>x.id!==id);repStore();toast('Rythme retiré de mes rythmes');}
+function closeBeatMenu(){const o=document.getElementById('rmenu');if(o){const r=o.getBoundingClientRect();RMLAST={x:r.left,y:r.top,t:performance.now()};o.remove();}}
+/* section 151 : menus de la note et des rythmes : hors de la ligne à l'ouverture ; d'un élément à l'autre, le menu reste en place sauf s'il masque l'élément choisi */
+var RMLAST=null;function rmForget(){RMLAST=null;const sp=document.getElementById('menuspace');if(sp)sp.remove();}
+function rmPlace(d,anchor){const pv=RMLAST&&performance.now()-RMLAST.t<1500?RMLAST:null;RMLAST=null;
+  if(pv&&anchor&&anchor.isConnected){const w=d.offsetWidth,h=d.offsetHeight,x=Math.max(8,Math.min(innerWidth-w-8,pv.x)),y=Math.max(8,Math.min(innerHeight-h-8,pv.y));const A=anchor.getBoundingClientRect();
+    if(x+w<A.left-4||x>A.right+4||y+h<A.top-4||y>A.bottom+4){d.style.left=x+'px';d.style.top=y+'px';d._pl=null;return;}}
+  placeMenu(d,null,anchor,false,true);}
 function beatMenu(s,ei){closeLineMenu();closeAccMenu();closeBeatMenu();sel={t:'beat',bi:s.bi,mi:s.mi,b:s.b};$('#panel').hidden=true;document.body.classList.remove('has-panel');fitPanel();renderScore();
   const mo=findMo(sel.bi,sel.mi);if(!mo)return;const S=mo.S;const {t0,len}=beatRange(mo,sel.b);const left=S.cap-t0;
   const anchor=document.querySelector(`#lines .bzone[data-bi="${sel.bi}"][data-mi="${sel.mi}"][data-b="${sel.b}"]`);if(anchor)anchor.scrollIntoView({block:'nearest'});
@@ -2886,15 +2940,21 @@ function beatMenu(s,ei){closeLineMenu();closeAccMenu();closeBeatMenu();sel={t:'b
     return`<button class="cbtn${on?' on':''}" data-cell="${esc(txt)}" title="${esc(CELL_NAMES[txt]||txt)}" ${ok?'':'disabled'}>${cellSVG(txt,S)}</button>`;};
   let rows=len<S.beat-0.5?[CELLS_HALF.filter(t=>cellLen(t,S)===Math.round(len))]:[lib[1],(lib[3]||[]).filter(t=>cellLen(t,S)<=left+0.5),lib[2].filter(t=>cellLen(t,S)<=left+0.5),(lib[4]||[]).filter(t=>cellLen(t,S)<=left+0.5)];
   const labs=len<S.beat-0.5?['']:['','Sur 1,5 temps','Sur 2 temps','Sur 4 temps'];rows=rows.map((r,i)=>({r,l:labs[i]})).filter(x=>x.r.length);
+  if(len>=S.beat-0.5)rows.push({r:myrOf(S),l:'Mes rythmes (4 temps)',my:true});
   const e=ei!=null?mo.events.find(x=>x.ei===ei&&x.start>=t0-0.5&&x.start<t0+len):null;
   /* notes visées : la note cliquée, sinon la première (liaison avant) et la dernière (liaison après) du temps */
   const inBeat=mo.events.filter(x=>!x.cont&&x.kind!=='rest'&&x.start>=t0-0.5&&x.start<t0+len-0.5);
   const tg=inBeat.length?{first:e&&e.kind!=='rest'?e:inBeat[0],last:e&&e.kind!=='rest'?e:inBeat[inBeat.length-1],one:e&&e.kind!=='rest'?e:inBeat[0]}:null;
 
   const d=document.createElement('div');d.id='rmenu';d.className='lmenu rmenu';d.setAttribute('role','menu');
-  d.innerHTML=rows.map(x=>`${x.l?`<div class="clab">${x.l}</div>`:''}<div class="crow">${x.r.map(btn).join('')}</div>`).join('<hr>')+
+  d.innerHTML=rows.map(x=>`${x.l?`<div class="clab">${x.l}</div>`:''}${x.my&&!x.r.length?'<div class="lrow myr0">Aucun rythme enregistré : ⇧+clic sur 4 temps sous la portée, puis clic droit › Enregistrer dans mes rythmes.</div>':`<div class="crow">${x.my?x.r.map(m=>btn(m.txt).replace('<button ',`<button data-myr="${m.id}" `)).join(''):x.r.map(btn).join('')}</div>`}`).join('<hr>')+
     (tg?`<hr>${togRow(mo,tg.one,tg.first,tg.last)}`:'')+`<hr><div class="crow"><button class="btn small" data-bc="c">Copier ce temps</button>${CB&&CB.k==='beat'?`<button class="btn small" data-bc="v">Coller (remplacer ce temps)</button>`:''}</div>`;
-  document.body.appendChild(d);placeMenu(d,null,anchor);
+  document.body.appendChild(d);rmPlace(d,anchor);
+  {const keep={...sel};const ask=(ev,b)=>{ev.preventDefault();ev.stopPropagation();confirmMenu(ev,'Retirer ce rythme de mes rythmes ?','Retirer',()=>{delMyr(b.dataset.myr);sel=keep;beatMenu(keep);});};
+    d.addEventListener('contextmenu',ev=>{const b=ev.target.closest('[data-myr]');if(b)ask(ev,b);});
+    let lt=null;d.addEventListener('pointerdown',ev=>{const b=ev.target.closest('[data-myr]');if(!b||ev.pointerType==='mouse')return;lt=setTimeout(()=>{lt='f';ask(new MouseEvent('contextmenu',{clientX:ev.clientX,clientY:ev.clientY}),b);},550);});
+    ['pointerup','pointercancel','pointermove'].forEach(t=>d.addEventListener(t,ev=>{if(lt&&lt!=='f'&&(t!=='pointermove'))clearTimeout(lt);if(t==='pointerup'&&lt!=='f')lt=null;}));
+    d.addEventListener('click',ev=>{if(lt==='f'){lt=null;ev.stopImmediatePropagation();ev.preventDefault();}},true);}
   d.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b||b.disabled)return;ev.stopPropagation();
     if(b.dataset.bc){closeBeatMenu();return b.dataset.bc==='c'?copyBeat():pasteBeat();}
     if(b.dataset.cell){const txt=b.dataset.cell,L=cellLen(txt,S),bs=Math.max(1,Math.round(L/S.beat));const keep={...sel};closeBeatMenu();
@@ -2902,7 +2962,18 @@ function beatMenu(s,ei){closeLineMenu();closeAccMenu();closeBeatMenu();sel={t:'b
     const op=b.dataset.op;if(op&&tg){const keep={...sel};closeBeatMenu();
       togApply(op,mo,op==='tprev'?tg.first:(op==='tnext'||op==='slide')?tg.last:tg.one);
       sel=keep;renderScore();beatMenu(keep,ei);}});
-  const f=d.querySelector('.cbtn.on:not([disabled])')||d.querySelector('.cbtn:not([disabled])');if(f)f.focus({preventScroll:true});}
+  const f=d.querySelector('.cbtn.on:not([disabled])')||d.querySelector('.cbtn:not([disabled])');if(f){f.focus({preventScroll:true});f.classList.add('kf');}cellNav(d);}
+/* menu des rythmes : flèches dans la grille des cellules (grisées sautées), Entrée = appliquer */
+function cellNav(d){d.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;const K=e.key;
+  const L=[...d.querySelectorAll('.cbtn:not([disabled])')];if(!L.length)return;let cur=d.querySelector('.cbtn.kf');if(!cur||cur.disabled)cur=L[0];
+  if(K==='Enter'){e.preventDefault();e.stopPropagation();const a=document.activeElement;(a&&d.contains(a)&&a.tagName==='BUTTON'&&!a.classList.contains('cbtn')?a:cur).click();return;}
+  if(!/^Arrow/.test(K))return;e.preventDefault();e.stopPropagation();let nx=null;
+  if(K==='ArrowLeft'||K==='ArrowRight'){const i=L.indexOf(cur);nx=L[(i+(K==='ArrowRight'?1:-1)+L.length)%L.length];}
+  else{const r=cur.getBoundingClientRect(),cx=r.left+r.width/2,dn=K==='ArrowDown';
+    const cand=L.filter(b=>{const q=b.getBoundingClientRect();return dn?q.top>r.top+r.height/2:q.top<r.top-r.height/2;});
+    if(cand.length){const ty=dn?Math.min(...cand.map(b=>b.getBoundingClientRect().top)):Math.max(...cand.map(b=>b.getBoundingClientRect().top));
+      const row=cand.filter(b=>Math.abs(b.getBoundingClientRect().top-ty)<4);nx=row.reduce((a,b)=>{const qa=a.getBoundingClientRect(),qb=b.getBoundingClientRect();return Math.abs(qb.left+qb.width/2-cx)<Math.abs(qa.left+qa.width/2-cx)?b:a;});}}
+  if(nx){d.querySelectorAll('.cbtn.kf').forEach(b=>b.classList.remove('kf'));nx.classList.add('kf');nx.focus({preventScroll:true});}});}
 /* une mesure figée sur le rythme qu'elle avait avec les styles (migration unique) */
 function migrateRv(){if(M.rv>=3)return;const G=generate();
   G.secs.forEach(sec=>sec.mes.forEach(mo=>{const m=mo.m;if(m.pause||m.rythme||!mo.events.length)return;m.rythme=mo.events.map(tokOf).map(tokText).join(' ');}));
@@ -2951,13 +3022,14 @@ function fromLecteur(o){const preset=TUNINGS[o.preset]&&o.preset!=='dropd'?o.pre
 /* ===================== Répertoire, setlists, concert ===================== */
 const PRESET_NOM={standard:'Standard',demi:'½ ton plus bas',ton:'1 ton plus bas'};
 let REP={parts:{},setlists:[],curSet:null};
-function repLoad(){try{const o=JSON.parse(localStorage.getItem('atelier-rep')||'null');if(o&&o.parts)REP=o;}catch(e){}if(!REP.setlists)REP.setlists=[];if(!REP.del)REP.del={};repTrack(true);}
+function repLoad(){try{const o=JSON.parse(localStorage.getItem('atelier-rep')||'null');if(o&&o.parts)REP=o;}catch(e){}if(!REP.setlists)REP.setlists=[];if(!REP.myr)REP.myr=[];if(!REP.del)REP.del={};repTrack(true);}
 function repStoreRaw(){try{localStorage.setItem('atelier-rep',JSON.stringify(REP));}catch(e){toast('Mémoire du navigateur pleine : sauvegardez le répertoire dans un fichier');}}
 function repStore(){repTrack(false);repStoreRaw();gsSoon();}
 /* section 122 : suivi des modifications (dates des setlists, suppressions) pour la synchronisation */
 var _rs=null;function repTrack(silent){if(!REP.del)REP.del={};const now=Date.now(),snap={};let ch=false;
   Object.values(REP.parts).forEach(p=>{snap['p:'+p.id]=p.upd||0;if(!_rs||_rs['p:'+p.id]!==(p.upd||0))ch=true;if(REP.del[p.id]&&(p.upd||0)>REP.del[p.id])delete REP.del[p.id];});
   REP.setlists.forEach(x=>{const {upd,...r}=x;const js=JSON.stringify(r);snap['s:'+x.id]=js;if(!x.upd||(!silent&&_rs&&_rs['s:'+x.id]!==js)){if(!silent||!x.upd)x.upd=now;ch=true;}});
+  (REP.myr||[]).forEach(x=>{snap['r:'+x.id]=x.txt;if(!x.upd){x.upd=now;ch=true;}else if(_rs&&!(('r:'+x.id) in _rs))ch=true;});
   if(_rs&&!silent)Object.keys(_rs).forEach(k=>{if(!(k in snap)){REP.del[k.slice(2)]=now;ch=true;}});
   _rs=snap;if(ch&&!silent&&typeof GS!=='undefined')GS.dirty=true;}
 /* la partition en cours est toujours rangée dans le répertoire */
@@ -3016,7 +3088,7 @@ $('#f-inv').addEventListener('change',async e=>{const fs=[...(e.target.files||[]
 $('#rep-save').addEventListener('click',()=>{const d=new Date();(async()=>{const scans={};for(const id of Object.keys(REP.parts)){if(REP.parts[id].M.scan){const x=await idbGet('scan:'+id);if(x)scans[id]=x;}}saveFile(`Répertoire atelier ${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}.json`,JSON.stringify({repertoire:1,...REP,scans}));})();});
 $('#rep-load').addEventListener('click',async()=>{const fs=await pickFiles({desc:'Sauvegarde du répertoire',accept:{'application/json':['.json']}});if(fs){if(fs.length)feedInput($('#f-rep'),fs);return;}$('#f-rep').click();});
 $('#f-rep').addEventListener('change',async e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
-  try{const o=JSON.parse(await f.text());if(!o.parts)throw 0;delete o.scans_;let n=0;Object.values(o.parts).forEach(p=>{REP.parts[p.id]=p;n++;});for(const [id,x] of Object.entries(o.scans||{})){await idbSet('scan:'+id,x);delete scanCache[id];}(o.setlists||[]).forEach(s=>{if(!REP.setlists.some(x=>x.id===s.id))REP.setlists.push(s);});repStore();renderRep();toast(`Répertoire restauré : ${n} partitions`);}
+  try{const o=JSON.parse(await f.text());if(!o.parts)throw 0;delete o.scans_;let n=0;Object.values(o.parts).forEach(p=>{REP.parts[p.id]=p;n++;});for(const [id,x] of Object.entries(o.scans||{})){await idbSet('scan:'+id,x);delete scanCache[id];}(o.setlists||[]).forEach(s=>{if(!REP.setlists.some(x=>x.id===s.id))REP.setlists.push(s);});(o.myr||[]).forEach(r=>{if(!REP.myr.some(x=>x.id===r.id))REP.myr.push(r);});repStore();renderRep();toast(`Répertoire restauré : ${n} partitions`);}
   catch(err){toast('Ce fichier n’est pas une sauvegarde du répertoire');}});
 /* ----- setlists ----- */
 $('#set-exp').addEventListener('click',()=>{const s=curSet();if(!s)return toast('Aucune setlist');const parts={};(s.items||[]).forEach(x=>{if(x.id&&REP.parts[x.id])parts[x.id]=REP.parts[x.id];});
@@ -3333,17 +3405,19 @@ function repMerge(L,R,base){const del={...(R.del||{})};Object.entries(L.del||{})
     if(del[id]&&del[id]>=(w.upd||0))return;parts[id]=w;});
   const LS=L.setlists||[],RS=R.setlists||[],ord=[...LS.map(x=>x.id),...RS.map(x=>x.id).filter(id=>!LS.some(x=>x.id===id))];const setlists=[];
   ord.forEach(id=>{const a=LS.find(x=>x.id===id),b=RS.find(x=>x.id===id);const w=!a?b:!b?a:((b.upd||0)>(a.upd||0)?b:a);if(del[id]&&del[id]>=(w.upd||0))return;setlists.push(w);});
-  const lim=Date.now()-120*864e5;Object.keys(del).forEach(k=>{if(del[k]<lim)delete del[k];});return{parts,setlists,del,conf};}
+  /* section 153 : mes rythmes (4 temps) */
+  const LM=L.myr||[],RM=R.myr||[],myr=[];[...LM,...RM.filter(x=>!LM.some(y=>y.id===x.id))].forEach(x=>{if(del[x.id]&&del[x.id]>=(x.upd||0))return;myr.push(x);});
+  const lim=Date.now()-120*864e5;Object.keys(del).forEach(k=>{if(del[k]<lim)delete del[k];});return{parts,setlists,myr,del,conf};}
 async function gsSync(interactive){if(!GSYNC_OK||GS.busy)return;if(!GS.on&&!interactive)return;if(!navigator.onLine&&!interactive){gsUI();return;}
   GS.busy=true;gsUI();
   try{if(!await gsToken(interactive)){GS.auth=true;return;}GS.on=true;GS.auth=false;gsSave();
-    const fid=await gsFind();let R={parts:{},setlists:[],del:{}};if(fid){try{const o=await (await gapi(GD+'/'+fid+'?alt=media')).json();if(o&&o.parts)R=o;}catch(e){if(GS.auth)throw e;}}
+    const fid=await gsFind();let R={parts:{},setlists:[],myr:[],del:{}};if(fid){try{const o=await (await gapi(GD+'/'+fid+'?alt=media')).json();if(o&&o.parts)R=o;}catch(e){if(GS.auth)throw e;}}
     repSync();const old=M&&REP.parts[M.id]?REP.parts[M.id].upd:null;const m=repMerge(REP,R,gsBase());
-    REP.parts=m.parts;REP.setlists=m.setlists;REP.del=m.del;if(REP.curSet&&!REP.setlists.some(x=>x.id===REP.curSet))REP.curSet=REP.setlists[0]?REP.setlists[0].id:null;
+    REP.parts=m.parts;REP.setlists=m.setlists;REP.myr=m.myr;REP.del=m.del;if(REP.curSet&&!REP.setlists.some(x=>x.id===REP.curSet))REP.curSet=REP.setlists[0]?REP.setlists[0].id:null;
     repTrack(true);repStoreRaw();
     if(M&&M.id&&REP.parts[M.id]&&REP.parts[M.id].upd!==old){M=flatten(clone(REP.parts[M.id].M));sel=null;persist();try{hideP();}catch(e){}renderHeader();renderAll();toast('Partition mise à jour depuis Google Drive');}
-    const out=JSON.stringify({atelierBiblio:1,parts:REP.parts,setlists:REP.setlists,del:REP.del});
-    if(!fid||JSON.stringify({atelierBiblio:1,parts:R.parts||{},setlists:R.setlists||[],del:R.del||{}})!==out)await gsUpload(out);
+    const out=JSON.stringify({atelierBiblio:1,parts:REP.parts,setlists:REP.setlists,myr:REP.myr,del:REP.del});
+    if(!fid||JSON.stringify({atelierBiblio:1,parts:R.parts||{},setlists:R.setlists||[],myr:R.myr||[],del:R.del||{}})!==out)await gsUpload(out);
     const nb={};Object.values(REP.parts).forEach(p=>nb[p.id]=p.upd||0);REP.setlists.forEach(x=>nb[x.id]=x.upd||0);gsBaseSet(nb);
     GS.dirty=false;GS.last=Date.now();GS.err='';gsSave();if(m.conf)toast(`${m.conf} partition(s) modifiée(s) sur deux appareils : la plus récente est gardée, l’autre copiée « … (conflit) »`);
     if(!document.querySelector('[data-view="rep"]').hidden)renderRep();}
